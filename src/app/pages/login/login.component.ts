@@ -28,7 +28,9 @@ export class LoginComponent implements OnInit {
 				private auth: AuthService) {}
 	ngOnInit() {
 		if (this.auth.isAuthenticated()){
-			this.router.navigate(['/main']);
+			console.log('isAuthenticated');
+			console.log('/'+this.user.username);
+			this.router.navigate(['/'+this.user.username]);
 		}
 	}
 
@@ -49,7 +51,9 @@ export class LoginComponent implements OnInit {
 				this.user.token    = this.cs.urldecode(result.token);
 				this.user.saveLogin();
 
-				this.router.navigate(['/main']);
+				console.log('login');
+				console.log('/'+this.user.username);
+				this.router.navigate(['/'+this.user.username]);
 			}
 			else{
 				this.loginError = true;

@@ -2,3 +2,69 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.btn-bottom-right {
+	position: fixed !important;
+	bottom: 36px;
+	right: 36px;
+}
+
+.sidebar {
+	min-width: 300px;
+}
+
+.center-card {
+	max-width: 300px;
+	margin: 50px auto;
+}
+
+.center-card-big {
+	width: 90%;
+	margin: 50px auto;
+}
+
+.center-card-content {
+	width: 95%;
+	margin: 20px auto;
+}
+
+.center-card-fields > * {
+	width: 100%;
+}
+
+.center-card-buttons {
+	display: flex !important;
+	justify-content: space-between;
+}
+
+.center-card-buttons img {
+	width: 20px;
+}
+
+.center-card-buttons-end {
+  justify-content: flex-end;
+}
+
+.center-card-error {
+	border-radius: 6px;
+    box-sizing: border-box;
+    border-color: #f44336;
+    color: #f44336;
+    border-width: 2px;
+}
+
+.flex-space{
+  flex: 1 1 auto;
+}
+
+.tab-icon {
+  margin-right: 8px;
+}
+
+.tab-top-margin {
+  margin-top: 20px;
+}
+
+.disabled-title {
+  color: #ccc;
+}

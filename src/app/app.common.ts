@@ -4,11 +4,21 @@
 import { LoginComponent }    from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { MainComponent }     from './pages/main/main.component';
+import { DetailComponent }   from './pages/detail/detail.component';
+import { AddComponent }      from './pages/add/add.component';
+import { EditComponent }     from './pages/edit/edit.component';
+import { TagsComponent }     from './pages/tags/tags.component';
+import { TagListComponent }  from './pages/tag-list/tag-list.component';
 
 export const PAGES: any[] = [
 	LoginComponent,
 	RegisterComponent,
-	MainComponent
+	MainComponent,
+	DetailComponent,
+	AddComponent,
+	EditComponent,
+	TagsComponent,
+	TagListComponent
 ];
 
 /*
@@ -37,7 +47,7 @@ export const PIPES: any[] = [
  * Servicios
  */
 import { CommonService }    from './services/common.service';
-import { ApiService }       from './services/api.service';
+//import { ApiService }       from './services/api.service';
 import { DataShareService } from './services/data-share.service';
 import { DialogService }    from './services/dialog.service';
 import { UserService }      from './services/user.service';
@@ -45,7 +55,7 @@ import { AuthService }      from './services/auth.service';
 
 export const SERVICES: any[] = [
 	CommonService,
-	ApiService,
+	//ApiService,
 	DataShareService,
 	DialogService,
 	UserService,
