@@ -1,1 +1,19 @@
-<p>add works!</p>
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+	<button [routerLink]="['/',username]" mat-icon-button>
+		<mat-icon>arrow_back</mat-icon>
+	</button>
+    <span>{{entry.title}}</span>
+	<span class="flex-space"></span>
+	<button mat-icon-button aria-label="Guardar entrada">
+		<mat-icon>save</mat-icon>
+	</button>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<mat-form-field>
+	<mat-label>Título</mat-label>
+	<input matInput [(ngModel)]="entry.title" required name="title">
+</mat-form-field>
+
+<textarea class="big-text" [(ngModel)]="entry.body"></textarea>
