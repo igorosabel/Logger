@@ -1,1 +1,23 @@
-<p>detail works!</p>
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+	<button [routerLink]="['/',username]" mat-icon-button>
+		<mat-icon>arrow_back</mat-icon>
+	</button>
+    <span>{{entry.title}}</span>
+	<span class="flex-space"></span>
+	<button mat-icon-button aria-label="Editar entrada" [routerLink]="['/', username, entry.id, entry.slug, 'edit']">
+		<mat-icon>edit</mat-icon>
+	</button>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<main [innerHTML]="entry.composed"></main>
+
+<footer>
+	<div class="tag-list">
+		<button mat-flat-button color="primary" *ngFor="let tag of entry.tags" [routerLink]="['/', username, 'tag', tag.id, tag.slug]">{{tag.name}}</button>
+	</div>
+	<div class="entry-date">
+		{{entry.createdAt}} <span *ngIf="entry.updatedAt">(Última actualización: {{entry.updatedAt}})</span>
+	</div>
+</footer>

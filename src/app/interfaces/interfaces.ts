@@ -53,7 +53,12 @@ export interface EntryInterface {
 	tags: TagInterface[];
 }
 
-export interface EntryResult {
+export interface EntriesResult {
 	status: string;
 	list: EntryInterface[];
+}
+
+export interface EntryResult {
+	status: string;
+	entry: EntryInterface;
 }

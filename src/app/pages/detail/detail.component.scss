@@ -1,0 +1,29 @@
+main {
+	padding: 16px;
+}
+
+footer {
+	background-color: #eee;
+    padding: 16px 0;
+}
+
+.tag-list {
+	margin-bottom: 8px;
+	
+	button {
+		margin-left: 16px;
+		
+		&:hover {
+			background-color: #3d4eae;
+		}
+	}
+}
+
+.entry-date {
+	text-align: right;
+	
+	span {
+		font-size: 0.8em;
+		color: #888;
+	}
+}

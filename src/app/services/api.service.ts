@@ -9,6 +9,7 @@ import {
 	LoginData,
 	LoginResult,
 	RegisterData,
+	EntriesResult,
 	EntryResult
 } from '../interfaces/interfaces';
 
@@ -28,7 +29,11 @@ export class ApiService {
 		return this.http.post<LoginResult>(this.apiUrl + 'register', data);
 	}
 
-	getEntries(): Observable<EntryResult> {
-		return this.http.post<EntryResult>(this.apiUrl + 'getEntries', {});
+	getEntries(): Observable<EntriesResult> {
+		return this.http.post<EntriesResult>(this.apiUrl + 'getEntries', {});
+	}
+	
+	getEntry(id: number): Observable<EntryResult> {
+		return this.http.post<EntryResult>(this.apiUrl + 'getEntry', {id});
 	}
 }
