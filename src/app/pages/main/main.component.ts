@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit }  from '@angular/core';
 import { Router, ActivatedRoute, Params} from '@angular/router';
-import { ApiService }        from '../../services/api.service';
-import { Entry }             from '../../model/entry.model';
-import { Tag }               from '../../model/tag.model';
+import { ApiService }         from '../../services/api.service';
+import { ClassMapperService } from '../../services/class-mapper.service';
+import { Entry }              from '../../model/entry.model';
 
 @Component({
   selector: 'app-main',
@@ -13,7 +13,7 @@ export class MainComponent implements OnInit {
 	username: string;
 	entryList: Entry[];
 
-	constructor(private activatedRoute: ActivatedRoute, private as: ApiService) {
+	constructor(private activatedRoute: ActivatedRoute, private as: ApiService, private cms: ClassMapperService) {
 		this.entryList = [];
 	}
 
@@ -27,14 +27,7 @@ export class MainComponent implements OnInit {
 	loadEntries() {
 		this.as.getEntries().subscribe(response => {
 			if (response.status=='ok') {
-				for (let e of response.list) {
-					let entry = new Entry(e.id, e.title, e.slug, e.body, e.createdAt, e.updatedAt);
-					for (let t of e.tags) {
-						let tag = new Tag(t.id, t.name, t.slug, t.createdAt, t.updatedAt);
-						entry.addTag(tag);
-					}
-					this.entryList.push(entry);
-				}
+				this.entryList = this.cms.getEntries(response);
 			}
 		});
 	}
