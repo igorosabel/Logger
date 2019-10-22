@@ -1,1 +1,21 @@
-<p>main works!</p>
+<mat-toolbar color="primary">
+	<mat-toolbar-row>
+		<span>Logger</span>
+	</mat-toolbar-row>
+</mat-toolbar>
+
+<mat-nav-list>
+	<a mat-list-item *ngFor="let entry of entryList" [routerLink]="['/', username, entry.id, entry.slug]">
+		<h2 mat-line> {{entry.title}} </h2>
+		<p mat-line>
+			{{entry.body | shorttext}}
+		</p>
+		<p mat-line class="entry-date">
+			{{entry.createdAt}}
+		</p>
+	</a>
+</mat-nav-list>
+
+<button mat-fab color="primary" class="fab-button" [routerLink]="['/', username, 'add']">
+	<mat-icon>add</mat-icon>
+</button>

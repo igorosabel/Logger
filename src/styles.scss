@@ -42,7 +42,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 }
 
 .center-card-buttons-end {
-  justify-content: flex-end;
+	justify-content: flex-end;
 }
 
 .center-card-error {
@@ -54,17 +54,23 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 }
 
 .flex-space{
-  flex: 1 1 auto;
+	flex: 1 1 auto;
 }
 
 .tab-icon {
-  margin-right: 8px;
+	margin-right: 8px;
 }
 
 .tab-top-margin {
-  margin-top: 20px;
+	margin-top: 20px;
 }
 
 .disabled-title {
-  color: #ccc;
+	color: #ccc;
+}
+
+.fab-button {
+	position: fixed !important;
+	bottom: 20px;
+	right: 20px;
 }

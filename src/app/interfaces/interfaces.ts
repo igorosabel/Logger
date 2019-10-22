@@ -34,3 +34,26 @@ export interface RegisterData {
 	pass: string;
 	conf: string;
 }
+
+export interface TagInterface {
+	id: number;
+	name: string;
+	slug: string;
+	createdAt: string;
+	updatedAt: string;
+}
+
+export interface EntryInterface {
+	id: number;
+	title: string;
+	slug: string;
+	body: string;
+	createdAt: string;
+	updatedAt: string;
+	tags: TagInterface[];
+}
+
+export interface EntryResult {
+	status: string;
+	list: EntryInterface[];
+}

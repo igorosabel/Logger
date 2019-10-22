@@ -38,16 +38,18 @@ export const COMPONENTS: any[] = [
  * Pipes
  */
 import { UrldecodePipe }    from './pipes/urldecode.pipe';
+import { ShortTextPipe }    from './pipes/shorttext.pipe';
 
 export const PIPES: any[] = [
-	UrldecodePipe
+	UrldecodePipe,
+	ShortTextPipe
 ];
 
 /*
  * Servicios
  */
 import { CommonService }    from './services/common.service';
-//import { ApiService }       from './services/api.service';
+import { ApiService }       from './services/api.service';
 import { DataShareService } from './services/data-share.service';
 import { DialogService }    from './services/dialog.service';
 import { UserService }      from './services/user.service';
@@ -55,7 +57,7 @@ import { AuthService }      from './services/auth.service';
 
 export const SERVICES: any[] = [
 	CommonService,
-	//ApiService,
+	ApiService,
 	DataShareService,
 	DialogService,
 	UserService,
