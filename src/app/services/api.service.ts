@@ -11,7 +11,8 @@ import {
 	RegisterData,
 	EntriesResult,
 	EntryResult,
-	TagsResult
+	TagsResult,
+	StatusResult
 } from '../interfaces/interfaces';
 
 @Injectable({
@@ -40,5 +41,9 @@ export class ApiService {
 	
 	getTags(): Observable<TagsResult> {
 		return this.http.post<TagsResult>(this.apiUrl + 'getTags', {});
+	}
+	
+	saveEntry(entry: Entry): Observable<StatusResult> {
+		return this.http.post<StatusResult>(this.apiUrl + 'saveEntry', entry);
 	}
 }

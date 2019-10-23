@@ -3,26 +3,29 @@
 	<button [routerLink]="['/',username]" mat-icon-button>
 		<mat-icon>arrow_back</mat-icon>
 	</button>
-    <span>{{entry.title}}</span>
+    <span *ngIf="entry.title!=''">{{entry.title}}</span>
+    <span *ngIf="entry.title==''">Sin título</span>
 	<span class="flex-space"></span>
-	<button mat-icon-button aria-label="Guardar entrada">
+	<button mat-icon-button aria-label="Guardar entrada" (click)="saveEntry()">
 		<mat-icon>save</mat-icon>
 	</button>
   </mat-toolbar-row>
 </mat-toolbar>
 
-<mat-form-field class="new-title">
-	<mat-label>Título</mat-label>
-	<input matInput [(ngModel)]="entry.title" required name="title">
-</mat-form-field>
-
-<textarea class="big-text" [(ngModel)]="entry.body"></textarea>
-
-<mat-form-field class="new-title">
-	<mat-label>Tags</mat-label>
-	<input matInput [(ngModel)]="tags" name="tags">
-</mat-form-field>
-
-<div class="tag-suggestions" *ngIf="tagList.length>0">
-	<button mat-flat-button color="primary" *ngFor="let tag of tagList" (click)="addTag(tag)">{{tag.name}}</button>
-</div>
+<main>
+	<mat-form-field class="new-title">
+		<mat-label>Título</mat-label>
+		<input matInput [(ngModel)]="entry.title" required name="title" #title>
+	</mat-form-field>
+	
+	<textarea class="big-text" [(ngModel)]="entry.body" placeholder="Escribe aquí el texto de la entrada"></textarea>
+	
+	<mat-form-field class="new-title">
+		<mat-label>Tags</mat-label>
+		<input matInput [(ngModel)]="tags" name="tags">
+	</mat-form-field>
+	
+	<div class="tag-suggestions" *ngIf="tagList.length>0">
+		<button mat-flat-button color="primary" *ngFor="let tag of tagList" (click)="addTag(tag)">{{tag.name}}</button>
+	</div>
+</main>

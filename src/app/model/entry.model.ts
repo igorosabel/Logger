@@ -10,12 +10,20 @@ export class Entry {
 		public body: string = null,
 		public createdAt: string = null,
 		public updatedAt: string = null
-	){
+	) {
 		this.tags = [];
 	}
 	
-	addTag(tag: Tag){
+	addTag(tag: Tag) {
 		this.tags.push(tag);
+	}
+	
+	loadTags(tags: string) {
+		const tagList = tags.split(',').map(x => x.trim());
+		for (let t of tagList){
+			let tag = new Tag(null, t);
+			this.addTag(tag);
+		}
 	}
 	
 	get composed() {
