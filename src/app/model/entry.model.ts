@@ -19,6 +19,10 @@ export class Entry {
 	}
 	
 	loadTags(tags: string) {
+		this.tags = [];
+		if (tags==''){
+			return false;
+		}
 		const tagList = tags.split(',').map(x => x.trim());
 		for (let t of tagList){
 			let tag = new Tag(null, t);
