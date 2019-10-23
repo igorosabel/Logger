@@ -11,9 +11,18 @@
   </mat-toolbar-row>
 </mat-toolbar>
 
-<mat-form-field>
+<mat-form-field class="new-title">
 	<mat-label>Título</mat-label>
 	<input matInput [(ngModel)]="entry.title" required name="title">
 </mat-form-field>
 
 <textarea class="big-text" [(ngModel)]="entry.body"></textarea>
+
+<mat-form-field class="new-title">
+	<mat-label>Tags</mat-label>
+	<input matInput [(ngModel)]="tags" name="tags">
+</mat-form-field>
+
+<div class="tag-suggestions" *ngIf="tagList.length>0">
+	<button mat-flat-button color="primary" *ngFor="let tag of tagList" (click)="addTag(tag)">{{tag.name}}</button>
+</div>

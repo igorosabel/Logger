@@ -1,7 +1,7 @@
 import { Injectable }  from '@angular/core';
 import { Entry }       from '../model/entry.model';
 import { Tag }         from '../model/tag.model';
-import { EntriesResult, EntryInterface } from '../interfaces/interfaces';
+import { EntriesResult, EntryInterface, TagsResult, TagInterface } from '../interfaces/interfaces';
 
 @Injectable({
   providedIn: 'root'
@@ -28,5 +28,22 @@ export class ClassMapperService {
 		}
 		
 		return entry;
+	}
+	
+	getTags(response: TagsResult) {
+		const tags: Tag[] = [];
+
+		for (let t of response.list) {
+			let tag = this.getTag(t);
+			tags.push(tag);
+		}
+		
+		return tags;
+	}
+	
+	getTag(t: TagInterface) {
+		let tag = new Tag(t.id, t.name, t.slug, t.createdAt, t.updatedAt);
+		
+		return tag;
 	}
 }

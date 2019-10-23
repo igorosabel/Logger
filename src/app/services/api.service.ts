@@ -10,7 +10,8 @@ import {
 	LoginResult,
 	RegisterData,
 	EntriesResult,
-	EntryResult
+	EntryResult,
+	TagsResult
 } from '../interfaces/interfaces';
 
 @Injectable({
@@ -35,5 +36,9 @@ export class ApiService {
 	
 	getEntry(id: number): Observable<EntryResult> {
 		return this.http.post<EntryResult>(this.apiUrl + 'getEntry', {id});
+	}
+	
+	getTags(): Observable<TagsResult> {
+		return this.http.post<TagsResult>(this.apiUrl + 'getTags', {});
 	}
 }
