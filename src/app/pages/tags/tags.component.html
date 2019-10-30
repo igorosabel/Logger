@@ -1,1 +1,14 @@
-<p>tags works!</p>
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+	<button [routerLink]="['/',username]" mat-icon-button>
+		<mat-icon>arrow_back</mat-icon>
+	</button>
+    <span>Etiquetas</span>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<mat-nav-list>
+	<a mat-list-item *ngFor="let tag of tagList" [routerLink]="['/', username, 'tag', tag.id, tag.slug]">
+		<h2 mat-line> {{tag.name}} </h2>
+	</a>
+</mat-nav-list>

@@ -12,6 +12,7 @@ import { Entry }              from '../../model/entry.model';
 export class DetailComponent implements OnInit {
 	username: string;
 	entry: Entry;
+
 	constructor(private activatedRoute: ActivatedRoute, private as: ApiService, private cms: ClassMapperService) {
 		this.entry = new Entry();
 	}

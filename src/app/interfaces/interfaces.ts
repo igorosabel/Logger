@@ -67,3 +67,9 @@ export interface TagsResult {
 	status: string;
 	list: TagInterface[];
 }
+
+export interface TagEntriesResult {
+	status: string;
+	tag: TagInterface;
+	list: EntryInterface[];
+}

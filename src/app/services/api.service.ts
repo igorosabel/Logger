@@ -12,6 +12,7 @@ import {
 	EntriesResult,
 	EntryResult,
 	TagsResult,
+	TagEntriesResult,
 	StatusResult
 } from '../interfaces/interfaces';
 
@@ -34,16 +35,20 @@ export class ApiService {
 	getEntries(): Observable<EntriesResult> {
 		return this.http.post<EntriesResult>(this.apiUrl + 'getEntries', {});
 	}
-	
+
 	getEntry(id: number): Observable<EntryResult> {
 		return this.http.post<EntryResult>(this.apiUrl + 'getEntry', {id});
 	}
-	
+
 	getTags(): Observable<TagsResult> {
 		return this.http.post<TagsResult>(this.apiUrl + 'getTags', {});
 	}
-	
+
 	saveEntry(entry: Entry): Observable<StatusResult> {
 		return this.http.post<StatusResult>(this.apiUrl + 'saveEntry', entry);
+	}
+
+	getTagEntries(id: number): Observable<TagEntriesResult> {
+		return this.http.post<TagEntriesResult>(this.apiUrl + 'getTagEntries', {id});
 	}
 }

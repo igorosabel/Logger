@@ -51,8 +51,6 @@ export class LoginComponent implements OnInit {
 				this.user.token    = this.cs.urldecode(result.token);
 				this.user.saveLogin();
 
-				console.log('login');
-				console.log('/'+this.user.username);
 				this.router.navigate(['/'+this.user.username]);
 			}
 			else{
