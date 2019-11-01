@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params} from '@angular/router';
 import { ApiService }         from '../../services/api.service';
 import { ClassMapperService } from '../../services/class-mapper.service';
+import { Tag }                from '../../model/tag.model';
 import { Entry }              from '../../model/entry.model';
 
 @Component({
@@ -12,9 +13,11 @@ import { Entry }              from '../../model/entry.model';
 export class TagListComponent implements OnInit {
 	username: string;
 	idTag: number;
+	tag: Tag;
 	entryList: Entry[];
 
 	constructor(private activatedRoute: ActivatedRoute, private router: Router, private as: ApiService, private cms: ClassMapperService) {
+		this.tag = new Tag();
 		this.entryList = [];
 	}
 
@@ -29,6 +32,7 @@ export class TagListComponent implements OnInit {
 	loadEntries() {
 		this.as.getTagEntries(this.idTag).subscribe(response => {
 			if (response.status=='ok') {
+				this.tag = this.cms.getTag(response.tag);
 				this.entryList = this.cms.getEntries(response);
 			}
 		});
