@@ -27,7 +27,6 @@ export class DetailComponent implements OnInit {
 		this.as.getEntry(id).subscribe(response => {
 			if (response.status=='ok') {
 				this.entry = this.cms.getEntry(response.entry);
-				console.log(this.entry);
 			}
 		});
 	}

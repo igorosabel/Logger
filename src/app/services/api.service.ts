@@ -51,4 +51,8 @@ export class ApiService {
 	getTagEntries(id: number): Observable<TagEntriesResult> {
 		return this.http.post<TagEntriesResult>(this.apiUrl + 'getTagEntries', {id});
 	}
+	
+	deleteEntry(id: number): Observable<StatusResult> {
+		return this.http.post<StatusResult>(this.apiUrl + 'deleteEntry', {id});
+	}
 }

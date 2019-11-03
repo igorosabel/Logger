@@ -1,1 +1,36 @@
-<p>edit works!</p>
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+	<button [routerLink]="['/',username]" mat-icon-button>
+		<mat-icon>arrow_back</mat-icon>
+	</button>
+    <span *ngIf="entry.title!=''">Editar: {{entry.title}}</span>
+    <span *ngIf="entry.title==''">Editar: Sin título</span>
+	<span class="flex-space"></span>
+	<button mat-icon-button aria-label="Guardar entrada" (click)="saveEntry()">
+		<mat-icon>save</mat-icon>
+	</button>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<main>
+	<mat-form-field class="new-title">
+		<mat-label>Título</mat-label>
+		<input matInput [(ngModel)]="entry.title" required name="title" #title>
+	</mat-form-field>
+	
+	<textarea class="big-text" [(ngModel)]="entry.body" placeholder="Escribe aquí el texto de la entrada"></textarea>
+	
+	<mat-form-field class="new-title">
+		<mat-label>Tags</mat-label>
+		<input matInput [(ngModel)]="tags" name="tags">
+	</mat-form-field>
+	
+	<div class="tag-suggestions" *ngIf="tagList.length>0">
+		<button mat-flat-button color="primary" *ngFor="let tag of tagList" (click)="addTag(tag)">{{tag.name}}</button>
+	</div>
+	
+	<div class="entry-delete">
+		<span><strong>Borrar entrada</strong> Si quieres borrar esta entrada pulsa el botón "Borrar entrada". ¡Cuidado! Esta acción es irreversible.</span>
+		<button mat-raised-button color="warn" (click)="deleteEntry()">Borrar entrada</button>
+	</div>
+</main>
