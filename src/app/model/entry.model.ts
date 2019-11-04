@@ -19,15 +19,26 @@ export class Entry {
 	}
 	
 	loadTags(tags: string) {
-		this.tags = [];
 		if (tags==''){
-			return false;
+			this.tags = [];
+			return;
 		}
 		const tagList = tags.split(',').map(x => x.trim());
 		for (let t of tagList){
-			let tag = new Tag(null, t);
-			this.addTag(tag);
+			let ind = this.tags.findIndex(x => x.name==t);
+			if (ind==-1){
+				let tag = new Tag(null, t);
+				this.addTag(tag);
+			}
 		}
+		const newTagList = [];
+		for (let t of this.tags){
+			let ind = tagList.findIndex(x => x===t.name);
+			if (ind!=-1){
+				newTagList.push(t);
+			}
+		}
+		this.tags = newTagList;
 	}
 	
 	get composed() {

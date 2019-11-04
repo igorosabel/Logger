@@ -46,6 +46,7 @@ export class EditComponent implements OnInit {
 		this.as.getEntry(this.idEntry).subscribe(response => {
 			if (response.status=='ok') {
 				this.entry = this.cms.getEntry(response.entry);
+				this.tags = this.entry.tags.map(x => x.name).join(', ');
 			}
 			else {
 				this.dialog.alert({title: 'Error', content: 'Ocurrió un error al cargar la entrada. Inténtalo de nuevo más tarde por favor.', ok: 'Continuar'}).subscribe(result => {});
@@ -77,10 +78,10 @@ export class EditComponent implements OnInit {
 		}
 		
 		this.entry.loadTags(this.tags);
-		
+
 		this.as.saveEntry(this.entry).subscribe(result => {
 			if (result.status=='ok') {
-				this.dialog.alert({title: 'OK', content: 'La nueva entrada "' + this.entry.title + '" ha sido guardada.', ok: 'Continuar'}).subscribe(result => {
+				this.dialog.alert({title: 'OK', content: 'La entrada "' + this.entry.title + '" ha sido guardada.', ok: 'Continuar'}).subscribe(result => {
 					this.router.navigate(['/'+this.username]);
 				});
 			}

@@ -1,6 +1,6 @@
 <mat-toolbar color="primary">
   <mat-toolbar-row>
-	<button [routerLink]="['/',username]" mat-icon-button>
+	<button [routerLink]="['/',username, entry.id, entry.slug]" mat-icon-button>
 		<mat-icon>arrow_back</mat-icon>
 	</button>
     <span *ngIf="entry.title!=''">Editar: {{entry.title}}</span>
