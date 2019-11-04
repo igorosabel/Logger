@@ -13,6 +13,7 @@ import { Tag }                from '../../model/tag.model';
   styleUrls: ['./edit.component.scss']
 })
 export class EditComponent implements OnInit {
+	loading: boolean = true;
 	username: string;
 	idEntry: number = null;
 	entry: Entry;
@@ -29,16 +30,7 @@ export class EditComponent implements OnInit {
 		this.activatedRoute.params.subscribe((params: Params) => {
 			this.username = params.username;
 			this.idEntry  = params.id;
-			this.loadTags();
 			this.loadEntry();
-		});
-	}
-	
-	loadTags() {
-		this.as.getTags().subscribe(response => {
-			if (response.status=='ok') {
-				this.tagList = this.cms.getTags(response);
-			}
 		});
 	}
 	
@@ -47,9 +39,19 @@ export class EditComponent implements OnInit {
 			if (response.status=='ok') {
 				this.entry = this.cms.getEntry(response.entry);
 				this.tags = this.entry.tags.map(x => x.name).join(', ');
+				this.loadTags();
 			}
 			else {
 				this.dialog.alert({title: 'Error', content: 'Ocurrió un error al cargar la entrada. Inténtalo de nuevo más tarde por favor.', ok: 'Continuar'}).subscribe(result => {});
+			}
+		});
+	}
+	
+	loadTags() {
+		this.as.getTags().subscribe(response => {
+			if (response.status=='ok') {
+				this.tagList = this.cms.getTags(response);
+				this.loading = false;
 			}
 		});
 	}
@@ -78,9 +80,11 @@ export class EditComponent implements OnInit {
 		}
 		
 		this.entry.loadTags(this.tags);
+		this.loading = true;
 
 		this.as.saveEntry(this.entry).subscribe(result => {
 			if (result.status=='ok') {
+				this.loading = false;
 				this.dialog.alert({title: 'OK', content: 'La entrada "' + this.entry.title + '" ha sido guardada.', ok: 'Continuar'}).subscribe(result => {
 					this.router.navigate(['/'+this.username]);
 				});
@@ -94,7 +98,9 @@ export class EditComponent implements OnInit {
 	deleteEntry() {
 		this.dialog.confirm({title: 'Confirmar', content: '¿Estás seguro de querer borrar esta entrada? Esta acción es irreversible', ok: 'Continuar', cancel: 'Cancelar'}).subscribe(result => {
 			if (result===true){
+				this.loading = true;
 				this.as.deleteEntry(this.idEntry).subscribe(result => {
+					this.loading = false;
 					if (result.status==='ok') {
 						this.dialog.alert({title: 'Entrada borrada', content: 'La entrada ha sido borrada correctamente.', ok: 'Continuar'}).subscribe(result => {
 							this.router.navigate(['/', this.username]);

@@ -11,6 +11,7 @@ import { Entry }              from '../../model/entry.model';
   styleUrls: ['./main.component.scss']
 })
 export class MainComponent implements OnInit {
+	loading: boolean = true;
 	username: string;
 	entryList: Entry[];
 
@@ -29,6 +30,7 @@ export class MainComponent implements OnInit {
 		this.as.getEntries().subscribe(response => {
 			if (response.status=='ok') {
 				this.entryList = this.cms.getEntries(response);
+				this.loading = false;
 			}
 		});
 	}

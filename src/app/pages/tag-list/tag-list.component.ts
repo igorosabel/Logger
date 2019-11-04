@@ -8,9 +8,10 @@ import { Entry }              from '../../model/entry.model';
 @Component({
   selector: 'app-tag-list',
   templateUrl: './tag-list.component.html',
-  styleUrls: ['./tag-list.component.scss']
+  styleUrls: []
 })
 export class TagListComponent implements OnInit {
+	loading: boolean = true;
 	username: string;
 	idTag: number;
 	tag: Tag;
@@ -34,6 +35,7 @@ export class TagListComponent implements OnInit {
 			if (response.status=='ok') {
 				this.tag = this.cms.getTag(response.tag);
 				this.entryList = this.cms.getEntries(response);
+				this.loading = false;
 			}
 		});
 	}

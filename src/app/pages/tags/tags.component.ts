@@ -10,6 +10,7 @@ import { Tag }                from '../../model/tag.model';
   styleUrls: []
 })
 export class TagsComponent implements OnInit {
+	loading: boolean = true;
 	username: string;
 	tagList: Tag[];
 
@@ -28,6 +29,7 @@ export class TagsComponent implements OnInit {
 		this.as.getTags().subscribe(response => {
 			if (response.status=='ok') {
 				this.tagList = this.cms.getTags(response);
+				this.loading = false;
 			}
 		});
 	}
