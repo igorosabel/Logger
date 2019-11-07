@@ -27,11 +27,15 @@ export const PAGES: any[] = [
 import { ConfirmDialogComponent } from './components/dialogs/confirm-dialog/confirm-dialog.component';
 import { AlertDialogComponent }   from './components/dialogs/alert-dialog/alert-dialog.component';
 import { FormDialogComponent }    from './components/dialogs/form-dialog/form-dialog.component';
+import { OneEntryComponent }      from './components/one-entry/one-entry.component';
+import { EntryTagListComponent }  from './components/entry-tag-list/entry-tag-list.component';
 
 export const COMPONENTS: any[] = [
 	ConfirmDialogComponent,
 	AlertDialogComponent,
-	FormDialogComponent
+	FormDialogComponent,
+	OneEntryComponent,
+	EntryTagListComponent
 ];
 
 /*

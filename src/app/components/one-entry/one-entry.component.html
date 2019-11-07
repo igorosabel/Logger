@@ -1,0 +1,12 @@
+<a mat-list-item [routerLink]="['/', username, entry.id, entry.slug]">
+	<h2 mat-line> {{entry.title}} </h2>
+	<p mat-line>
+		{{entry.body | shorttext}}
+	</p>
+	<p mat-line class="entry-date">
+		{{entry.createdAt}}
+	</p>
+	<p mat-line>
+		<app-entry-tag-list [tags]="entry.tags" [username]="username"></app-entry-tag-list>
+	</p>
+</a>

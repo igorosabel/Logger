@@ -14,9 +14,7 @@
 <main [innerHTML]="entry.composed"></main>
 
 <footer>
-	<div class="tag-list">
-		<button mat-flat-button color="primary" *ngFor="let tag of entry.tags" [routerLink]="['/', username, 'tag', tag.id, tag.slug]">{{tag.name}}</button>
-	</div>
+	<app-entry-tag-list [tags]="entry.tags" [username]="username"></app-entry-tag-list>
 	<div class="entry-date">
 		{{entry.createdAt}} <span *ngIf="entry.updatedAt">(Última actualización: {{entry.updatedAt}})</span>
 	</div>
