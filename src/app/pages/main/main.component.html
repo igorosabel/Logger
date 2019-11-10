@@ -1,5 +1,5 @@
-<mat-sidenav-container>
-	<mat-sidenav #sidenav mode="push" class="side-menu">
+<mat-sidenav-container class="sidenav-container">
+	<mat-sidenav #sidenav mode="push" class="side-menu" (opened)="menuOpened(true)" (closed)="menuOpened(false)">
 		<mat-toolbar color="primary">
 			<mat-toolbar-row>
 				<span>Logger</span>
@@ -21,7 +21,7 @@
 		</mat-nav-list>
 	</mat-sidenav>
 	<mat-sidenav-content>
-		<mat-toolbar color="primary">
+		<mat-toolbar color="primary" class="toolbar-fixed" ngClass="{'toolbar-absolute': menuShow}">
 			<mat-toolbar-row>
 				<button mat-icon-button aria-label="Editar entrada" (click)="sidenav.toggle()">
 					<mat-icon>menu</mat-icon>
@@ -30,9 +30,11 @@
 			</mat-toolbar-row>
 		</mat-toolbar>
 		
-		<mat-nav-list>
-			<app-one-entry *ngFor="let entry of entryList" [entry]="entry" [username]="username"></app-one-entry>
-		</mat-nav-list>
+		<main>
+			<mat-nav-list>
+				<app-one-entry *ngFor="let entry of entryList" [entry]="entry" [username]="username"></app-one-entry>
+			</mat-nav-list>
+		</main>
 		
 		<button mat-fab color="primary" class="fab-button" [routerLink]="['/', username, 'add']">
 			<mat-icon>add</mat-icon>

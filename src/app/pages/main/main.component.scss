@@ -1,3 +1,25 @@
+.sidenav-container{
+	height: 100%;
+}
+
 .side-menu{
 	width: 20%;
+	min-width: 320px;
+}
+
+.toolbar-fixed {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	z-index: 10;
+}
+
+.toolbar-absolute {
+	position: absolute;
+}
+
+main {
+	height: calc(100% - 64px);
+    margin-top: 64px;
 }

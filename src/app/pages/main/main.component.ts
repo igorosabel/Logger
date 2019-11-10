@@ -14,6 +14,7 @@ export class MainComponent implements OnInit {
 	loading: boolean = true;
 	username: string;
 	entryList: Entry[];
+	menuShow: boolean = false;
 
 	constructor(private activatedRoute: ActivatedRoute, private router: Router, private user: UserService, private as: ApiService, private cms: ClassMapperService) {
 		this.entryList = [];
@@ -33,6 +34,10 @@ export class MainComponent implements OnInit {
 				this.loading = false;
 			}
 		});
+	}
+	
+	menuOpened(mode) {
+		this.menuShow = mode;
 	}
 	
 	logout(ev) {
