@@ -17,7 +17,8 @@ export class EditComponent implements OnInit {
 	username: string;
 	idEntry: number = null;
 	entry: Entry;
-	@ViewChild('title', { static: true }) titleBox:ElementRef;
+	@ViewChild('title', { static: true }) titleBox: ElementRef;
+	@ViewChild('entryText', { static: true }) entryText: ElementRef;
 	tagList: Tag[];
 	tags: string = '';
 
@@ -54,6 +55,27 @@ export class EditComponent implements OnInit {
 				this.loading = false;
 			}
 		});
+	}
+	
+	getSel() {
+	    // obtain the object reference for the <textarea>
+	    const txtarea = this.entryText.nativeElement;
+	    // obtain the index of the first selected character
+	    const start = txtarea.selectionStart;
+	    // obtain the index of the last selected character
+	    const finish = txtarea.selectionEnd;
+	    // obtain the selected text
+	    const sel = txtarea.value.substring(start, finish);
+	    // do something with the selected content
+	    
+	    return {txtarea, start, finish, sel};
+	}
+	
+	applyFormat(format: string) {
+		const selectionObj = this.getSel();
+		if (selectionObj.sel != '') {
+			this.entry.body = this.entry.body.substring(0, selectionObj.start) + '['+format+']' + selectionObj.sel + '[/'+format+']' + this.entry.body.substring(selectionObj.finish, this.entry.body.length);
+		}
 	}
 	
 	addTag(tag: Tag) {

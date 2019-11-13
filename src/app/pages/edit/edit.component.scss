@@ -17,6 +17,20 @@ main {
     display: block;
 }
 
+.tools {
+	display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    background-color: #eee;
+    height: 50px;
+    align-items: center;
+    
+    button {
+	    height: 100%;
+		width: 10%;
+    }
+}
+
 .big-text {
 	width: 100%;
     box-sizing: border-box;

@@ -18,7 +18,13 @@
 		<input matInput [(ngModel)]="entry.title" required name="title" #title>
 	</mat-form-field>
 	
-	<textarea class="big-text" [(ngModel)]="entry.body" placeholder="Escribe aquí el texto de la entrada"></textarea>
+	<div class="tools">
+		<button mat-button (click)="applyFormat('b')"><mat-icon>format_bold</mat-icon></button>
+		<button mat-button (click)="applyFormat('i')"><mat-icon>format_italic</mat-icon></button>
+		<button mat-button (click)="applyFormat('u')"><mat-icon>format_underlined</mat-icon></button>
+		<button mat-button><mat-icon>insert_photo</mat-icon></button>
+	</div>
+	<textarea class="big-text" [(ngModel)]="entry.body" placeholder="Escribe aquí el texto de la entrada" #entryText></textarea>
 	
 	<mat-form-field class="new-title">
 		<mat-label>Tags</mat-label>
