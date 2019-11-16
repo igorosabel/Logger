@@ -47,6 +47,13 @@ export class Entry {
 		}
 		let str = this.body;
 		str = str.replace(new RegExp("\n","g"), "<br>");
+		str = str.replace(/\[b\]/gi, "<strong>");
+		str = str.replace(/\[\/b\]/gi, "</strong>");
+		str = str.replace(/\[i\]/gi, "<em>");
+		str = str.replace(/\[\/i\]/gi, "</em>");
+		str = str.replace(/\[u\]/gi, "<u>");
+		str = str.replace(/\[\/u\]/gi, "</u>");
+		
 		return str;
 	}
 }
