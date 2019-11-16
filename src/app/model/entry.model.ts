@@ -56,4 +56,20 @@ export class Entry {
 		
 		return str;
 	}
+	
+	get clean() {
+		if (this.body===null){
+			return '';
+		}
+		let str = this.body;
+		str = str.replace(new RegExp("\n","g"), ' ');
+		str = str.replace(/\[b\]/gi, '');
+		str = str.replace(/\[\/b\]/gi, '');
+		str = str.replace(/\[i\]/gi, '');
+		str = str.replace(/\[\/i\]/gi, '');
+		str = str.replace(/\[u\]/gi, '');
+		str = str.replace(/\[\/u\]/gi, '');
+		
+		return str;
+	}
 }

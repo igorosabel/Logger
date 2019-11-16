@@ -1,7 +1,7 @@
 <a mat-list-item [routerLink]="['/', username, entry.id, entry.slug]">
 	<h2 mat-line> {{entry.title}} </h2>
 	<p mat-line>
-		{{entry.body | shorttext}}
+		{{entry.clean | shorttext}}
 	</p>
 	<p mat-line class="entry-date">
 		{{entry.createdAt}}
