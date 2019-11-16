@@ -46,13 +46,19 @@ export class Entry {
 			return '';
 		}
 		let str = this.body;
-		str = str.replace(new RegExp("\n","g"), "<br>");
-		str = str.replace(/\[b\]/gi, "<strong>");
-		str = str.replace(/\[\/b\]/gi, "</strong>");
-		str = str.replace(/\[i\]/gi, "<em>");
-		str = str.replace(/\[\/i\]/gi, "</em>");
-		str = str.replace(/\[u\]/gi, "<u>");
-		str = str.replace(/\[\/u\]/gi, "</u>");
+		str = str.replace(new RegExp("\n","g"), '<br>');
+		str = str.replace(/\[b\]/gi, '<strong>');
+		str = str.replace(/\[\/b\]/gi, '</strong>');
+		str = str.replace(/\[i\]/gi, '<em>');
+		str = str.replace(/\[\/i\]/gi, '</em>');
+		str = str.replace(/\[u\]/gi, '<u>');
+		str = str.replace(/\[\/u\]/gi, '</u>');
+		str = str.replace(/\[l\]/gi, '<div class="align_left">');
+		str = str.replace(/\[\/l\]/gi, '</div>');
+		str = str.replace(/\[c\]/gi, '<div class="align_center">');
+		str = str.replace(/\[\/c\]/gi, '</div>');
+		str = str.replace(/\[r\]/gi, '<div class="align_right">');
+		str = str.replace(/\[\/r\]/gi, '</div>');
 		
 		return str;
 	}
@@ -69,6 +75,12 @@ export class Entry {
 		str = str.replace(/\[\/i\]/gi, '');
 		str = str.replace(/\[u\]/gi, '');
 		str = str.replace(/\[\/u\]/gi, '');
+		str = str.replace(/\[l\]/gi, '');
+		str = str.replace(/\[\/l\]/gi, '');
+		str = str.replace(/\[c\]/gi, '');
+		str = str.replace(/\[\/c\]/gi, '');
+		str = str.replace(/\[r\]/gi, '');
+		str = str.replace(/\[\/r\]/gi, '');
 		
 		return str;
 	}

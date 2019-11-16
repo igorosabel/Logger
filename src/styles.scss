@@ -9,6 +9,24 @@ body {
 	background-color: #fafafa;
 }
 
+.align_left{
+	display: block;
+	padding: 16px;
+	text-align: left;
+}
+
+.align_center{
+	display: block;
+	padding: 16px;
+	text-align: center;
+}
+
+.align_right{
+	display: block;
+	padding: 16px;
+	text-align: right;
+}
+
 .mat-form-field-flex {
 	background-color: #fff;
 }

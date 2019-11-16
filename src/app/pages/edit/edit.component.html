@@ -22,6 +22,9 @@
 		<button mat-button (click)="applyFormat('b')"><mat-icon>format_bold</mat-icon></button>
 		<button mat-button (click)="applyFormat('i')"><mat-icon>format_italic</mat-icon></button>
 		<button mat-button (click)="applyFormat('u')"><mat-icon>format_underlined</mat-icon></button>
+		<button mat-button (click)="applyFormat('l')"><mat-icon>format_align_left</mat-icon></button>
+		<button mat-button (click)="applyFormat('c')"><mat-icon>format_align_center</mat-icon></button>
+		<button mat-button (click)="applyFormat('r')"><mat-icon>format_align_right</mat-icon></button>
 		<button mat-button><mat-icon>insert_photo</mat-icon></button>
 	</div>
 	<textarea class="big-text" [(ngModel)]="entry.body" placeholder="Escribe aquí el texto de la entrada" #entryText></textarea>
