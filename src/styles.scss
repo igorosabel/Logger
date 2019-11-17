@@ -3,25 +3,26 @@
 html, body {
 	height: 100%;
 }
+
 body {
 	margin: 0;
 	font-family: Roboto, "Helvetica Neue", sans-serif;
 	background-color: #fafafa;
 }
 
-.align_left{
+.align-left{
 	display: block;
 	padding: 16px;
 	text-align: left;
 }
 
-.align_center{
+.align-center{
 	display: block;
 	padding: 16px;
 	text-align: center;
 }
 
-.align_right{
+.align-right{
 	display: block;
 	padding: 16px;
 	text-align: right;

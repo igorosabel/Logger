@@ -13,6 +13,7 @@ import {
 	EntryResult,
 	TagsResult,
 	TagEntriesResult,
+	EntryImagesResult,
 	StatusResult
 } from '../interfaces/interfaces';
 
@@ -54,5 +55,9 @@ export class ApiService {
 	
 	deleteEntry(id: number): Observable<StatusResult> {
 		return this.http.post<StatusResult>(this.apiUrl + 'deleteEntry', {id});
+	}
+	
+	getEntryImages(id: number): Observable<EntryImagesResult> {
+		return this.http.post<EntryImagesResult>(this.apiUrl + 'getEntryImages', {id});
 	}
 }

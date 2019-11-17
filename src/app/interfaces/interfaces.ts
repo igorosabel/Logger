@@ -73,3 +73,14 @@ export interface TagEntriesResult {
 	tag: TagInterface;
 	list: EntryInterface[];
 }
+
+export interface ImageInterface {
+	id: number;
+	createdAt: string;
+	updatedAt: string;
+}
+
+export interface EntryImagesResult {
+	status: string;
+	list: ImageInterface[];
+}

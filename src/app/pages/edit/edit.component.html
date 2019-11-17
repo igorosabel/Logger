@@ -25,7 +25,7 @@
 		<button mat-button (click)="applyFormat('l')"><mat-icon>format_align_left</mat-icon></button>
 		<button mat-button (click)="applyFormat('c')"><mat-icon>format_align_center</mat-icon></button>
 		<button mat-button (click)="applyFormat('r')"><mat-icon>format_align_right</mat-icon></button>
-		<button mat-button><mat-icon>insert_photo</mat-icon></button>
+		<button mat-button (click)="openPhotos()"><mat-icon>insert_photo</mat-icon></button>
 	</div>
 	<textarea class="big-text" [(ngModel)]="entry.body" placeholder="Escribe aquí el texto de la entrada" #entryText></textarea>
 	
@@ -43,6 +43,31 @@
 		<button mat-raised-button color="warn" (click)="deleteEntry()">Borrar entrada</button>
 	</div>
 </main>
+
+<div class="photos" *ngIf="showPhotos">
+	<mat-card>
+		<mat-card-header>
+			<mat-card-title>
+				Añadir imagen
+				<span class="flex-space"></span>
+				<button mat-icon-button (click)="closePhotos()">
+					<mat-icon>close</mat-icon>
+				</button>
+			</mat-card-title>
+		</mat-card-header>
+		<mat-card-content>
+			<div class="photos-list">
+				<div *ngFor="let image of imageList" class="photo-item">
+					{{image.id}}
+				</div>
+				<div class="photo-add"><mat-icon>add</mat-icon></div>
+			</div>
+		</mat-card-content>
+		<mat-card-actions>
+			<button mat-raised-button color="primary">Añadir</button>
+		</mat-card-actions>
+	</mat-card>
+</div>
 
 <div class="loading" *ngIf="loading">
 	<img src="assets/loading.svg">

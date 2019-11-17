@@ -5,7 +5,7 @@ import { ClassMapperService } from '../../services/class-mapper.service';
 import { DialogService }      from '../../services/dialog.service';
 import { Entry }              from '../../model/entry.model';
 import { Tag }                from '../../model/tag.model';
-
+import { EntryImage }         from '../../model/image.model';
 
 @Component({
   selector: 'app-edit',
@@ -21,10 +21,13 @@ export class EditComponent implements OnInit {
 	@ViewChild('entryText', { static: true }) entryText: ElementRef;
 	tagList: Tag[];
 	tags: string = '';
+	imageList: EntryImage[];
+	showPhotos: boolean = false;
 
 	constructor(private activatedRoute: ActivatedRoute, private as: ApiService, private cms: ClassMapperService, private dialog: DialogService, private router: Router) {
 		this.entry = new Entry(null, 'Nueva entrada');
 		this.tagList = [];
+		this.imageList = [];
 	}
 
 	ngOnInit() {
@@ -52,8 +55,18 @@ export class EditComponent implements OnInit {
 		this.as.getTags().subscribe(response => {
 			if (response.status=='ok') {
 				this.tagList = this.cms.getTags(response);
-				this.loading = false;
+				this.loadImages();
 			}
+		});
+	}
+	
+	loadImages() {
+		this.as.getEntryImages(this.idEntry).subscribe(response => {
+			for (let i=0; i<10; i++) {
+				let image = new EntryImage(i, '', '');
+				this.imageList.push(image);
+			}
+			this.loading = false;
 		});
 	}
 	
@@ -91,6 +104,14 @@ export class EditComponent implements OnInit {
 		
 		selectedTags.push(tag.name);
 		this.tags = selectedTags.join(', ');
+	}
+	
+	openPhotos() {
+		this.showPhotos = true;
+	}
+	
+	closePhotos() {
+		this.showPhotos = false;
 	}
 	
 	saveEntry() {
