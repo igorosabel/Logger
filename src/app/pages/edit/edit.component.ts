@@ -5,7 +5,7 @@ import { ClassMapperService } from '../../services/class-mapper.service';
 import { DialogService }      from '../../services/dialog.service';
 import { Entry }              from '../../model/entry.model';
 import { Tag }                from '../../model/tag.model';
-import { EntryImage }         from '../../model/image.model';
+import { Photo }              from '../../model/photo.model';
 
 @Component({
   selector: 'app-edit',
@@ -21,13 +21,13 @@ export class EditComponent implements OnInit {
 	@ViewChild('entryText', { static: true }) entryText: ElementRef;
 	tagList: Tag[];
 	tags: string = '';
-	imageList: EntryImage[];
+	photoList: Photo[];
 	showPhotos: boolean = false;
 
 	constructor(private activatedRoute: ActivatedRoute, private as: ApiService, private cms: ClassMapperService, private dialog: DialogService, private router: Router) {
 		this.entry = new Entry(null, 'Nueva entrada');
 		this.tagList = [];
-		this.imageList = [];
+		this.photoList = [];
 	}
 
 	ngOnInit() {
@@ -55,16 +55,16 @@ export class EditComponent implements OnInit {
 		this.as.getTags().subscribe(response => {
 			if (response.status=='ok') {
 				this.tagList = this.cms.getTags(response);
-				this.loadImages();
+				this.loadPhotos();
 			}
 		});
 	}
 	
-	loadImages() {
-		this.as.getEntryImages(this.idEntry).subscribe(response => {
+	loadPhotos() {
+		this.as.getPhotos(this.idEntry).subscribe(response => {
 			for (let i=0; i<10; i++) {
-				let image = new EntryImage(i, '', '');
-				this.imageList.push(image);
+				let photo = new Photo(i, '', '');
+				this.photoList.push(photo);
 			}
 			this.loading = false;
 		});

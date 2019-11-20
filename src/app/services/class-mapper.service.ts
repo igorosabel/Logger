@@ -1,8 +1,8 @@
-import { Injectable }  from '@angular/core';
-import { Entry }       from '../model/entry.model';
-import { Tag }         from '../model/tag.model';
-import { EntryImage }  from '../model/image.model';
-import { EntriesResult, EntryInterface, TagsResult, TagInterface, EntryImagesResult, ImageInterface } from '../interfaces/interfaces';
+import { Injectable } from '@angular/core';
+import { Entry }      from '../model/entry.model';
+import { Tag }        from '../model/tag.model';
+import { Photo }      from '../model/photo.model';
+import { EntriesResult, EntryInterface, TagsResult, TagInterface, PhotosResult, PhotoInterface } from '../interfaces/interfaces';
 
 @Injectable({
   providedIn: 'root'
@@ -48,20 +48,18 @@ export class ClassMapperService {
 		return tag;
 	}
 	
-	getImages(response: EntryImagesResult) {
-		const images: EntryImage[] = [];
+	getPhotos(response: PhotosResult) {
+		const photos: Photo[] = [];
 
-		for (let i of response.list) {
-			let image = this.getImage(i);
-			images.push(image);
+		for (let p of response.list) {
+			let photo = this.getPhoto(p);
+			photos.push(photo);
 		}
 		
-		return images;
+		return photos;
 	}
 	
-	getImage(i: ImageInterface) {
-		let image = new EntryImage(i.id, i.createdAt, i.updatedAt);
-		
-		return image;
+	getPhoto(p: PhotoInterface) {
+		return new Photo(p.id, p.createdAt, p.updatedAt);
 	}
 }

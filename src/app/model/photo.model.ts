@@ -1,4 +1,4 @@
-export class EntryImage {
+export class Photo {
 	constructor(
 		public id: number = null,
 		public createdAt: string = null,
