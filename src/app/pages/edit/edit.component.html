@@ -58,12 +58,15 @@
 		<mat-card-content>
 			<div class="photos-list">
 				<div *ngFor="let image of imageList" class="photo-item">
-					{{image.id}}
+					<img src="https://via.placeholder.com/150">
 				</div>
-				<div class="photo-add"><mat-icon>add</mat-icon></div>
+				<div class="photo-add">
+					<mat-icon>add</mat-icon>
+					<span>Añadir nueva</span>
+				</div>
 			</div>
 		</mat-card-content>
-		<mat-card-actions>
+		<mat-card-actions class="center-card-buttons-end">
 			<button mat-raised-button color="primary">Añadir</button>
 		</mat-card-actions>
 	</mat-card>
