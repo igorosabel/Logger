@@ -84,3 +84,8 @@ export interface PhotosResult {
 	status: string;
 	list: PhotoInterface[];
 }
+
+export interface PhotoUploadResult {
+	status: string;
+	photo: PhotoInterface;
+}

@@ -19,13 +19,13 @@
 	</mat-form-field>
 	
 	<div class="tools">
-		<button mat-button (click)="applyFormat('b')"><mat-icon>format_bold</mat-icon></button>
-		<button mat-button (click)="applyFormat('i')"><mat-icon>format_italic</mat-icon></button>
-		<button mat-button (click)="applyFormat('u')"><mat-icon>format_underlined</mat-icon></button>
-		<button mat-button (click)="applyFormat('l')"><mat-icon>format_align_left</mat-icon></button>
-		<button mat-button (click)="applyFormat('c')"><mat-icon>format_align_center</mat-icon></button>
-		<button mat-button (click)="applyFormat('r')"><mat-icon>format_align_right</mat-icon></button>
-		<button mat-button (click)="openPhotos()"><mat-icon>insert_photo</mat-icon></button>
+		<button mat-icon-button (click)="applyFormat('b')"><mat-icon>format_bold</mat-icon></button>
+		<button mat-icon-button (click)="applyFormat('i')"><mat-icon>format_italic</mat-icon></button>
+		<button mat-icon-button (click)="applyFormat('u')"><mat-icon>format_underlined</mat-icon></button>
+		<button mat-icon-button (click)="applyFormat('l')"><mat-icon>format_align_left</mat-icon></button>
+		<button mat-icon-button (click)="applyFormat('c')"><mat-icon>format_align_center</mat-icon></button>
+		<button mat-icon-button (click)="applyFormat('r')"><mat-icon>format_align_right</mat-icon></button>
+		<button mat-icon-button (click)="openPhotos()"><mat-icon>insert_photo</mat-icon></button>
 	</div>
 	<textarea class="big-text" [(ngModel)]="entry.body" placeholder="Escribe aquí el texto de la entrada" #entryText></textarea>
 	
@@ -44,11 +44,11 @@
 	</div>
 </main>
 
-<div class="photos" *ngIf="showPhotos">
+<div class="photos" [ngClass]="{'photos-show': showPhotos}">
 	<mat-card>
 		<mat-card-header>
 			<mat-card-title>
-				Añadir imagen
+				<span>Añadir imagen</span>
 				<span class="flex-space"></span>
 				<button mat-icon-button (click)="closePhotos()">
 					<mat-icon>close</mat-icon>
@@ -57,19 +57,20 @@
 		</mat-card-header>
 		<mat-card-content>
 			<div class="photos-list">
-				<div *ngFor="let photo of photoList" class="photo-item">
-					<img src="https://via.placeholder.com/150">
+				<div *ngFor="let photo of photoList" class="photo-item" [ngClass]="{'photo-selected':photo.id==selectedPhoto}" (click)="selectPhoto(photo)">
+					<img [src]="photo.url">
 				</div>
-				<div class="photo-add">
+				<div class="photo-add" (click)="addPhoto()">
 					<mat-icon>add</mat-icon>
 					<span>Añadir nueva</span>
 				</div>
 			</div>
 		</mat-card-content>
 		<mat-card-actions class="center-card-buttons-end">
-			<button mat-raised-button color="primary">Añadir</button>
+			<button mat-raised-button color="primary" [disabled]="!selectedPhoto">Añadir</button>
 		</mat-card-actions>
 	</mat-card>
+	<input type="file" id="photo-upload" (change)="photoContinue($event)" #photoUpload>
 </div>
 
 <div class="loading" *ngIf="loading">

@@ -23,6 +23,8 @@ export class EditComponent implements OnInit {
 	tags: string = '';
 	photoList: Photo[];
 	showPhotos: boolean = false;
+	selectedPhoto: number = null;
+	@ViewChild('photoUpload', { static: true }) photoUpload: ElementRef;
 
 	constructor(private activatedRoute: ActivatedRoute, private as: ApiService, private cms: ClassMapperService, private dialog: DialogService, private router: Router) {
 		this.entry = new Entry(null, 'Nueva entrada');
@@ -62,10 +64,7 @@ export class EditComponent implements OnInit {
 	
 	loadPhotos() {
 		this.as.getPhotos(this.idEntry).subscribe(response => {
-			for (let i=0; i<10; i++) {
-				let photo = new Photo(i, '', '');
-				this.photoList.push(photo);
-			}
+			this.photoList = this.cms.getPhotos(response);
 			this.loading = false;
 		});
 	}
@@ -107,11 +106,41 @@ export class EditComponent implements OnInit {
 	}
 	
 	openPhotos() {
+		this.selectedPhoto = null;
 		this.showPhotos = true;
 	}
 	
 	closePhotos() {
 		this.showPhotos = false;
+	}
+	
+	selectPhoto(photo: Photo) {
+		this.selectedPhoto = photo.id;
+	}
+	
+	addPhoto() {
+		this.photoUpload.nativeElement.click();
+	}
+	
+	photoContinue(ev) {
+		const file = ev.target.files[0];
+		const validList = ['jpg', 'jpeg', 'png'];
+		const fileExt = file.name.split('.').pop();
+		if (validList.indexOf(fileExt)==-1){
+			this.dialog.alert({title: 'Error', content: 'Solo está permitido imágenes de los siguientes tipos: '+validList.join(', '), ok: 'Continuar'}).subscribe(result => {});
+		}
+		else{
+			const fr = new FileReader();
+	        fr.onload = () => {
+	            const base64 = fr.result.toString();
+	            this.as.uploadPhoto(this.entry.id, base64).subscribe(result => {
+		            const photo = this.cms.getPhoto(result.photo);
+		            this.photoList.push( photo );
+		            this.selectedPhoto = photo.id;
+	            });
+	        }
+	        fr.readAsDataURL(file);
+		}
 	}
 	
 	saveEntry() {

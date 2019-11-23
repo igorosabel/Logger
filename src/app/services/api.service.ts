@@ -14,6 +14,7 @@ import {
 	TagsResult,
 	TagEntriesResult,
 	PhotosResult,
+	PhotoUploadResult,
 	StatusResult
 } from '../interfaces/interfaces';
 
@@ -59,5 +60,9 @@ export class ApiService {
 	
 	getPhotos(id: number): Observable<PhotosResult> {
 		return this.http.post<PhotosResult>(this.apiUrl + 'getPhotos', {id});
+	}
+	
+	uploadPhoto(id: number, photo: string): Observable<PhotoUploadResult> {
+		return this.http.post<PhotoUploadResult>(this.apiUrl + 'uploadPhoto', {id, photo});
 	}
 }
