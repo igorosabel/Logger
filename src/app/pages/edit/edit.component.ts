@@ -118,6 +118,11 @@ export class EditComponent implements OnInit {
 		this.selectedPhoto = photo.id;
 	}
 	
+	insertPhoto() {
+		this.entry.body += "\n[IMG_" + this.selectedPhoto + "]\n";
+		this.closePhotos();
+	}
+	
 	addPhoto() {
 		this.photoUpload.nativeElement.click();
 	}

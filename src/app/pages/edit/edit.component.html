@@ -64,7 +64,7 @@
 		</mat-card-content>
 		<mat-card-actions class="center-card-buttons">
 			<button mat-button (click)="closePhotos()">Cancelar</button>
-			<button mat-raised-button color="primary" [disabled]="!selectedPhoto">Añadir</button>
+			<button mat-raised-button color="primary" [disabled]="!selectedPhoto" (click)="insertPhoto()">Añadir</button>
 		</mat-card-actions>
 	</mat-card>
 	<input type="file" id="photo-upload" (change)="photoContinue($event)" #photoUpload>
