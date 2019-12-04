@@ -56,7 +56,7 @@ export class Entry {
 		str = str.replace(new RegExp("\\[c\\](.+?)\\[\/c\\]", "g"), '<div class="align-center">$1</div>');
 		str = str.replace(new RegExp("\\[r\\](.+?)\\[\/r\\]", "g"), '<div class="align-right">$1</div>');
 
-		str = str.replace(new RegExp("\\[img\\](.+?)\\[\/img\\]", "g"), '<img src="https://apilogger.osumi.es/getImage/$1">');
+		str = str.replace(new RegExp("\\[img\\](.+?)\\[\/img\\]", "g"), '<img class="entry-photo" src="https://apilogger.osumi.es/api/getEntryPhoto/$1">');
 
 		return str;
 	}
