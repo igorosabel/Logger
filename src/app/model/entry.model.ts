@@ -47,18 +47,16 @@ export class Entry {
 		}
 		let str = this.body;
 		str = str.replace(new RegExp("\n","g"), '<br>');
-		str = str.replace(/\[b\]/gi, '<strong>');
-		str = str.replace(/\[\/b\]/gi, '</strong>');
-		str = str.replace(/\[i\]/gi, '<em>');
-		str = str.replace(/\[\/i\]/gi, '</em>');
-		str = str.replace(/\[u\]/gi, '<u>');
-		str = str.replace(/\[\/u\]/gi, '</u>');
-		str = str.replace(/\[l\]/gi, '<div class="align-left">');
-		str = str.replace(/\[\/l\]/gi, '</div>');
-		str = str.replace(/\[c\]/gi, '<div class="align-center">');
-		str = str.replace(/\[\/c\]/gi, '</div>');
-		str = str.replace(/\[r\]/gi, '<div class="align-right">');
-		str = str.replace(/\[\/r\]/gi, '</div>');
+
+		str = str.replace(new RegExp("\\[b\\](.+?)\\[\/b\\]", "g"), '<strong>$1</strong>');
+		str = str.replace(new RegExp("\\[i\\](.+?)\\[\/i\\]", "g"), '<em>$1</em>');
+		str = str.replace(new RegExp("\\[u\\](.+?)\\[\/u\\]", "g"), '<u>$1</u>');
+		
+		str = str.replace(new RegExp("\\[l\\](.+?)\\[\/l\\]", "g"), '<div class="align-left">$1</div>');
+		str = str.replace(new RegExp("\\[c\\](.+?)\\[\/c\\]", "g"), '<div class="align-center">$1</div>');
+		str = str.replace(new RegExp("\\[r\\](.+?)\\[\/r\\]", "g"), '<div class="align-right">$1</div>');
+		
+		str = str.replace(new RegExp("\\[img\\](.+?)\\[\/img\\]", "g"), '<img src="https://apilogger.osumi.es/getImage/$1');
 		
 		return str;
 	}
@@ -69,18 +67,16 @@ export class Entry {
 		}
 		let str = this.body;
 		str = str.replace(new RegExp("\n","g"), ' ');
-		str = str.replace(/\[b\]/gi, '');
-		str = str.replace(/\[\/b\]/gi, '');
-		str = str.replace(/\[i\]/gi, '');
-		str = str.replace(/\[\/i\]/gi, '');
-		str = str.replace(/\[u\]/gi, '');
-		str = str.replace(/\[\/u\]/gi, '');
-		str = str.replace(/\[l\]/gi, '');
-		str = str.replace(/\[\/l\]/gi, '');
-		str = str.replace(/\[c\]/gi, '');
-		str = str.replace(/\[\/c\]/gi, '');
-		str = str.replace(/\[r\]/gi, '');
-		str = str.replace(/\[\/r\]/gi, '');
+		
+		str = str.replace(new RegExp("\\[b\\](.+?)\\[\/b\\]", "g"), '$1');
+		str = str.replace(new RegExp("\\[i\\](.+?)\\[\/i\\]", "g"), '$1');
+		str = str.replace(new RegExp("\\[u\\](.+?)\\[\/u\\]", "g"), '$1');
+		
+		str = str.replace(new RegExp("\\[l\\](.+?)\\[\/l\\]", "g"), '$1');
+		str = str.replace(new RegExp("\\[c\\](.+?)\\[\/c\\]", "g"), '$1');
+		str = str.replace(new RegExp("\\[r\\](.+?)\\[\/r\\]", "g"), '$1');
+		
+		str = str.replace(new RegExp("\\[img\\](.+?)\\[\/img\\]", "g"), '');
 		
 		return str;
 	}

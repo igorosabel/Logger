@@ -119,7 +119,7 @@ export class EditComponent implements OnInit {
 	}
 	
 	insertPhoto() {
-		this.entry.body += "\n[IMG_" + this.selectedPhoto + "]\n";
+		this.entry.body += "\n[img]" + this.selectedPhoto + "[img]\n";
 		this.closePhotos();
 	}
 	
