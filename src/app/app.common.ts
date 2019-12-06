@@ -29,13 +29,15 @@ import { AlertDialogComponent }   from './components/dialogs/alert-dialog/alert-
 import { FormDialogComponent }    from './components/dialogs/form-dialog/form-dialog.component';
 import { OneEntryComponent }      from './components/one-entry/one-entry.component';
 import { EntryTagListComponent }  from './components/entry-tag-list/entry-tag-list.component';
+import { EditorComponent }        from './components/editor/editor.component';
 
 export const COMPONENTS: any[] = [
 	ConfirmDialogComponent,
 	AlertDialogComponent,
 	FormDialogComponent,
 	OneEntryComponent,
-	EntryTagListComponent
+	EntryTagListComponent,
+	EditorComponent
 ];
 
 /*
