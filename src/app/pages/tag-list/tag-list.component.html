@@ -1,6 +1,6 @@
 <mat-toolbar color="primary">
   <mat-toolbar-row>
-	<button [routerLink]="['/',username, 'tags']" mat-icon-button>
+	<button mat-icon-button (click)="goBack()">
 		<mat-icon>arrow_back</mat-icon>
 	</button>
     <span>Etiqueta: {{tag.name}}</span>

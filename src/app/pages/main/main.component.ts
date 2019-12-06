@@ -3,6 +3,7 @@ import { Router, ActivatedRoute, Params} from '@angular/router';
 import { ApiService }         from '../../services/api.service';
 import { ClassMapperService } from '../../services/class-mapper.service';
 import { UserService }        from '../../services/user.service';
+import { DataShareService }   from '../../services/data-share.service';
 import { Entry }              from '../../model/entry.model';
 
 @Component({
@@ -16,11 +17,12 @@ export class MainComponent implements OnInit {
 	entryList: Entry[];
 	menuShow: boolean = false;
 
-	constructor(private activatedRoute: ActivatedRoute, private router: Router, private user: UserService, private as: ApiService, private cms: ClassMapperService) {
+	constructor(private activatedRoute: ActivatedRoute, private router: Router, private dss: DataShareService, private user: UserService, private as: ApiService, private cms: ClassMapperService) {
 		this.entryList = [];
 	}
 
 	ngOnInit() {
+		this.dss.setGlobal('where', 'home');
 		this.activatedRoute.params.subscribe((params: Params) => {
 			this.username = params.username;
 			this.loadEntries();

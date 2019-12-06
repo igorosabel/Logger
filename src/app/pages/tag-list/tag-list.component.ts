@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params} from '@angular/router';
 import { ApiService }         from '../../services/api.service';
 import { ClassMapperService } from '../../services/class-mapper.service';
+import { DataShareService }   from '../../services/data-share.service';
 import { Tag }                from '../../model/tag.model';
 import { Entry }              from '../../model/entry.model';
 
@@ -17,7 +18,7 @@ export class TagListComponent implements OnInit {
 	tag: Tag;
 	entryList: Entry[];
 
-	constructor(private activatedRoute: ActivatedRoute, private router: Router, private as: ApiService, private cms: ClassMapperService) {
+	constructor(private activatedRoute: ActivatedRoute, private router: Router, private dss: DataShareService, private as: ApiService, private cms: ClassMapperService) {
 		this.tag = new Tag();
 		this.entryList = [];
 	}
@@ -38,5 +39,25 @@ export class TagListComponent implements OnInit {
 				this.loading = false;
 			}
 		});
+	}
+	
+	goBack() {
+		const whereTo = this.dss.getGlobal('where');
+		switch(whereTo) {
+			case 'home': {
+				this.router.navigate(['/', this.username]);
+			}
+			break;
+			case 'entry': {
+				const entryId = this.dss.getGlobal('entryId');
+				const entrySlug = this.dss.getGlobal('entrySlug');
+				this.router.navigate(['/', this.username, entryId, entrySlug]);
+			}
+			break;
+			case 'tags': {
+				this.router.navigate(['/', this.username, 'tags']);
+			}
+			break;
+		}
 	}
 }

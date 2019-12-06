@@ -3,6 +3,7 @@ import { Router, ActivatedRoute, Params} from '@angular/router';
 import { ApiService }         from '../../services/api.service';
 import { ClassMapperService } from '../../services/class-mapper.service';
 import { DialogService }      from '../../services/dialog.service';
+import { DataShareService }   from '../../services/data-share.service';
 import { Entry }              from '../../model/entry.model';
 
 @Component({
@@ -15,7 +16,7 @@ export class DetailComponent implements OnInit {
 	username: string;
 	entry: Entry;
 
-	constructor(private activatedRoute: ActivatedRoute, private router: Router, private as: ApiService, private cms: ClassMapperService, private dialog: DialogService) {
+	constructor(private activatedRoute: ActivatedRoute, private router: Router, private dss: DataShareService, private as: ApiService, private cms: ClassMapperService, private dialog: DialogService) {
 		this.entry = new Entry();
 	}
 	ngOnInit() {
@@ -29,6 +30,9 @@ export class DetailComponent implements OnInit {
 		this.as.getEntry(id).subscribe(response => {
 			if (response.status=='ok') {
 				this.entry = this.cms.getEntry(response.entry);
+				this.dss.setGlobal('where', 'entry');
+				this.dss.setGlobal('entryId', this.entry.id);
+				this.dss.setGlobal('entrySlug', this.entry.slug);
 				this.loading = false;
 			}
 			else{
