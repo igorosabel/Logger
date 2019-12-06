@@ -1,10 +1,10 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute, Params} from '@angular/router';
 import { ApiService }         from '../../services/api.service';
 import { ClassMapperService } from '../../services/class-mapper.service';
 import { DialogService }      from '../../services/dialog.service';
 import { Entry }              from '../../model/entry.model';
-import { Tag }                from '../../model/tag.model';
+import { EditorComponent }    from '../../components/editor/editor.component';
 
 @Component({
   selector: 'app-add',
@@ -15,55 +15,33 @@ export class AddComponent implements OnInit {
 	loading: boolean = true;
 	username: string;
 	entry: Entry;
-	@ViewChild('title', { static: true }) titleBox:ElementRef;
-	tagList: Tag[];
-	tags: string = '';
+	@ViewChild('editor', { static: true }) editor: EditorComponent;
 	
 	constructor(private activatedRoute: ActivatedRoute, private as: ApiService, private cms: ClassMapperService, private dialog: DialogService, private router: Router) {
 		this.entry = new Entry(null, 'Nueva entrada');
-		this.tagList = [];
 	}
 	
 	ngOnInit() {
 		this.activatedRoute.params.subscribe((params: Params) => {
 			this.username = params.username;
-			this.loadTags();
+			this.editor.loadEntry(this.entry);
 		});
 	}
 	
-	loadTags() {
-		this.as.getTags().subscribe(response => {
-			if (response.status=='ok') {
-				this.tagList = this.cms.getTags(response);
-				this.loading = false;
-			}
-		});
-	}
-	
-	addTag(tag: Tag) {
-		let selectedTags = [];
-		if (this.tags!=''){
-			selectedTags = this.tags.split(',').map(x => x.trim());
-		}
-
-		const tagIndex = selectedTags.findIndex(x => x==tag.name);
-		if (tagIndex!=-1){
-			return false;
-		}
-		
-		selectedTags.push(tag.name);
-		this.tags = selectedTags.join(', ');
+	editorLoaded(ev) {
+		this.loading = ev;
 	}
 	
 	saveEntry() {
+		this.entry = this.editor.getEntry();
+		
 		if (this.entry.title=='') {
 			this.dialog.alert({title: 'Error', content: '¡No puedes dejar el título de la entrada en blanco!', ok: 'Continuar'}).subscribe(result => {
-				this.titleBox.nativeElement.focus();
+				this.editor.focusTitle();
 			});
 			return false;
 		}
 		
-		this.entry.loadTags(this.tags);
 		this.loading = true;
 		
 		this.as.saveEntry(this.entry).subscribe(result => {

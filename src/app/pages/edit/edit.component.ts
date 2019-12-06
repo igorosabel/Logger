@@ -1,10 +1,9 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute, Params} from '@angular/router';
 import { ApiService }         from '../../services/api.service';
 import { ClassMapperService } from '../../services/class-mapper.service';
 import { DialogService }      from '../../services/dialog.service';
 import { Entry }              from '../../model/entry.model';
-import { Tag }                from '../../model/tag.model';
 import { Photo }              from '../../model/photo.model';
 import { EditorComponent }    from '../../components/editor/editor.component';
 
