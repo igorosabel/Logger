@@ -48,6 +48,7 @@ export interface EntryInterface {
 	title: string;
 	slug: string;
 	body: string;
+	isPublic: boolean;
 	createdAt: string;
 	updatedAt: string;
 	tags: TagInterface[];

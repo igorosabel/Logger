@@ -8,6 +8,7 @@ export class Entry {
 		public title: string = null,
 		public slug: string = null,
 		public body: string = null,
+		public isPublic: boolean = false,
 		public createdAt: string = null,
 		public updatedAt: string = null
 	) {

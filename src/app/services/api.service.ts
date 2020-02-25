@@ -42,6 +42,10 @@ export class ApiService {
 		return this.http.post<EntryResult>(this.apiUrl + 'getEntry', {id});
 	}
 
+	getPublicEntry(id: number): Observable<EntryResult> {
+		return this.http.post<EntryResult>(this.apiUrl + 'getPublicEntry', {id});
+	}
+
 	getTags(): Observable<TagsResult> {
 		return this.http.post<TagsResult>(this.apiUrl + 'getTags', {});
 	}

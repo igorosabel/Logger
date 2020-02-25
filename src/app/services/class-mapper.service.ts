@@ -22,7 +22,7 @@ export class ClassMapperService {
 	}
 	
 	getEntry(e: EntryInterface) {
-		let entry = new Entry(e.id, e.title, e.slug, e.body, e.createdAt, e.updatedAt);
+		let entry = new Entry(e.id, e.title, e.slug, e.body, e.isPublic, e.createdAt, e.updatedAt);
 		for (let t of e.tags) {
 			let tag = new Tag(t.id, t.name, t.slug, t.createdAt, t.updatedAt);
 			entry.addTag(tag);
