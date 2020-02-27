@@ -13,11 +13,6 @@ import { MatFormFieldDefaultOptions, MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@ang
 
 import { PAGES, COMPONENTS, PIPES, SERVICES, MATERIAL } from './app.common';
 
-import { ConfirmDialogComponent } from './components/dialogs/confirm-dialog/confirm-dialog.component';
-import { AlertDialogComponent }   from './components/dialogs/alert-dialog/alert-dialog.component';
-import { FormDialogComponent }    from './components/dialogs/form-dialog/form-dialog.component';
-import { PublicDetailComponent } from './pages/public-detail/public-detail.component';
-
 const appearance: MatFormFieldDefaultOptions = {
   appearance: 'outline'
 };
@@ -27,8 +22,7 @@ const appearance: MatFormFieldDefaultOptions = {
     AppComponent,
     ...PAGES,
     ...COMPONENTS,
-    ...PIPES,
-    PublicDetailComponent
+    ...PIPES
   ],
   imports: [
     BrowserModule,
@@ -39,7 +33,6 @@ const appearance: MatFormFieldDefaultOptions = {
     BrowserAnimationsModule,
     ...MATERIAL
   ],
-  entryComponents: [ConfirmDialogComponent, AlertDialogComponent, FormDialogComponent],
   providers: [
     {
       provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
