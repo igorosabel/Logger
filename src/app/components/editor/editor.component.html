@@ -39,12 +39,13 @@
 				<div class="photo-add" (click)="addPhoto()">
 					<mat-icon>add</mat-icon>
 					<span>Añadir nueva</span>
+					<div *ngIf="uploadProgress!=null" class="upload-progress" [ngStyle]="{'width': uploadProgress+'%'}"></div>
 				</div>
 			</div>
 		</mat-card-content>
 		<mat-card-actions class="center-card-buttons">
-			<button mat-button (click)="closePhotos()">Cancelar</button>
-			<button mat-raised-button color="primary" [disabled]="!selectedPhoto" (click)="insertPhoto()">Añadir</button>
+			<button mat-button (click)="closePhotos()" [disabled]="uploadProgress!=null">Cancelar</button>
+			<button mat-raised-button color="primary" [disabled]="!selectedPhoto" (click)="insertPhoto()" [disabled]="uploadProgress!=null">Añadir</button>
 		</mat-card-actions>
 	</mat-card>
 	<input type="file" id="photo-upload" (change)="photoContinue($event)" #photoUpload>

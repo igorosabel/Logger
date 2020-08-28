@@ -66,7 +66,14 @@ export class ApiService {
 		return this.http.post<PhotosResult>(this.apiUrl + 'getPhotos', {id});
 	}
 	
-	uploadPhoto(id: number, photo: string): Observable<PhotoUploadResult> {
-		return this.http.post<PhotoUploadResult>(this.apiUrl + 'uploadPhoto', {id, photo});
+	uploadPhoto(id: number, photo: string): Observable<any> {
+		return this.http.post<PhotoUploadResult>(
+			this.apiUrl + 'uploadPhoto',
+			{id, photo},
+			{
+				reportProgress: true,
+				observe: 'events'
+			}
+		);
 	}
 }

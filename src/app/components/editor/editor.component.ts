@@ -1,4 +1,5 @@
 import { Component, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';
+import { HttpEvent, HttpEventType }                               from '@angular/common/http';
 import { ApiService }         from '../../services/api.service';
 import { ClassMapperService } from '../../services/class-mapper.service';
 import { DialogService }      from '../../services/dialog.service';
@@ -24,6 +25,7 @@ export class EditorComponent {
 	@ViewChild('photoUpload', { static: true }) photoUpload: ElementRef;
 	loading: boolean = true;
 	@Output() onLoading = new EventEmitter<boolean>();
+	uploadProgress: number = null;
 
 	constructor(private as: ApiService, private cms: ClassMapperService, private dialog: DialogService) {
 		this.entry = new Entry();
@@ -122,6 +124,9 @@ export class EditorComponent {
 	}
 	
 	addPhoto() {
+		if (this.uploadProgress!=null) {
+			return;
+		}
 		this.photoUpload.nativeElement.click();
 	}
 	
@@ -136,13 +141,28 @@ export class EditorComponent {
 			const fr = new FileReader();
 	        fr.onload = () => {
 	            const base64 = fr.result.toString();
-	            this.as.uploadPhoto(this.entry.id, base64).subscribe(result => {
-		            const photo = this.cms.getPhoto(result.photo);
-		            this.photoList.push( photo );
-		            this.selectedPhoto = photo.id;
-	            });
+	            this.photoUploadSend(this.entry.id, base64);
 	        }
 	        fr.readAsDataURL(file);
 		}
+	}
+	
+	photoUploadSend(id: number, photo: string) {
+		this.uploadProgress = 0;
+		this.as.uploadPhoto(id, photo).subscribe((event: HttpEvent<any>) => {
+			switch (event.type) {
+				case HttpEventType.UploadProgress: {
+					this.uploadProgress = Math.round(event.loaded / event.total * 100);
+				}
+				break;
+				case HttpEventType.Response: {
+					const result = event.body;
+					const photo = this.cms.getPhoto(result.photo);
+					this.photoList.push( photo );
+            		this.selectedPhoto = photo.id;
+            		this.uploadProgress = null;
+				}
+			}
+        });
 	}
 }

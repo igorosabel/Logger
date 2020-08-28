@@ -1,3 +1,4 @@
+import { environment } from '../../environments/environment';
 export class Photo {
 	constructor(
 		public id: number = null,
@@ -6,6 +7,6 @@ export class Photo {
 	){ }
 	
 	get url() {
-		return 'https://apilogger.osumi.es/api/getEntryPhoto/' + this.id;
+		return environment.apiUrl+'getEntryPhoto/' + this.id;
 	}
 }
