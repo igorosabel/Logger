@@ -76,4 +76,8 @@ export class ApiService {
 			}
 		);
 	}
+
+	deletePhoto(id: number): Observable<StatusResult> {
+		return this.http.post<StatusResult>(this.apiUrl + 'deletePhoto', {id});
+	}
 }

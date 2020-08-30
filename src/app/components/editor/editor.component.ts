@@ -115,6 +115,9 @@ export class EditorComponent {
 	}
 	
 	selectPhoto(photo: Photo) {
+		if (this.uploadProgress!=null) {
+			return;
+		}
 		this.selectedPhoto = photo.id;
 	}
 	
@@ -164,5 +167,32 @@ export class EditorComponent {
 				}
 			}
         });
+	}
+
+	deletePhoto() {
+		this.dialog.confirm({title: 'Atención', content: '¿Estás seguro de querer borrar esta foto?', ok: 'Continuar', cancel: 'Cancelar'}).subscribe(result => {
+			if (result===true) {
+				this.uploadProgress = 0;
+				this.deletePhotoConfirm();
+			}
+		});
+	}
+
+	deletePhotoConfirm() {
+		this.as.deletePhoto(this.selectedPhoto).subscribe(result => {
+			if (result.status=='ok') {
+				const replace = "\\\n\\[img\\]" + this.selectedPhoto + "\\[\\/img\\]\\\n";
+				const re = new RegExp(replace,"g");
+
+				this.entry.body = this.entry.body.replace(re, '');
+				this.selectedPhoto = null;
+				const ind = this.photoList.findIndex(x => x.id==this.selectedPhoto);
+				this.photoList.splice(ind, 1);
+            	this.uploadProgress = null;
+			}
+			else {
+				this.dialog.alert({title: 'Error', content: 'Ha ocurrido un error al borrar la foto.', ok: 'Continuar'}).subscribe(result => {});
+			}
+		});
 	}
 }

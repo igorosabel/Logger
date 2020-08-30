@@ -35,6 +35,7 @@
 			<div class="photos-list">
 				<div *ngFor="let photo of photoList" class="photo-item" [ngClass]="{'photo-selected':photo.id==selectedPhoto}" (click)="selectPhoto(photo)">
 					<img [src]="photo.url">
+					<div class="photo-delete" *ngIf="photo.id==selectedPhoto && uploadProgress==null" (click)="deletePhoto()">Borrar</div>
 				</div>
 				<div class="photo-add" (click)="addPhoto()">
 					<mat-icon>add</mat-icon>
