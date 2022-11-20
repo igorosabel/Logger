@@ -1,12 +1,15 @@
-<a mat-list-item [routerLink]="['/', username, entry.id, entry.slug]">
-	<h2 mat-line> {{entry.title}} </h2>
-	<p mat-line>
+<a mat-list-item
+   [routerLink]="['/', username, entry.id, entry.slug]">
+	<div matListItemTitle> {{entry.title}} </div>
+	<div matListItemLine>
 		{{entry.clean | shorttext}}
-	</p>
-	<p mat-line class="entry-date">
+	</div>
+	<div matListItemLine
+		 class="entry-date">
 		{{entry.createdAt}}
-	</p>
-	<p mat-line>
-		<app-entry-tag-list [tags]="entry.tags" [username]="username"></app-entry-tag-list>
-	</p>
+	</div>
+	<div matListItemLine>
+		<app-entry-tag-list [tags]="entry.tags"
+							[username]="username"></app-entry-tag-list>
+	</div>
 </a>

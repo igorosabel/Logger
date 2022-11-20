@@ -1,47 +1,45 @@
-import { BrowserModule }           from '@angular/platform-browser';
-import { NgModule }                from '@angular/core';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { FormsModule }             from '@angular/forms';
-import { AppRoutingModule }        from './app-routing.module';
-import { AppComponent }            from './app.component';
+import { NgModule } from "@angular/core";
+import { FormsModule } from "@angular/forms";
+import { BrowserModule } from "@angular/platform-browser";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { AppRoutingModule } from "./app-routing.module";
+import { AppComponent } from "./app.component";
 
-import { TokenInterceptor }        from './interceptors/token.interceptor';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { MatFormFieldDefaultOptions, MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
+import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
+import {
+  MatFormFieldDefaultOptions,
+  MAT_FORM_FIELD_DEFAULT_OPTIONS,
+} from "@angular/material/form-field";
+import { TokenInterceptor } from "./interceptors/token.interceptor";
 
-import { PAGES, COMPONENTS, PIPES, SERVICES, MATERIAL } from './app.common';
+import { COMPONENTS, MATERIAL, PAGES, PIPES, SERVICES } from "./app.common";
 
 const appearance: MatFormFieldDefaultOptions = {
-  appearance: 'outline'
+  appearance: "outline",
 };
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    ...PAGES,
-    ...COMPONENTS,
-    ...PIPES
-  ],
+  declarations: [AppComponent, ...PAGES, ...COMPONENTS, ...PIPES],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
     BrowserAnimationsModule,
-    ...MATERIAL
+    ...MATERIAL,
   ],
   providers: [
     {
       provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
-      useValue: appearance
+      useValue: appearance,
     },
     ...SERVICES,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
-      multi: true
-    }
+      multi: true,
+    },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
