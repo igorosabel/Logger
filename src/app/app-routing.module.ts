@@ -1,32 +1,54 @@
-import { NgModule }              from '@angular/core';
-import { Routes, RouterModule }  from '@angular/router';
-import { AuthGuard }             from './guard/auth.guard';
-import { LoginComponent }        from './pages/login/login.component';
-import { RegisterComponent }     from './pages/register/register.component';
-import { MainComponent }         from './pages/main/main.component';
-import { DetailComponent }       from './pages/detail/detail.component';
-import { PublicDetailComponent } from './pages/public-detail/public-detail.component';
-import { AddComponent }          from './pages/add/add.component';
-import { EditComponent }         from './pages/edit/edit.component';
-import { TagsComponent }         from './pages/tags/tags.component';
-import { TagListComponent }      from './pages/tag-list/tag-list.component';
-
+import { NgModule } from "@angular/core";
+import { RouterModule, Routes } from "@angular/router";
+import { AuthGuard } from "src/app/guard/auth.guard";
+import { LoginComponent } from "src/app/modules/login/login.component";
 
 const routes: Routes = [
-    { path: '',                           component: LoginComponent },
-	{ path: 'register',                   component: RegisterComponent },
-	{ path: ':username',                  component: MainComponent,    canActivate: [AuthGuard] },
-	{ path: ':username/:id/:slug',        component: DetailComponent,  canActivate: [AuthGuard] },
-	{ path: ':username/public/:id/:slug', component: PublicDetailComponent },
-	{ path: ':username/add',              component: AddComponent,     canActivate: [AuthGuard] },
-	{ path: ':username/:id/:slug/edit',   component: EditComponent,    canActivate: [AuthGuard] },
-	{ path: ':username/tags',             component: TagsComponent,    canActivate: [AuthGuard] },
-	{ path: ':username/tag/:id/:slug',    component: TagListComponent, canActivate: [AuthGuard] },
-	{ path: '**', redirectTo: '/', pathMatch: 'full' }
+  { path: "", component: LoginComponent },
+  {
+    path: "register",
+    loadComponent: () => import("src/app/modules/register/register.component"),
+  },
+  {
+    path: ":username",
+    loadComponent: () => import("src/app/modules/main/main.component"),
+    canActivate: [AuthGuard],
+  },
+  {
+    path: ":username/:id/:slug",
+    loadComponent: () => import("src/app/modules/detail/detail.component"),
+    canActivate: [AuthGuard],
+  },
+  {
+    path: ":username/public/:id/:slug",
+    loadComponent: () =>
+      import("src/app/modules/public-detail/public-detail.component"),
+  },
+  {
+    path: ":username/add",
+    loadComponent: () => import("src/app/modules/add/add.component"),
+    canActivate: [AuthGuard],
+  },
+  {
+    path: ":username/:id/:slug/edit",
+    loadComponent: () => import("src/app/modules/edit/edit.component"),
+    canActivate: [AuthGuard],
+  },
+  {
+    path: ":username/tags",
+    loadComponent: () => import("src/app/modules/tags/tags.component"),
+    canActivate: [AuthGuard],
+  },
+  {
+    path: ":username/tag/:id/:slug",
+    loadComponent: () => import("src/app/modules/tag-list/tag-list.component"),
+    canActivate: [AuthGuard],
+  },
+  { path: "**", redirectTo: "/", pathMatch: "full" },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

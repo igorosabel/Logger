@@ -1,83 +1,84 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable }              from '@angular/core';
-import { Observable }              from 'rxjs';
-import { environment }             from '../../environments/environment';
-import { map }                     from 'rxjs/operators';
-import { Entry }                   from '../model/entry.model';
+import { HttpClient } from "@angular/common/http";
+import { Injectable } from "@angular/core";
+import { Observable } from "rxjs";
+import { Entry } from "src/app/model/entry.model";
+import { environment } from "src/environments/environment";
 
 import {
-	LoginData,
-	LoginResult,
-	RegisterData,
-	EntriesResult,
-	EntryResult,
-	TagsResult,
-	TagEntriesResult,
-	PhotosResult,
-	PhotoUploadResult,
-	StatusResult
-} from '../interfaces/interfaces';
+  EntriesResult,
+  EntryResult,
+  LoginData,
+  LoginResult,
+  PhotosResult,
+  PhotoUploadResult,
+  RegisterData,
+  StatusResult,
+  TagEntriesResult,
+  TagsResult,
+} from "src/app/interfaces/interfaces";
 
 @Injectable({
-	providedIn: 'root'
+  providedIn: "root",
 })
 export class ApiService {
-	apiUrl = environment.apiUrl;
+  apiUrl: string = environment.apiUrl;
 
-	constructor(private http : HttpClient){}
+  constructor(private http: HttpClient) {}
 
-	login(data: LoginData): Observable<LoginResult> {
-		return this.http.post<LoginResult>(this.apiUrl + 'login', data);
-	}
+  login(data: LoginData): Observable<LoginResult> {
+    return this.http.post<LoginResult>(this.apiUrl + "login", data);
+  }
 
-	register(data: RegisterData): Observable<LoginResult> {
-		return this.http.post<LoginResult>(this.apiUrl + 'register', data);
-	}
+  register(data: RegisterData): Observable<LoginResult> {
+    return this.http.post<LoginResult>(this.apiUrl + "register", data);
+  }
 
-	getEntries(): Observable<EntriesResult> {
-		return this.http.post<EntriesResult>(this.apiUrl + 'getEntries', {});
-	}
+  getEntries(): Observable<EntriesResult> {
+    return this.http.post<EntriesResult>(this.apiUrl + "getEntries", {});
+  }
 
-	getEntry(id: number): Observable<EntryResult> {
-		return this.http.post<EntryResult>(this.apiUrl + 'getEntry', {id});
-	}
+  getEntry(id: number): Observable<EntryResult> {
+    return this.http.post<EntryResult>(this.apiUrl + "getEntry", { id });
+  }
 
-	getPublicEntry(id: number): Observable<EntryResult> {
-		return this.http.post<EntryResult>(this.apiUrl + 'getPublicEntry', {id});
-	}
+  getPublicEntry(id: number): Observable<EntryResult> {
+    return this.http.post<EntryResult>(this.apiUrl + "getPublicEntry", { id });
+  }
 
-	getTags(): Observable<TagsResult> {
-		return this.http.post<TagsResult>(this.apiUrl + 'getTags', {});
-	}
+  getTags(): Observable<TagsResult> {
+    return this.http.post<TagsResult>(this.apiUrl + "getTags", {});
+  }
 
-	saveEntry(entry: Entry): Observable<StatusResult> {
-		return this.http.post<StatusResult>(this.apiUrl + 'saveEntry', entry);
-	}
+  saveEntry(entry: Entry): Observable<StatusResult> {
+    return this.http.post<StatusResult>(this.apiUrl + "saveEntry", entry);
+  }
 
-	getTagEntries(id: number): Observable<TagEntriesResult> {
-		return this.http.post<TagEntriesResult>(this.apiUrl + 'getTagEntries', {id});
-	}
-	
-	deleteEntry(id: number): Observable<StatusResult> {
-		return this.http.post<StatusResult>(this.apiUrl + 'deleteEntry', {id});
-	}
-	
-	getPhotos(id: number): Observable<PhotosResult> {
-		return this.http.post<PhotosResult>(this.apiUrl + 'getPhotos', {id});
-	}
-	
-	uploadPhoto(id: number, photo: string): Observable<any> {
-		return this.http.post<PhotoUploadResult>(
-			this.apiUrl + 'uploadPhoto',
-			{id, photo},
-			{
-				reportProgress: true,
-				observe: 'events'
-			}
-		);
-	}
+  getTagEntries(id: number): Observable<TagEntriesResult> {
+    return this.http.post<TagEntriesResult>(this.apiUrl + "getTagEntries", {
+      id,
+    });
+  }
 
-	deletePhoto(id: number): Observable<StatusResult> {
-		return this.http.post<StatusResult>(this.apiUrl + 'deletePhoto', {id});
-	}
+  deleteEntry(id: number): Observable<StatusResult> {
+    return this.http.post<StatusResult>(this.apiUrl + "deleteEntry", { id });
+  }
+
+  getPhotos(id: number): Observable<PhotosResult> {
+    return this.http.post<PhotosResult>(this.apiUrl + "getPhotos", { id });
+  }
+
+  uploadPhoto(id: number, photo: string): Observable<any> {
+    return this.http.post<PhotoUploadResult>(
+      this.apiUrl + "uploadPhoto",
+      { id, photo },
+      {
+        reportProgress: true,
+        observe: "events",
+      }
+    );
+  }
+
+  deletePhoto(id: number): Observable<StatusResult> {
+    return this.http.post<StatusResult>(this.apiUrl + "deletePhoto", { id });
+  }
 }

@@ -1,6 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body {
+html,
+body {
 	height: 100%;
 }
 
@@ -10,19 +11,19 @@ body {
 	background-color: #fafafa;
 }
 
-.align-left{
+.align-left {
 	display: block;
 	padding: 16px;
 	text-align: left;
 }
 
-.align-center{
+.align-center {
 	display: block;
 	padding: 16px;
 	text-align: center;
 }
 
-.align-right{
+.align-right {
 	display: block;
 	padding: 16px;
 	text-align: right;
@@ -61,7 +62,7 @@ body {
 	margin: 20px auto;
 }
 
-.center-card-fields > * {
+.center-card-fields>* {
 	width: 100%;
 }
 
@@ -81,13 +82,13 @@ body {
 
 .center-card-error {
 	border-radius: 6px;
-    box-sizing: border-box;
-    border-color: #f44336;
-    color: #f44336;
-    border-width: 2px;
+	box-sizing: border-box;
+	border-color: #f44336;
+	color: #f44336;
+	border-width: 2px;
 }
 
-.flex-space{
+.flex-space {
 	flex: 1 1 auto;
 }
 
@@ -122,16 +123,20 @@ body {
 
 .loading {
 	position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 10;
-    background-color: rgba(0,0,0,0.6);
-    color: #fff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    font-size: 3em;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 10;
+	background-color: rgba(0, 0, 0, 0.6);
+	color: #fff;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	font-size: 3em;
+}
+
+.full-width {
+	width: 100%;
 }
