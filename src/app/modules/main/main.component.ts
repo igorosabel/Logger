@@ -20,7 +20,7 @@ import { UserService } from "src/app/services/user.service";
 export default class MainComponent implements OnInit {
   loading: boolean = true;
   username: string;
-  entryList: Entry[];
+  entryList: Entry[] = [];
   menuShow: boolean = false;
 
   constructor(
@@ -30,9 +30,7 @@ export default class MainComponent implements OnInit {
     private user: UserService,
     private as: ApiService,
     private cms: ClassMapperService
-  ) {
-    this.entryList = [];
-  }
+  ) {}
 
   ngOnInit(): void {
     this.dss.setGlobal("where", "home");
@@ -45,7 +43,7 @@ export default class MainComponent implements OnInit {
   loadEntries(): void {
     this.as.getEntries().subscribe((response: EntriesResult): void => {
       if (response.status == "ok") {
-        this.entryList = this.cms.getEntries(response);
+        this.entryList = this.cms.getEntries(response.list);
         this.loading = false;
       }
     });

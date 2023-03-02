@@ -40,7 +40,7 @@ export default class TagsComponent implements OnInit {
   loadTags(): void {
     this.as.getTags().subscribe((response: TagsResult): void => {
       if (response.status == "ok") {
-        this.tagList = this.cms.getTags(response);
+        this.tagList = this.cms.getTags(response.list);
         this.loading = false;
       }
     });

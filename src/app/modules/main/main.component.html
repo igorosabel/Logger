@@ -10,20 +10,16 @@
 			</mat-toolbar-row>
 		</mat-toolbar>
 		<mat-nav-list>
-			<mat-list-item>
-				<a matListItemTitle
-				   [routerLink]="['/', username, 'tags']">
-					<mat-icon matListIcon>bookmarks</mat-icon>
-					Tags
-				</a>
-			</mat-list-item>
-			<mat-list-item>
-				<a matListItemTitle
-				   (click)="logout($event)">
-					<mat-icon matListIcon>power_settings_new</mat-icon>
-					Salir
-				</a>
-			</mat-list-item>
+			<a mat-list-item
+			   [routerLink]="['/', username, 'tags']">
+				<mat-icon matListIcon>bookmarks</mat-icon>
+				Tags
+			</a>
+			<a mat-list-item
+			   (click)="logout($event)">
+				<mat-icon matListIcon>power_settings_new</mat-icon>
+				Salir
+			</a>
 		</mat-nav-list>
 	</mat-sidenav>
 	<mat-sidenav-content>

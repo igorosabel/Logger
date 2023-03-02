@@ -48,7 +48,7 @@ export default class TagListComponent implements OnInit {
       .subscribe((response: TagEntriesResult): void => {
         if (response.status == "ok") {
           this.tag = this.cms.getTag(response.tag);
-          this.entryList = this.cms.getEntries(response);
+          this.entryList = this.cms.getEntries(response.list);
           this.loading = false;
         }
       });

@@ -4,9 +4,9 @@ import { FormsModule } from "@angular/forms";
 import { Router, RouterModule } from "@angular/router";
 import { LoginData, LoginResult } from "src/app/interfaces/interfaces";
 import { MaterialModule } from "src/app/modules/material/material.module";
-import { Utils } from "src/app/modules/shared/utils.class";
 import { ApiService } from "src/app/services/api.service";
 import { AuthService } from "src/app/services/auth.service";
+import { ClassMapperService } from "src/app/services/class-mapper.service";
 import { UserService } from "src/app/services/user.service";
 
 @Component({
@@ -16,25 +16,24 @@ import { UserService } from "src/app/services/user.service";
   imports: [CommonModule, MaterialModule, FormsModule, RouterModule],
 })
 export class LoginComponent implements OnInit {
-  loginData = {
+  loginData: LoginData = {
     username: "",
     pass: "",
-  } as LoginData;
+  };
   loginError: boolean = false;
   loginSending: boolean = false;
 
   constructor(
     private as: ApiService,
-    private user: UserService,
+    private us: UserService,
+    private cms: ClassMapperService,
     private router: Router,
     private auth: AuthService
   ) {}
 
   ngOnInit(): void {
     if (this.auth.isAuthenticated()) {
-      console.log("isAuthenticated");
-      console.log("/" + this.user.username);
-      this.router.navigate(["/" + this.user.username]);
+      this.router.navigate(["/" + this.us.user.username]);
     }
   }
 
@@ -49,13 +48,11 @@ export class LoginComponent implements OnInit {
     this.as.login(this.loginData).subscribe((result: LoginResult): void => {
       this.loginSending = false;
       if (result.status === "ok") {
-        this.user.logged = true;
-        this.user.id = result.id;
-        this.user.username = Utils.urldecode(result.username);
-        this.user.token = Utils.urldecode(result.token);
-        this.user.saveLogin();
+        this.us.logged = true;
+        this.us.user = this.cms.getUser(result.user);
+        this.us.saveLogin();
 
-        this.router.navigate(["/" + this.user.username]);
+        this.router.navigate(["/" + this.us.user.username]);
       } else {
         this.loginError = true;
       }

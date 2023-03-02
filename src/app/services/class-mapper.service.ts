@@ -1,15 +1,14 @@
 import { Injectable } from "@angular/core";
 import {
-  EntriesResult,
   EntryInterface,
   PhotoInterface,
-  PhotosResult,
   TagInterface,
-  TagsResult,
+  UserInterface,
 } from "src/app/interfaces/interfaces";
 import { Entry } from "src/app/model/entry.model";
 import { Photo } from "src/app/model/photo.model";
 import { Tag } from "src/app/model/tag.model";
+import { User } from "src/app/model/user.model";
 
 @Injectable({
   providedIn: "root",
@@ -17,64 +16,37 @@ import { Tag } from "src/app/model/tag.model";
 export class ClassMapperService {
   constructor() {}
 
-  getEntries(response: EntriesResult): Entry[] {
-    const entries: Entry[] = [];
-
-    for (let e of response.list) {
-      let entry = this.getEntry(e);
-      entries.push(entry);
-    }
-
-    return entries;
+  getEntries(es: EntryInterface[]): Entry[] {
+    return es.map((e: EntryInterface): Entry => {
+      return this.getEntry(e);
+    });
   }
 
   getEntry(e: EntryInterface): Entry {
-    let entry = new Entry(
-      e.id,
-      e.title,
-      e.slug,
-      e.body,
-      e.isPublic,
-      e.createdAt,
-      e.updatedAt
-    );
-    for (let t of e.tags) {
-      let tag = new Tag(t.id, t.name, t.slug, t.createdAt, t.updatedAt);
-      entry.addTag(tag);
-    }
-
-    return entry;
+    return new Entry().fromInterface(e);
   }
 
-  getTags(response: TagsResult): Tag[] {
-    const tags: Tag[] = [];
-
-    for (let t of response.list) {
-      let tag = this.getTag(t);
-      tags.push(tag);
-    }
-
-    return tags;
+  getTags(ts: TagInterface[]): Tag[] {
+    return ts.map((t: TagInterface): Tag => {
+      return this.getTag(t);
+    });
   }
 
   getTag(t: TagInterface): Tag {
-    let tag = new Tag(t.id, t.name, t.slug, t.createdAt, t.updatedAt);
-
-    return tag;
+    return new Tag().fromInterface(t);
   }
 
-  getPhotos(response: PhotosResult): Photo[] {
-    const photos: Photo[] = [];
-
-    for (let p of response.list) {
-      let photo = this.getPhoto(p);
-      photos.push(photo);
-    }
-
-    return photos;
+  getPhotos(ps: PhotoInterface[]): Photo[] {
+    return ps.map((p: PhotoInterface): Photo => {
+      return this.getPhoto(p);
+    });
   }
 
   getPhoto(p: PhotoInterface): Photo {
-    return new Photo(p.id, p.createdAt, p.updatedAt);
+    return new Photo().fromInterface(p);
+  }
+
+  getUser(u: UserInterface): User {
+    return new User().fromInterface(u);
   }
 }

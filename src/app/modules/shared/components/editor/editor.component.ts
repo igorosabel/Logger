@@ -63,7 +63,7 @@ export class EditorComponent {
   loadTags(): void {
     this.as.getTags().subscribe((response: TagsResult): void => {
       if (response.status == "ok") {
-        this.tagList = this.cms.getTags(response);
+        this.tagList = this.cms.getTags(response.list);
         if (this.entry.id) {
           this.canPhotos = true;
           this.loadPhotos();
@@ -78,7 +78,7 @@ export class EditorComponent {
     this.as
       .getPhotos(this.entry.id)
       .subscribe((response: PhotosResult): void => {
-        this.photoList = this.cms.getPhotos(response);
+        this.photoList = this.cms.getPhotos(response.list);
         this.onLoading.emit(false);
       });
   }

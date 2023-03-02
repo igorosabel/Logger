@@ -4,8 +4,8 @@ import { FormsModule } from "@angular/forms";
 import { Router, RouterModule } from "@angular/router";
 import { LoginResult, RegisterData } from "src/app/interfaces/interfaces";
 import { MaterialModule } from "src/app/modules/material/material.module";
-import { Utils } from "src/app/modules/shared/utils.class";
 import { ApiService } from "src/app/services/api.service";
+import { ClassMapperService } from "src/app/services/class-mapper.service";
 import { UserService } from "src/app/services/user.service";
 
 @Component({
@@ -15,18 +15,19 @@ import { UserService } from "src/app/services/user.service";
   imports: [CommonModule, MaterialModule, FormsModule, RouterModule],
 })
 export default class RegisterComponent {
-  registerData = {
+  registerData: RegisterData = {
     username: "",
     pass: "",
     conf: "",
-  } as RegisterData;
+  };
   registerUsernameError: boolean = false;
   registerPassError: boolean = false;
   registerSending: boolean = false;
 
   constructor(
     private as: ApiService,
-    private user: UserService,
+    private us: UserService,
+    private cms: ClassMapperService,
     private router: Router
   ) {}
 
@@ -54,13 +55,12 @@ export default class RegisterComponent {
       .subscribe((result: LoginResult): void => {
         this.registerSending = false;
         if (result.status === "ok") {
-          this.user.logged = true;
-          this.user.id = result.id;
-          this.user.username = Utils.urldecode(result.username);
-          this.user.token = Utils.urldecode(result.token);
-          this.user.saveLogin();
+          this.us.logged = true;
+          this.us.logged = true;
+          this.us.user = this.cms.getUser(result.user);
+          this.us.saveLogin();
 
-          this.router.navigate(["/main"]);
+          this.router.navigate(["/" + this.us.user.username]);
         } else {
           this.registerUsernameError = true;
         }
