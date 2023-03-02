@@ -1,11 +1,11 @@
 import { CommonModule } from "@angular/common";
-import { Component, OnInit } from "@angular/core";
+import { Component } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { Router, RouterModule } from "@angular/router";
 import { LoginResult, RegisterData } from "src/app/interfaces/interfaces";
 import { MaterialModule } from "src/app/modules/material/material.module";
+import { Utils } from "src/app/modules/shared/utils.class";
 import { ApiService } from "src/app/services/api.service";
-import { CommonService } from "src/app/services/common.service";
 import { UserService } from "src/app/services/user.service";
 
 @Component({
@@ -14,7 +14,7 @@ import { UserService } from "src/app/services/user.service";
   templateUrl: "./register.component.html",
   imports: [CommonModule, MaterialModule, FormsModule, RouterModule],
 })
-export default class RegisterComponent implements OnInit {
+export default class RegisterComponent {
   registerData = {
     username: "",
     pass: "",
@@ -27,11 +27,8 @@ export default class RegisterComponent implements OnInit {
   constructor(
     private as: ApiService,
     private user: UserService,
-    private cs: CommonService,
     private router: Router
   ) {}
-
-  ngOnInit(): void {}
 
   doRegister(ev: MouseEvent): void {
     ev.preventDefault();
@@ -59,8 +56,8 @@ export default class RegisterComponent implements OnInit {
         if (result.status === "ok") {
           this.user.logged = true;
           this.user.id = result.id;
-          this.user.username = this.cs.urldecode(result.username);
-          this.user.token = this.cs.urldecode(result.token);
+          this.user.username = Utils.urldecode(result.username);
+          this.user.token = Utils.urldecode(result.token);
           this.user.saveLogin();
 
           this.router.navigate(["/main"]);

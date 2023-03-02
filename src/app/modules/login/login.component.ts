@@ -4,10 +4,9 @@ import { FormsModule } from "@angular/forms";
 import { Router, RouterModule } from "@angular/router";
 import { LoginData, LoginResult } from "src/app/interfaces/interfaces";
 import { MaterialModule } from "src/app/modules/material/material.module";
+import { Utils } from "src/app/modules/shared/utils.class";
 import { ApiService } from "src/app/services/api.service";
 import { AuthService } from "src/app/services/auth.service";
-import { CommonService } from "src/app/services/common.service";
-import { DataShareService } from "src/app/services/data-share.service";
 import { UserService } from "src/app/services/user.service";
 
 @Component({
@@ -27,11 +26,10 @@ export class LoginComponent implements OnInit {
   constructor(
     private as: ApiService,
     private user: UserService,
-    private cs: CommonService,
     private router: Router,
-    private dss: DataShareService,
     private auth: AuthService
   ) {}
+
   ngOnInit(): void {
     if (this.auth.isAuthenticated()) {
       console.log("isAuthenticated");
@@ -53,8 +51,8 @@ export class LoginComponent implements OnInit {
       if (result.status === "ok") {
         this.user.logged = true;
         this.user.id = result.id;
-        this.user.username = this.cs.urldecode(result.username);
-        this.user.token = this.cs.urldecode(result.token);
+        this.user.username = Utils.urldecode(result.username);
+        this.user.token = Utils.urldecode(result.token);
         this.user.saveLogin();
 
         this.router.navigate(["/" + this.user.username]);

@@ -1,8 +1,5 @@
-import { Injectable } from "@angular/core";
-
-@Injectable()
-export class CommonService {
-  urldecode(str: string): string {
+export class Utils {
+  static urldecode(str: string): string {
     if (!str) {
       return "";
     }
@@ -18,7 +15,7 @@ export class CommonService {
     );
   }
 
-  urlencode(str: string): string {
+  static urlencode(str: string): string {
     return encodeURIComponent(str)
       .replace(/\%20/g, "+")
       .replace(/!/g, "%21")
