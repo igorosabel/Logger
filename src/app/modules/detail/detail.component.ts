@@ -1,12 +1,15 @@
 import { CommonModule } from "@angular/common";
 import { Component, OnInit } from "@angular/core";
+import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
 import { ActivatedRoute, Params, Router, RouterModule } from "@angular/router";
-import { EntryResult } from "src/app/interfaces/interfaces";
+import { EntryInterface, EntryResult } from "src/app/interfaces/interfaces";
 import { Entry } from "src/app/model/entry.model";
 import { MaterialModule } from "src/app/modules/material/material.module";
 import { EntryTagListComponent } from "src/app/modules/shared/components/entry-tag-list/entry-tag-list.component";
+import { ImgCryptComponent } from "src/app/modules/shared/components/img-crypt/img-crypt.component";
 import { ApiService } from "src/app/services/api.service";
 import { ClassMapperService } from "src/app/services/class-mapper.service";
+import { CryptoService } from "src/app/services/crypto.service";
 import { DataShareService } from "src/app/services/data-share.service";
 import { DialogService } from "src/app/services/dialog.service";
 
@@ -15,13 +18,20 @@ import { DialogService } from "src/app/services/dialog.service";
   selector: "app-detail",
   templateUrl: "./detail.component.html",
   styleUrls: ["./detail.component.scss"],
-  imports: [CommonModule, MaterialModule, RouterModule, EntryTagListComponent],
+  imports: [
+    CommonModule,
+    MaterialModule,
+    RouterModule,
+    EntryTagListComponent,
+    ImgCryptComponent,
+  ],
   providers: [DialogService],
 })
 export default class DetailComponent implements OnInit {
   loading: boolean = true;
   username: string;
   entry: Entry;
+  contenidoHTML: SafeHtml = "";
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -29,7 +39,9 @@ export default class DetailComponent implements OnInit {
     private dss: DataShareService,
     private as: ApiService,
     private cms: ClassMapperService,
-    private dialog: DialogService
+    private dialog: DialogService,
+    private crypto: CryptoService,
+    private sanitizer: DomSanitizer
   ) {
     this.entry = new Entry();
   }
@@ -43,7 +55,13 @@ export default class DetailComponent implements OnInit {
   loadEntry(id: number): void {
     this.as.getEntry(id).subscribe((response: EntryResult): void => {
       if (response.status == "ok") {
-        this.entry = this.cms.getEntry(response.entry);
+        const decryptedEntry: EntryInterface = this.crypto.decryptEntry(
+          response.entry
+        );
+        this.entry = this.cms.getEntry(decryptedEntry);
+        this.contenidoHTML = this.sanitizer.bypassSecurityTrustHtml(
+          this.entry.composed
+        );
         this.dss.setGlobal("where", "entry");
         this.dss.setGlobal("entryId", this.entry.id);
         this.dss.setGlobal("entrySlug", this.entry.slug);

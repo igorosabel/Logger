@@ -16,11 +16,7 @@ export class UserService {
       this.logout();
     } else {
       this.logged = true;
-      this.user = new User().fromInterface({
-        id: loginObj.user.id,
-        username: loginObj.user.username,
-        token: loginObj.user.token,
-      });
+      this.user = new User().fromInterface(loginObj.user);
     }
   }
 

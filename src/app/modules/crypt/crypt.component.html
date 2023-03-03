@@ -1,0 +1,63 @@
+<mat-toolbar color="primary">
+    <mat-toolbar-row>
+        <button [routerLink]="['/',username]"
+                mat-icon-button>
+            <mat-icon>arrow_back</mat-icon>
+        </button>
+        <span>Crypt</span>
+    </mat-toolbar-row>
+</mat-toolbar>
+
+<main>
+    <mat-card class="card">
+        <mat-card-content>
+            <div class="header">
+                <span>Encriptar texto</span>
+            </div>
+            <mat-form-field>
+                <mat-label>Texto a encriptar</mat-label>
+                <textarea matInput
+                          [(ngModel)]="encrypt"
+                          (ngModelChange)="encryptText()"></textarea>
+            </mat-form-field>
+            <div class="header">
+                <span>Resultado</span>
+                <button mat-icon-button
+                        (click)="copyEncrypted()">
+                    <mat-icon>content_copy</mat-icon>
+                </button>
+            </div>
+            <mat-form-field>
+                <mat-label>Texto encriptado</mat-label>
+                <textarea matInput
+                          [(ngModel)]="encryptedResult"></textarea>
+            </mat-form-field>
+        </mat-card-content>
+    </mat-card>
+
+    <mat-card class="card">
+        <mat-card-content>
+            <div class="header">
+                <span>Desencriptar texto</span>
+            </div>
+            <mat-form-field>
+                <mat-label>Texto a desencriptar</mat-label>
+                <textarea matInput
+                          [(ngModel)]="decrypt"
+                          (ngModelChange)="decryptText()"></textarea>
+            </mat-form-field>
+            <div class="header">
+                <span>Resultado</span>
+                <button mat-icon-button
+                        (click)="copyDecrypted()">
+                    <mat-icon>content_copy</mat-icon>
+                </button>
+            </div>
+            <mat-form-field>
+                <mat-label>Texto desencriptado</mat-label>
+                <textarea matInput
+                          [(ngModel)]="decryptedResult"></textarea>
+            </mat-form-field>
+        </mat-card-content>
+    </mat-card>
+</main>

@@ -26,6 +26,7 @@ export interface UserInterface {
   id: number;
   username: string;
   token: string;
+  secret?: string;
 }
 
 export interface LoginResult {

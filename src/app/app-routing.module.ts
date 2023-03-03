@@ -44,6 +44,11 @@ const routes: Routes = [
     loadComponent: () => import("src/app/modules/tag-list/tag-list.component"),
     canActivate: [AuthGuard],
   },
+  {
+    path: ":username/crypt",
+    loadComponent: () => import("src/app/modules/crypt/crypt.component"),
+    canActivate: [AuthGuard],
+  },
   { path: "**", redirectTo: "/", pathMatch: "full" },
 ];
 

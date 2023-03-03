@@ -7,7 +7,9 @@ import { MaterialModule } from "src/app/modules/material/material.module";
 import { EditorComponent } from "src/app/modules/shared/components/editor/editor.component";
 import { ApiService } from "src/app/services/api.service";
 import { ClassMapperService } from "src/app/services/class-mapper.service";
+import { CryptoService } from "src/app/services/crypto.service";
 import { DialogService } from "src/app/services/dialog.service";
+import { EntryInterface } from "./../../interfaces/interfaces";
 
 @Component({
   standalone: true,
@@ -29,6 +31,7 @@ export default class EditComponent implements OnInit {
     private as: ApiService,
     private cms: ClassMapperService,
     private dialog: DialogService,
+    private crypto: CryptoService,
     private router: Router
   ) {
     this.entry = new Entry(null, "Nueva entrada");
@@ -80,31 +83,37 @@ export default class EditComponent implements OnInit {
       return false;
     }
 
+    const encryptedEntry: EntryInterface = this.crypto.encryptEntry(
+      this.entry.toInterface()
+    );
     this.loading = true;
 
-    this.as.saveEntry(this.entry).subscribe((result: StatusResult): void => {
-      if (result.status == "ok") {
-        this.loading = false;
-        this.dialog
-          .alert({
-            title: "OK",
-            content: 'La entrada "' + this.entry.title + '" ha sido guardada.',
-            ok: "Continuar",
-          })
-          .subscribe((result: boolean): void => {
-            this.router.navigate(["/" + this.username]);
-          });
-      } else {
-        this.dialog
-          .alert({
-            title: "Error",
-            content:
-              "Ocurrió un error al guardar la entrada. Inténtalo de nuevo más tarde por favor.",
-            ok: "Continuar",
-          })
-          .subscribe((result: boolean): void => {});
-      }
-    });
+    this.as
+      .saveEntry(encryptedEntry)
+      .subscribe((result: StatusResult): void => {
+        if (result.status == "ok") {
+          this.loading = false;
+          this.dialog
+            .alert({
+              title: "OK",
+              content:
+                'La entrada "' + this.entry.title + '" ha sido guardada.',
+              ok: "Continuar",
+            })
+            .subscribe((result: boolean): void => {
+              this.router.navigate(["/" + this.username]);
+            });
+        } else {
+          this.dialog
+            .alert({
+              title: "Error",
+              content:
+                "Ocurrió un error al guardar la entrada. Inténtalo de nuevo más tarde por favor.",
+              ok: "Continuar",
+            })
+            .subscribe((result: boolean): void => {});
+        }
+      });
   }
 
   deleteEntry(): void {

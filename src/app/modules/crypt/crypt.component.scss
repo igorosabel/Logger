@@ -1,0 +1,22 @@
+.card {
+    margin: 16px;
+
+    .header {
+        display: flex;
+        margin-bottom: 16px;
+        align-items: center;
+
+        span {
+            font-size: 20px;
+            flex: 1;
+        }
+    }
+
+    mat-form-field {
+        width: 100%;
+
+        textarea {
+            height: 150px;
+        }
+    }
+}

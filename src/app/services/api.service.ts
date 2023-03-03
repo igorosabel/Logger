@@ -1,11 +1,11 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import { Entry } from "src/app/model/entry.model";
 import { environment } from "src/environments/environment";
 
 import {
   EntriesResult,
+  EntryInterface,
   EntryResult,
   LoginData,
   LoginResult,
@@ -49,7 +49,7 @@ export class ApiService {
     return this.http.post<TagsResult>(this.apiUrl + "getTags", {});
   }
 
-  saveEntry(entry: Entry): Observable<StatusResult> {
+  saveEntry(entry: EntryInterface): Observable<StatusResult> {
     return this.http.post<StatusResult>(this.apiUrl + "saveEntry", entry);
   }
 

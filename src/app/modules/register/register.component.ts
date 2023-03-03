@@ -6,6 +6,7 @@ import { LoginResult, RegisterData } from "src/app/interfaces/interfaces";
 import { MaterialModule } from "src/app/modules/material/material.module";
 import { ApiService } from "src/app/services/api.service";
 import { ClassMapperService } from "src/app/services/class-mapper.service";
+import { CryptoService } from "src/app/services/crypto.service";
 import { UserService } from "src/app/services/user.service";
 
 @Component({
@@ -28,7 +29,8 @@ export default class RegisterComponent {
     private as: ApiService,
     private us: UserService,
     private cms: ClassMapperService,
-    private router: Router
+    private router: Router,
+    private crypto: CryptoService
   ) {}
 
   doRegister(ev: MouseEvent): void {
@@ -58,6 +60,9 @@ export default class RegisterComponent {
           this.us.logged = true;
           this.us.logged = true;
           this.us.user = this.cms.getUser(result.user);
+          this.us.user.secret = this.crypto.hash(
+            this.us.user.id + "-" + this.registerData.pass
+          );
           this.us.saveLogin();
 
           this.router.navigate(["/" + this.us.user.username]);

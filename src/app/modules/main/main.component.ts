@@ -7,8 +7,10 @@ import { MaterialModule } from "src/app/modules/material/material.module";
 import { OneEntryComponent } from "src/app/modules/shared/components/one-entry/one-entry.component";
 import { ApiService } from "src/app/services/api.service";
 import { ClassMapperService } from "src/app/services/class-mapper.service";
+import { CryptoService } from "src/app/services/crypto.service";
 import { DataShareService } from "src/app/services/data-share.service";
 import { UserService } from "src/app/services/user.service";
+import { EntryInterface } from "./../../interfaces/interfaces";
 
 @Component({
   standalone: true,
@@ -29,7 +31,8 @@ export default class MainComponent implements OnInit {
     private dss: DataShareService,
     private user: UserService,
     private as: ApiService,
-    private cms: ClassMapperService
+    private cms: ClassMapperService,
+    private crypto: CryptoService
   ) {}
 
   ngOnInit(): void {
@@ -43,7 +46,10 @@ export default class MainComponent implements OnInit {
   loadEntries(): void {
     this.as.getEntries().subscribe((response: EntriesResult): void => {
       if (response.status == "ok") {
-        this.entryList = this.cms.getEntries(response.list);
+        const list: EntryInterface[] = this.crypto.decryptEntries(
+          response.list
+        );
+        this.entryList = this.cms.getEntries(list);
         this.loading = false;
       }
     });

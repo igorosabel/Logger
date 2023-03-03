@@ -7,6 +7,7 @@ import { MaterialModule } from "src/app/modules/material/material.module";
 import { ApiService } from "src/app/services/api.service";
 import { AuthService } from "src/app/services/auth.service";
 import { ClassMapperService } from "src/app/services/class-mapper.service";
+import { CryptoService } from "src/app/services/crypto.service";
 import { UserService } from "src/app/services/user.service";
 
 @Component({
@@ -28,7 +29,8 @@ export class LoginComponent implements OnInit {
     private us: UserService,
     private cms: ClassMapperService,
     private router: Router,
-    private auth: AuthService
+    private auth: AuthService,
+    private crypto: CryptoService
   ) {}
 
   ngOnInit(): void {
@@ -50,6 +52,9 @@ export class LoginComponent implements OnInit {
       if (result.status === "ok") {
         this.us.logged = true;
         this.us.user = this.cms.getUser(result.user);
+        this.us.user.secret = this.crypto.hash(
+          this.us.user.id + "-" + this.loginData.pass
+        );
         this.us.saveLogin();
 
         this.router.navigate(["/" + this.us.user.username]);
