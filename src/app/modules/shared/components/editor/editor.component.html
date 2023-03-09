@@ -1,30 +1,52 @@
 <mat-form-field class="new-title">
 	<mat-label>Título</mat-label>
-	<input matInput [(ngModel)]="entry.title" required name="title" #title>
+	<input matInput
+		   [(ngModel)]="entry.title"
+		   required
+		   name="title"
+		   #title>
 </mat-form-field>
 
 <div class="tools">
-	<button mat-icon-button (click)="applyFormat('b')"><mat-icon>format_bold</mat-icon></button>
-	<button mat-icon-button (click)="applyFormat('i')"><mat-icon>format_italic</mat-icon></button>
-	<button mat-icon-button (click)="applyFormat('u')"><mat-icon>format_underlined</mat-icon></button>
-	<button mat-icon-button (click)="applyFormat('l')"><mat-icon>format_align_left</mat-icon></button>
-	<button mat-icon-button (click)="applyFormat('c')"><mat-icon>format_align_center</mat-icon></button>
-	<button mat-icon-button (click)="applyFormat('r')"><mat-icon>format_align_right</mat-icon></button>
-	<button *ngIf="canPhotos" mat-icon-button (click)="openPhotos()"><mat-icon>insert_photo</mat-icon></button>
+	<button mat-icon-button
+			(click)="applyFormat('b')"><mat-icon>format_bold</mat-icon></button>
+	<button mat-icon-button
+			(click)="applyFormat('i')"><mat-icon>format_italic</mat-icon></button>
+	<button mat-icon-button
+			(click)="applyFormat('u')"><mat-icon>format_underlined</mat-icon></button>
+	<button mat-icon-button
+			(click)="applyFormat('l')"><mat-icon>format_align_left</mat-icon></button>
+	<button mat-icon-button
+			(click)="applyFormat('c')"><mat-icon>format_align_center</mat-icon></button>
+	<button mat-icon-button
+			(click)="applyFormat('r')"><mat-icon>format_align_right</mat-icon></button>
+	<button *ngIf="canPhotos"
+			mat-icon-button
+			(click)="openPhotos()"><mat-icon>insert_photo</mat-icon></button>
 	<button mat-icon-button><mat-icon>beenhere</mat-icon></button>
 </div>
-<textarea class="big-text" [(ngModel)]="entry.body" placeholder="Escribe aquí el texto de la entrada" #entryText></textarea>
+<textarea class="big-text"
+		  [(ngModel)]="entry.body"
+		  placeholder="Escribe aquí el texto de la entrada"
+		  #entryText></textarea>
 
 <mat-form-field class="new-title">
 	<mat-label>Tags</mat-label>
-	<input matInput [(ngModel)]="tags" name="tags">
+	<input matInput
+		   [(ngModel)]="tags"
+		   name="tags">
 </mat-form-field>
 
-<div class="tag-suggestions" *ngIf="tagList.length>0">
-	<button mat-flat-button color="primary" *ngFor="let tag of tagList" (click)="addTag(tag)">{{tag.name}}</button>
+<div class="tag-suggestions"
+	 *ngIf="tagList.length>0">
+	<button mat-flat-button
+			color="primary"
+			*ngFor="let tag of tagList"
+			(click)="addTag(tag)">{{tag.name}}</button>
 </div>
 
-<div class="photos" [ngClass]="{'photos-show': showPhotos}">
+<div class="photos"
+	 [ngClass]="{'photos-show': showPhotos}">
 	<mat-card>
 		<mat-card-header>
 			<mat-card-title>
@@ -33,21 +55,38 @@
 		</mat-card-header>
 		<mat-card-content>
 			<div class="photos-list">
-				<div *ngFor="let photo of photoList" class="photo-item" [ngClass]="{'photo-selected':photo.id==selectedPhoto}" (click)="selectPhoto(photo)">
-					<img [src]="photo.url">
-					<div class="photo-delete" *ngIf="photo.id==selectedPhoto && uploadProgress==null" (click)="deletePhoto()">Borrar</div>
+				<div *ngFor="let photo of photoList"
+					 class="photo-item"
+					 [ngClass]="{'photo-selected':photo.id==selectedPhoto}"
+					 (click)="selectPhoto(photo)">
+					<app-img-crypt [photo]="photo"></app-img-crypt>
+					<div class="photo-delete"
+						 *ngIf="photo.id==selectedPhoto && uploadProgress==null"
+						 (click)="deletePhoto()">Borrar</div>
 				</div>
-				<div class="photo-add" (click)="addPhoto()">
+				<div class="photo-add"
+					 (click)="addPhoto()">
 					<mat-icon>add</mat-icon>
 					<span>Añadir nueva</span>
-					<div *ngIf="uploadProgress!=null" class="upload-progress" [ngStyle]="{'width': uploadProgress+'%'}"></div>
+					<div *ngIf="uploadProgress!=null"
+						 class="upload-progress"
+						 [ngStyle]="{'width': uploadProgress+'%'}"></div>
 				</div>
 			</div>
 		</mat-card-content>
 		<mat-card-actions class="center-card-buttons">
-			<button mat-button (click)="closePhotos()" [disabled]="uploadProgress!=null">Cancelar</button>
-			<button mat-raised-button color="primary" [disabled]="!selectedPhoto" (click)="insertPhoto()" [disabled]="uploadProgress!=null">Añadir</button>
+			<button mat-button
+					(click)="closePhotos()"
+					[disabled]="uploadProgress!=null">Cancelar</button>
+			<button mat-raised-button
+					color="primary"
+					[disabled]="!selectedPhoto"
+					(click)="insertPhoto()"
+					[disabled]="uploadProgress!=null">Añadir</button>
 		</mat-card-actions>
 	</mat-card>
-	<input type="file" id="photo-upload" (change)="photoContinue($event)" #photoUpload>
+	<input type="file"
+		   id="photo-upload"
+		   (change)="photoContinue($event)"
+		   #photoUpload>
 </div>

@@ -1,7 +1,7 @@
 import { CommonModule } from "@angular/common";
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Params, Router, RouterModule } from "@angular/router";
-import { EntriesResult } from "src/app/interfaces/interfaces";
+import { EntriesResult, EntryInterface } from "src/app/interfaces/interfaces";
 import { Entry } from "src/app/model/entry.model";
 import { MaterialModule } from "src/app/modules/material/material.module";
 import { OneEntryComponent } from "src/app/modules/shared/components/one-entry/one-entry.component";
@@ -10,7 +10,6 @@ import { ClassMapperService } from "src/app/services/class-mapper.service";
 import { CryptoService } from "src/app/services/crypto.service";
 import { DataShareService } from "src/app/services/data-share.service";
 import { UserService } from "src/app/services/user.service";
-import { EntryInterface } from "./../../interfaces/interfaces";
 
 @Component({
   standalone: true,

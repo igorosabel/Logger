@@ -20,6 +20,6 @@ export class EntryTagListComponent {
   goToTag(tag: Tag, ev: MouseEvent): void {
     ev.stopPropagation();
     ev.preventDefault();
-    this.router.navigate(["/", this.username, "tag", tag.id, tag.slug]);
+    this.router.navigate(["/tag", tag.id]);
   }
 }

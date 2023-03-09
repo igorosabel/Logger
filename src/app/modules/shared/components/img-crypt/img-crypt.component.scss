@@ -1,0 +1,19 @@
+.image {
+    margin-bottom: 10px;
+    margin-right: 10px;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    width: 136px;
+    height: 136px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    user-select: none;
+
+    img {
+        width: 100%;
+        max-height: 100%;
+    }
+}

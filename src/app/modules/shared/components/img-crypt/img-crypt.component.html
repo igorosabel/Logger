@@ -1,1 +1,5 @@
-<p>img-crypt works!</p>
+<div *ngIf="status === 'error'">ERROR</div>
+<div *ngIf="status === 'ok'"
+     class="image">
+    <img [src]="data">
+</div>

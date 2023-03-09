@@ -1,5 +1,5 @@
 import { CommonModule } from "@angular/common";
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewContainerRef } from "@angular/core";
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
 import { ActivatedRoute, Params, Router, RouterModule } from "@angular/router";
 import { EntryInterface, EntryResult } from "src/app/interfaces/interfaces";
@@ -41,7 +41,8 @@ export default class DetailComponent implements OnInit {
     private cms: ClassMapperService,
     private dialog: DialogService,
     private crypto: CryptoService,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private viewContainerRef: ViewContainerRef
   ) {
     this.entry = new Entry();
   }
@@ -50,6 +51,9 @@ export default class DetailComponent implements OnInit {
       this.username = params.username;
       this.loadEntry(params.id);
     });
+
+    /*const component: ComponentRef<ImgCryptComponent> =
+      this.viewContainerRef.createComponent(ImgCryptComponent);*/
   }
 
   loadEntry(id: number): void {
@@ -59,12 +63,18 @@ export default class DetailComponent implements OnInit {
           response.entry
         );
         this.entry = this.cms.getEntry(decryptedEntry);
-        this.contenidoHTML = this.sanitizer.bypassSecurityTrustHtml(
-          this.entry.composed
-        );
+        const html: string = this.entry.composed;
+        this.contenidoHTML = this.sanitizer.bypassSecurityTrustHtml(html);
+        const regex = /\[img\](.*?)\[\/img\]/g;
+        const resultados: IterableIterator<RegExpMatchArray> =
+          html.matchAll(regex);
+        for (const resultado of resultados) {
+          console.log(resultado[0]); // La cadena completa que coincide con la expresión regular
+          console.log(resultado[1]); // El contenido entre las etiquetas [img] y [/img]
+        }
+
         this.dss.setGlobal("where", "entry");
         this.dss.setGlobal("entryId", this.entry.id);
-        this.dss.setGlobal("entrySlug", this.entry.slug);
         this.loading = false;
       } else {
         this.dialog
@@ -74,7 +84,7 @@ export default class DetailComponent implements OnInit {
             ok: "Continuar",
           })
           .subscribe((result: boolean): void => {
-            this.router.navigate(["/", this.username]);
+            this.router.navigate(["/home"]);
           });
       }
     });

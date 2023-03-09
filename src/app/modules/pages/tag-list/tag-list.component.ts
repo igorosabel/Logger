@@ -59,19 +59,18 @@ export default class TagListComponent implements OnInit {
     switch (whereTo) {
       case "home":
         {
-          this.router.navigate(["/", this.username]);
+          this.router.navigate(["/home"]);
         }
         break;
       case "entry":
         {
           const entryId: number = this.dss.getGlobal("entryId");
-          const entrySlug: string = this.dss.getGlobal("entrySlug");
-          this.router.navigate(["/", this.username, entryId, entrySlug]);
+          this.router.navigate(["/entry", entryId]);
         }
         break;
       case "tags":
         {
-          this.router.navigate(["/", this.username, "tags"]);
+          this.router.navigate(["/tags"]);
         }
         break;
     }

@@ -1,7 +1,11 @@
 import { CommonModule } from "@angular/common";
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { ActivatedRoute, Params, Router, RouterModule } from "@angular/router";
-import { EntryResult, StatusResult } from "src/app/interfaces/interfaces";
+import {
+  EntryInterface,
+  EntryResult,
+  StatusResult,
+} from "src/app/interfaces/interfaces";
 import { Entry } from "src/app/model/entry.model";
 import { MaterialModule } from "src/app/modules/material/material.module";
 import { EditorComponent } from "src/app/modules/shared/components/editor/editor.component";
@@ -9,7 +13,6 @@ import { ApiService } from "src/app/services/api.service";
 import { ClassMapperService } from "src/app/services/class-mapper.service";
 import { CryptoService } from "src/app/services/crypto.service";
 import { DialogService } from "src/app/services/dialog.service";
-import { EntryInterface } from "./../../interfaces/interfaces";
 
 @Component({
   standalone: true,
@@ -48,7 +51,9 @@ export default class EditComponent implements OnInit {
   loadEntry(): void {
     this.as.getEntry(this.idEntry).subscribe((response: EntryResult): void => {
       if (response.status == "ok") {
-        this.entry = this.cms.getEntry(response.entry);
+        this.entry = this.cms.getEntry(
+          this.crypto.decryptEntry(response.entry)
+        );
         this.editor.loadEntry(this.entry);
       } else {
         this.dialog
@@ -69,7 +74,7 @@ export default class EditComponent implements OnInit {
 
   saveEntry(): boolean {
     this.entry = this.editor.getEntry();
-
+    console.log(this.entry);
     if (this.entry.title == "") {
       this.dialog
         .alert({
@@ -101,7 +106,7 @@ export default class EditComponent implements OnInit {
               ok: "Continuar",
             })
             .subscribe((result: boolean): void => {
-              this.router.navigate(["/" + this.username]);
+              this.router.navigate(["/home"]);
             });
         } else {
           this.dialog
@@ -140,7 +145,7 @@ export default class EditComponent implements OnInit {
                     ok: "Continuar",
                   })
                   .subscribe((result: boolean): void => {
-                    this.router.navigate(["/", this.username]);
+                    this.router.navigate(["/home"]);
                   });
               } else {
                 this.dialog

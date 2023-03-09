@@ -35,7 +35,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.auth.isAuthenticated()) {
-      this.router.navigate(["/" + this.us.user.username]);
+      this.router.navigate(["/home"]);
     }
   }
 
@@ -57,7 +57,7 @@ export class LoginComponent implements OnInit {
         );
         this.us.saveLogin();
 
-        this.router.navigate(["/" + this.us.user.username]);
+        this.router.navigate(["/home"]);
       } else {
         this.loginError = true;
       }

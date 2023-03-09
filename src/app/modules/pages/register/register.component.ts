@@ -65,7 +65,7 @@ export default class RegisterComponent {
           );
           this.us.saveLogin();
 
-          this.router.navigate(["/" + this.us.user.username]);
+          this.router.navigate(["/home"]);
         } else {
           this.registerUsernameError = true;
         }

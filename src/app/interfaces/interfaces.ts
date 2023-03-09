@@ -43,7 +43,6 @@ export interface RegisterData {
 export interface TagInterface {
   id: number;
   name: string;
-  slug: string;
   createdAt: string;
   updatedAt: string;
 }
@@ -51,7 +50,6 @@ export interface TagInterface {
 export interface EntryInterface {
   id: number;
   title: string;
-  slug: string;
   body: string;
   isPublic: boolean;
   createdAt: string;
@@ -94,4 +92,9 @@ export interface PhotosResult {
 export interface PhotoUploadResult {
   status: string;
   photo: PhotoInterface;
+}
+
+export interface PhotoDataResult {
+  status: string;
+  photo: string;
 }

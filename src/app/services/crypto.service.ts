@@ -27,12 +27,10 @@ export class CryptoService {
   decryptEntry(item: EntryInterface): EntryInterface {
     if (!item.isPublic) {
       item.title = this.decrypt(Utils.urldecode(item.title));
-      item.slug = this.decrypt(item.slug);
       item.body = this.decrypt(Utils.urldecode(item.body));
       const tagList: TagInterface[] = [];
       for (let tag of item.tags) {
         tag.name = this.decrypt(Utils.urldecode(tag.name));
-        tag.slug = this.decrypt(tag.slug);
         tagList.push(tag);
       }
       item.tags = tagList;
@@ -48,13 +46,11 @@ export class CryptoService {
 
   encryptEntry(item: EntryInterface): EntryInterface {
     if (!item.isPublic) {
-      item.title = this.encrypt(Utils.urlencode(item.title));
-      item.slug = this.encrypt(item.slug);
-      item.body = this.encrypt(Utils.urlencode(item.body));
+      item.title = this.encrypt(item.title);
+      item.body = this.encrypt(item.body);
       const tagList: TagInterface[] = [];
       for (let tag of item.tags) {
-        tag.name = this.encrypt(Utils.urlencode(tag.name));
-        tag.slug = this.encrypt(tag.slug);
+        tag.name = this.encrypt(tag.name);
         tagList.push(tag);
       }
       item.tags = tagList;

@@ -7,7 +7,6 @@ export class Entry {
   constructor(
     public id: number = null,
     public title: string = null,
-    public slug: string = null,
     public body: string = null,
     public isPublic: boolean = false,
     public createdAt: string = null,
@@ -71,10 +70,10 @@ export class Entry {
       '<div class="align-right">$1</div>'
     );
 
-    str = str.replace(
+    /*str = str.replace(
       new RegExp("\\[img\\](.+?)\\[/img\\]", "g"),
       '<img class="entry-photo" src="https://apilogger.osumi.es/api/getEntryPhoto/$1">'
-    );
+    );*/
 
     return str;
   }
@@ -102,7 +101,6 @@ export class Entry {
   fromInterface(e: EntryInterface): Entry {
     this.id = e.id;
     this.title = Utils.urldecode(e.title);
-    this.slug = e.slug;
     this.body = Utils.urldecode(e.body);
     this.isPublic = e.isPublic;
     this.createdAt = e.createdAt;
@@ -118,7 +116,6 @@ export class Entry {
     return {
       id: this.id,
       title: Utils.urlencode(this.title),
-      slug: this.slug,
       body: Utils.urlencode(this.body),
       isPublic: this.isPublic,
       createdAt: this.createdAt,

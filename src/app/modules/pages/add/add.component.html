@@ -1,11 +1,11 @@
 <mat-toolbar color="primary">
 	<mat-toolbar-row>
-		<button [routerLink]="['/',username, entry.id, entry.slug]"
+		<button routerLink="/home"
 				mat-icon-button>
 			<mat-icon>arrow_back</mat-icon>
 		</button>
-		<span *ngIf="entry.title!=''">Editar: {{entry.title}}</span>
-		<span *ngIf="entry.title==''">Editar: Sin título</span>
+		<span *ngIf="entry.title!=''">{{entry.title}}</span>
+		<span *ngIf="entry.title==''">Sin título</span>
 		<span class="flex-space"></span>
 		<button mat-icon-button
 				aria-label="Guardar entrada"
@@ -18,13 +18,6 @@
 <main>
 	<app-editor (onLoading)="editorLoaded($event)"
 				#editor></app-editor>
-
-	<div class="entry-delete">
-		<span><strong>Borrar entrada</strong> Si quieres borrar esta entrada pulsa el botón "Borrar entrada". ¡Cuidado! Esta acción es irreversible.</span>
-		<button mat-raised-button
-				color="warn"
-				(click)="deleteEntry()">Borrar entrada</button>
-	</div>
 </main>
 
 <div class="loading"

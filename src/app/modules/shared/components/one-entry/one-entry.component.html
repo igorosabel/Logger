@@ -1,5 +1,5 @@
 <a mat-list-item
-   [routerLink]="['/', username, entry.id, entry.slug]">
+   [routerLink]="['/entry', entry.id]">
 	<div matListItemTitle> {{entry.title}} </div>
 	<div matListItemLine>
 		{{entry.clean | shorttext}}

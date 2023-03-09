@@ -1,6 +1,6 @@
 <mat-toolbar color="primary">
 	<mat-toolbar-row>
-		<button [routerLink]="['/',username]"
+		<button routerLink="/home"
 				mat-icon-button>
 			<mat-icon>arrow_back</mat-icon>
 		</button>
@@ -11,7 +11,7 @@
 <mat-nav-list>
 	<a mat-list-item
 	   *ngFor="let tag of tagList"
-	   [routerLink]="['/', username, 'tag', tag.id, tag.slug]">
+	   [routerLink]="['/tag', tag.id]">
 		<h2 mat-line> {{tag.name}} </h2>
 	</a>
 </mat-nav-list>

@@ -76,7 +76,7 @@ export default class AddComponent implements OnInit {
               ok: "Continuar",
             })
             .subscribe((result: boolean): void => {
-              this.router.navigate(["/" + this.username]);
+              this.router.navigate(["/home"]);
             });
         } else {
           this.dialog
