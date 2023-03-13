@@ -98,6 +98,20 @@ export class Entry {
     return str;
   }
 
+  get entryUrl(): string[] {
+    const ret: string[] = [];
+
+    if (!this.isPublic) {
+      ret.push("/entry");
+      ret.push(this.id.toString());
+    } else {
+      ret.push("/entry");
+      ret.push(this.id.toString());
+      ret.push("public");
+    }
+    return ret;
+  }
+
   fromInterface(e: EntryInterface): Entry {
     this.id = e.id;
     this.title = Utils.urldecode(e.title);

@@ -6,7 +6,8 @@ export class Tag {
     public id: number = null,
     public name: string = null,
     public createdAt: string = null,
-    public updatedAt: string = null
+    public updatedAt: string = null,
+    public isPublic: boolean = false
   ) {}
 
   fromInterface(t: TagInterface): Tag {
@@ -14,6 +15,7 @@ export class Tag {
     this.name = Utils.urldecode(t.name);
     this.createdAt = t.createdAt;
     this.updatedAt = t.updatedAt;
+    this.isPublic = t.isPublic;
 
     return this;
   }
@@ -24,6 +26,7 @@ export class Tag {
       name: Utils.urlencode(this.name),
       createdAt: this.createdAt,
       updatedAt: this.updatedAt,
+      isPublic: this.isPublic,
     };
   }
 }

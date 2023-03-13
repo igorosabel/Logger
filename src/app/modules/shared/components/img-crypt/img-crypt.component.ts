@@ -16,6 +16,7 @@ import { CryptoService } from "src/app/services/crypto.service";
 export class ImgCryptComponent implements OnInit {
   @Input() photo: Photo = null;
   @Input() type: string = "thumb";
+  @Input() decrypt: boolean = true;
   status: string = "loading";
   data: string = "";
 
@@ -23,7 +24,11 @@ export class ImgCryptComponent implements OnInit {
 
   ngOnInit(): void {
     this.getData(this.photo.url).subscribe((result: PhotoDataResult): void => {
-      this.data = this.crypto.decrypt(result.photo);
+      if (this.decrypt) {
+        this.data = this.crypto.decrypt(result.photo);
+      } else {
+        this.data = result.photo;
+      }
       this.status = result.status;
     });
   }

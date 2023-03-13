@@ -1,12 +1,17 @@
 <mat-toolbar color="primary">
   <mat-toolbar-row>
+    <button *ngIf="isLogged"
+            routerLink="/home"
+            mat-icon-button>
+      <mat-icon>arrow_back</mat-icon>
+    </button>
     <span>{{entry.title}}</span>
   </mat-toolbar-row>
 </mat-toolbar>
 
 <main>
   <div class="body"
-       [innerHTML]="entry.composed"></div>
+       [innerHTML]="htmlContent"></div>
 </main>
 
 <div class="loading"

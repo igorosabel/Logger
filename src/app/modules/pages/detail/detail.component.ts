@@ -38,7 +38,7 @@ export default class DetailComponent implements OnInit {
   loading: boolean = true;
   username: string;
   entry: Entry;
-  contenidoHTML: SafeHtml = "";
+  htmlContent: SafeHtml = "";
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -59,9 +59,6 @@ export default class DetailComponent implements OnInit {
       this.username = params.username;
       this.loadEntry(params.id);
     });
-
-    /*const component: ComponentRef<ImgCryptComponent> =
-      this.viewContainerRef.createComponent(ImgCryptComponent);*/
   }
 
   loadEntry(id: number): void {
@@ -72,7 +69,7 @@ export default class DetailComponent implements OnInit {
         );
         this.entry = this.cms.getEntry(decryptedEntry);
         const html: string = this.entry.composed;
-        this.contenidoHTML = this.sanitizer.bypassSecurityTrustHtml(html);
+        this.htmlContent = this.sanitizer.bypassSecurityTrustHtml(html);
 
         this.dss.setGlobal("where", "entry");
         this.dss.setGlobal("entryId", this.entry.id);

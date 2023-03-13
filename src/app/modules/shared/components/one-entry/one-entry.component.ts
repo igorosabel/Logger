@@ -12,6 +12,5 @@ import { ShortTextPipe } from "src/app/modules/shared/pipes/shorttext.pipe";
   imports: [RouterModule, MaterialModule, EntryTagListComponent, ShortTextPipe],
 })
 export class OneEntryComponent {
-  @Input() username: string;
   @Input() entry: Entry;
 }

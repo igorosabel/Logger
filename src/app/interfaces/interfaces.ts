@@ -45,6 +45,7 @@ export interface TagInterface {
   name: string;
   createdAt: string;
   updatedAt: string;
+  isPublic: boolean;
 }
 
 export interface EntryInterface {

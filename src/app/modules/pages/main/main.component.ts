@@ -37,7 +37,6 @@ export default class MainComponent implements OnInit {
   ngOnInit(): void {
     this.dss.setGlobal("where", "home");
     this.activatedRoute.params.subscribe((params: Params): void => {
-      this.username = params.username;
       this.loadEntries();
     });
   }

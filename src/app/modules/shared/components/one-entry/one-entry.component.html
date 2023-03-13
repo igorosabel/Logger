@@ -1,5 +1,5 @@
 <a mat-list-item
-   [routerLink]="['/entry', entry.id]">
+   [routerLink]="entry.entryUrl">
 	<div matListItemTitle> {{entry.title}} </div>
 	<div matListItemLine>
 		{{entry.clean | shorttext}}
@@ -9,7 +9,6 @@
 		{{entry.createdAt}}
 	</div>
 	<div matListItemLine>
-		<app-entry-tag-list [tags]="entry.tags"
-							[username]="username"></app-entry-tag-list>
+		<app-entry-tag-list [tags]="entry.tags"></app-entry-tag-list>
 	</div>
 </a>

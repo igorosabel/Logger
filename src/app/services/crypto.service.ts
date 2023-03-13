@@ -24,16 +24,26 @@ export class CryptoService {
     return CryptoJS.SHA1(str).toString();
   }
 
+  decryptTag(tag: TagInterface): TagInterface {
+    if (!tag.isPublic) {
+      tag.name = this.decrypt(Utils.urldecode(tag.name));
+    }
+    return tag;
+  }
+
+  decryptTags(tags: TagInterface[]): TagInterface[] {
+    const tagList: TagInterface[] = [];
+    for (let tag of tags) {
+      tagList.push(this.decryptTag(tag));
+    }
+    return tagList;
+  }
+
   decryptEntry(item: EntryInterface): EntryInterface {
     if (!item.isPublic) {
       item.title = this.decrypt(Utils.urldecode(item.title));
       item.body = this.decrypt(Utils.urldecode(item.body));
-      const tagList: TagInterface[] = [];
-      for (let tag of item.tags) {
-        tag.name = this.decrypt(Utils.urldecode(tag.name));
-        tagList.push(tag);
-      }
-      item.tags = tagList;
+      item.tags = this.decryptTags(item.tags);
     }
     return item;
   }
@@ -44,16 +54,20 @@ export class CryptoService {
     });
   }
 
+  encryptTags(tags: TagInterface[]): TagInterface[] {
+    const tagList: TagInterface[] = [];
+    for (let tag of tags) {
+      tag.name = this.encrypt(tag.name);
+      tagList.push(tag);
+    }
+    return tagList;
+  }
+
   encryptEntry(item: EntryInterface): EntryInterface {
     if (!item.isPublic) {
       item.title = this.encrypt(item.title);
       item.body = this.encrypt(item.body);
-      const tagList: TagInterface[] = [];
-      for (let tag of item.tags) {
-        tag.name = this.encrypt(tag.name);
-        tagList.push(tag);
-      }
-      item.tags = tagList;
+      item.tags = this.encryptTags(item.tags);
     }
     return item;
   }
