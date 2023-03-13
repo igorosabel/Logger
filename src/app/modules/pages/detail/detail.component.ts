@@ -1,9 +1,16 @@
 import { CommonModule } from "@angular/common";
-import { Component, OnInit, ViewContainerRef } from "@angular/core";
+import {
+  Component,
+  ComponentRef,
+  ElementRef,
+  OnInit,
+  ViewContainerRef,
+} from "@angular/core";
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
 import { ActivatedRoute, Params, Router, RouterModule } from "@angular/router";
 import { EntryInterface, EntryResult } from "src/app/interfaces/interfaces";
 import { Entry } from "src/app/model/entry.model";
+import { Photo } from "src/app/model/photo.model";
 import { MaterialModule } from "src/app/modules/material/material.module";
 import { EntryTagListComponent } from "src/app/modules/shared/components/entry-tag-list/entry-tag-list.component";
 import { ImgCryptComponent } from "src/app/modules/shared/components/img-crypt/img-crypt.component";
@@ -42,6 +49,7 @@ export default class DetailComponent implements OnInit {
     private dialog: DialogService,
     private crypto: CryptoService,
     private sanitizer: DomSanitizer,
+    private elementRef: ElementRef,
     private viewContainerRef: ViewContainerRef
   ) {
     this.entry = new Entry();
@@ -65,16 +73,12 @@ export default class DetailComponent implements OnInit {
         this.entry = this.cms.getEntry(decryptedEntry);
         const html: string = this.entry.composed;
         this.contenidoHTML = this.sanitizer.bypassSecurityTrustHtml(html);
-        const regex = /\[img\](.*?)\[\/img\]/g;
-        const resultados: IterableIterator<RegExpMatchArray> =
-          html.matchAll(regex);
-        for (const resultado of resultados) {
-          console.log(resultado[0]); // La cadena completa que coincide con la expresión regular
-          console.log(resultado[1]); // El contenido entre las etiquetas [img] y [/img]
-        }
 
         this.dss.setGlobal("where", "entry");
         this.dss.setGlobal("entryId", this.entry.id);
+        setTimeout((): void => {
+          this.loadPhotos();
+        }, 0);
         this.loading = false;
       } else {
         this.dialog
@@ -88,5 +92,24 @@ export default class DetailComponent implements OnInit {
           });
       }
     });
+  }
+
+  loadPhotos(): void {
+    const html: string = document.querySelector(".body").innerHTML;
+    const regex = /<div class="entry-photo" id="photo-(.*?)"><\/div>/g;
+    const resultados: IterableIterator<RegExpMatchArray> = html.matchAll(regex);
+    for (const resultado of resultados) {
+      const photoId: number = parseInt(resultado[1]);
+      const photo: Photo = new Photo(photoId);
+
+      const targetElement: HTMLElement =
+        this.elementRef.nativeElement.querySelector("#photo-" + photoId);
+      const component: ComponentRef<ImgCryptComponent> =
+        this.viewContainerRef.createComponent(ImgCryptComponent);
+      component.instance.photo = photo;
+      component.instance.type = "full";
+
+      targetElement.appendChild(component.location.nativeElement);
+    }
   }
 }

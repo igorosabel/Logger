@@ -1,5 +1,5 @@
 <div *ngIf="status === 'error'">ERROR</div>
 <div *ngIf="status === 'ok'"
-     class="image">
+     [ngClass]="{'image-thumb': type==='thumb'}">
     <img [src]="data">
 </div>

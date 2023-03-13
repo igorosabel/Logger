@@ -70,10 +70,10 @@ export class Entry {
       '<div class="align-right">$1</div>'
     );
 
-    /*str = str.replace(
+    str = str.replace(
       new RegExp("\\[img\\](.+?)\\[/img\\]", "g"),
-      '<img class="entry-photo" src="https://apilogger.osumi.es/api/getEntryPhoto/$1">'
-    );*/
+      '<div class="entry-photo" id="photo-$1"></div>'
+    );
 
     return str;
   }

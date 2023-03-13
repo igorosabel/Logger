@@ -15,6 +15,7 @@ import { CryptoService } from "src/app/services/crypto.service";
 })
 export class ImgCryptComponent implements OnInit {
   @Input() photo: Photo = null;
+  @Input() type: string = "thumb";
   status: string = "loading";
   data: string = "";
 

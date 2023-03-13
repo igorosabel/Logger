@@ -1,4 +1,4 @@
-.image {
+.image-thumb {
     margin-bottom: 10px;
     margin-right: 10px;
     box-sizing: border-box;
@@ -11,9 +11,9 @@
     align-items: center;
     position: relative;
     user-select: none;
+}
 
-    img {
-        width: 100%;
-        max-height: 100%;
-    }
+img {
+    width: 100%;
+    max-height: 100%;
 }
