@@ -45,6 +45,12 @@
 			(click)="addTag(tag)">{{tag.name}}</button>
 </div>
 
+<div class="entry-public">
+	<mat-slide-toggle [checked]="entry.isPublic">
+		Entrada pública
+	</mat-slide-toggle>
+</div>
+
 <div class="photos"
 	 [ngClass]="{'photos-show': showPhotos}">
 	<mat-card>

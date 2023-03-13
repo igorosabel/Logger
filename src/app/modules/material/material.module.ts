@@ -8,6 +8,7 @@ import { MatInputModule } from "@angular/material/input";
 import { MatListModule } from "@angular/material/list";
 import { MatRadioModule } from "@angular/material/radio";
 import { MatSidenavModule } from "@angular/material/sidenav";
+import { MatSlideToggleModule } from "@angular/material/slide-toggle";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { MatTooltipModule } from "@angular/material/tooltip";
@@ -27,6 +28,7 @@ import { MatTooltipModule } from "@angular/material/tooltip";
     MatSidenavModule,
     MatTooltipModule,
     MatSnackBarModule,
+    MatSlideToggleModule,
   ],
   exports: [
     MatToolbarModule,
@@ -41,6 +43,7 @@ import { MatTooltipModule } from "@angular/material/tooltip";
     MatSidenavModule,
     MatTooltipModule,
     MatSnackBarModule,
+    MatSlideToggleModule,
   ],
 })
 export class MaterialModule {}

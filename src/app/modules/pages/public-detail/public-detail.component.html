@@ -6,6 +6,13 @@
       <mat-icon>arrow_back</mat-icon>
     </button>
     <span>{{entry.title}}</span>
+    <span class="flex-space"></span>
+    <button *ngIf="isLogged"
+            mat-icon-button
+            aria-label="Editar entrada"
+            [routerLink]="['/entry', entry.id, 'edit']">
+      <mat-icon>edit</mat-icon>
+    </button>
   </mat-toolbar-row>
 </mat-toolbar>
 

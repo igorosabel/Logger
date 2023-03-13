@@ -21,7 +21,9 @@ import { MaterialModule } from "src/app/modules/material/material.module";
 import { ImgCryptComponent } from "src/app/modules/shared/components/img-crypt/img-crypt.component";
 import { ApiService } from "src/app/services/api.service";
 import { ClassMapperService } from "src/app/services/class-mapper.service";
+import { CryptoService } from "src/app/services/crypto.service";
 import { DialogService } from "src/app/services/dialog.service";
+import { TagInterface } from "./../../../../interfaces/interfaces";
 
 @Component({
   standalone: true,
@@ -32,10 +34,10 @@ import { DialogService } from "src/app/services/dialog.service";
   providers: [DialogService],
 })
 export class EditorComponent {
-  entry: Entry;
+  entry: Entry = new Entry();
   @ViewChild("title", { static: true }) titleBox: ElementRef;
   @ViewChild("entryText", { static: true }) entryText: ElementRef;
-  tagList: Tag[];
+  tagList: Tag[] = [];
   tags: string = "";
   canPhotos: boolean = false;
   photoList: Photo[];
@@ -49,11 +51,9 @@ export class EditorComponent {
   constructor(
     private as: ApiService,
     private cms: ClassMapperService,
-    private dialog: DialogService
-  ) {
-    this.entry = new Entry();
-    this.tagList = [];
-  }
+    private dialog: DialogService,
+    private crypto: CryptoService
+  ) {}
 
   loadEntry(entry: Entry): void {
     this.entry = entry;
@@ -64,7 +64,8 @@ export class EditorComponent {
   loadTags(): void {
     this.as.getTags().subscribe((response: TagsResult): void => {
       if (response.status == "ok") {
-        this.tagList = this.cms.getTags(response.list);
+        const tagList: TagInterface[] = this.crypto.decryptTags(response.list);
+        this.tagList = this.cms.getTags(tagList);
         if (this.entry.id) {
           this.canPhotos = true;
           this.loadPhotos();
