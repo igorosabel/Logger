@@ -4,6 +4,9 @@ import { ActivatedRoute, Params, Router, RouterModule } from "@angular/router";
 import { EntriesResult, EntryInterface } from "src/app/interfaces/interfaces";
 import { Entry } from "src/app/model/entry.model";
 import { MaterialModule } from "src/app/modules/material/material.module";
+import { OCalendarDate } from "src/app/modules/shared/components/ocalendar/ocalendar-date.model";
+import { OCalendarMonth } from "src/app/modules/shared/components/ocalendar/ocalendar-month.model";
+import { OcalendarComponent } from "src/app/modules/shared/components/ocalendar/ocalendar.component";
 import { OneEntryComponent } from "src/app/modules/shared/components/one-entry/one-entry.component";
 import { ApiService } from "src/app/services/api.service";
 import { ClassMapperService } from "src/app/services/class-mapper.service";
@@ -16,13 +19,20 @@ import { UserService } from "src/app/services/user.service";
   selector: "app-main",
   templateUrl: "./main.component.html",
   styleUrls: ["./main.component.scss"],
-  imports: [CommonModule, MaterialModule, RouterModule, OneEntryComponent],
+  imports: [
+    CommonModule,
+    MaterialModule,
+    RouterModule,
+    OneEntryComponent,
+    OcalendarComponent,
+  ],
 })
 export default class MainComponent implements OnInit {
   loading: boolean = true;
   username: string;
   entryList: Entry[] = [];
   menuShow: boolean = false;
+  markedDays: string[] = ["13-11", "21-11"];
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -61,5 +71,13 @@ export default class MainComponent implements OnInit {
     ev.preventDefault();
     this.user.logout();
     this.router.navigate(["/"]);
+  }
+
+  calendarChange(ev: OCalendarMonth): void {
+    console.log(ev);
+  }
+
+  calendarSelectDay(ev: OCalendarDate): void {
+    console.log(ev);
   }
 }

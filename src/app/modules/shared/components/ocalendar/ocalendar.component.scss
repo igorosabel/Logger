@@ -1,0 +1,70 @@
+.ocalendar {
+    font-family: Arial, sans-serif;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    width: 300px;
+    text-align: center;
+
+    .ocalendar-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+
+        button {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            border-radius: 5px;
+
+            &:hover {
+                background-color: #888;
+                color: #fff;
+                cursor: pointer;
+            }
+        }
+    }
+
+    .ocalendar-body {
+        display: table;
+        width: 100%;
+        border-collapse: collapse;
+
+        .ocalendar-weekdays {
+            display: table-row;
+
+            div {
+                display: table-cell;
+                width: 14.28%;
+                font-weight: bold;
+            }
+        }
+
+        .ocalendar-week {
+            display: table-row;
+
+            .ocalendar-day {
+                display: table-cell;
+                width: 14.28%;
+                border: 1px solid #ccc;
+
+                div {
+                    padding: 5px;
+
+                    &:hover {
+                        background-color: #888;
+                        color: #fff;
+                        cursor: pointer;
+                    }
+                }
+
+                .marked {
+                    background-color: #f0f0f0;
+                    font-weight: bold;
+                }
+            }
+        }
+    }
+}

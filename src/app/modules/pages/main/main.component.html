@@ -57,3 +57,7 @@
 	<img src="assets/loading.svg">
 	Cargando...
 </div>
+
+<ocalendar [markedDays]="markedDays"
+		   (calendarChanged)="calendarChange($event)"
+		   (daySelectedChanged)="calendarSelectDay($event)"></ocalendar>

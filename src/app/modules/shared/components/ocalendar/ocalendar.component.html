@@ -1,0 +1,37 @@
+<div class="ocalendar">
+    <div class="ocalendar-header">
+        <button (click)="changeMonth(-1)">«</button>
+        <select [(ngModel)]="currentMonth"
+                (change)="changeMonth()">
+            <option *ngFor="let month of months"
+                    [ngValue]="month.month">{{month.name}}</option>
+        </select>
+        <select [(ngModel)]="currentYear"
+                (change)="changeMonth()">
+            <option *ngFor="let y of years"
+                    [ngValue]="y">{{y}}</option>
+        </select>
+        <button (click)="changeMonth(1)">»</button>
+    </div>
+    <div class="ocalendar-body">
+        <div class="ocalendar-weekdays">
+            <div>Lu</div>
+            <div>Ma</div>
+            <div>Mi</div>
+            <div>Ju</div>
+            <div>Vi</div>
+            <div>Sá</div>
+            <div>Do</div>
+        </div>
+        <div class="ocalendar-week"
+             *ngFor="let week of weeks">
+            <div class="ocalendar-day"
+                 *ngFor="let day of week">
+                <ng-container *ngIf="day">
+                    <div [class.marked]="day?.isMarked"
+                         (click)="selectDay(day)">{{ day?.day }}</div>
+                </ng-container>
+            </div>
+        </div>
+    </div>
+</div>
