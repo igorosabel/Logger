@@ -21,7 +21,6 @@
     "@angular/platform-browser-dynamic": "^16.2.12",
     "@angular/router": "^16.2.12",
     "@auth0/angular-jwt": "^5.1.0",
-    "crypto-js": "^4.2.0",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.13.0"
@@ -30,8 +29,8 @@
     "@angular-devkit/build-angular": "^16.2.9",
     "@angular/cli": "^16.2.9",
     "@angular/compiler-cli": "^16.2.12",
-    "@types/crypto-js": "^4.1.1",
     "@types/jasmine": "~4.0.0",
+    "@types/node": "^20.8.10",
     "jasmine-core": "~4.1.0",
     "karma": "~6.3.16",
     "karma-chrome-launcher": "~3.1.0",

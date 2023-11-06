@@ -60,12 +60,13 @@ export default class RegisterComponent {
           this.us.logged = true;
           this.us.logged = true;
           this.us.user = this.cms.getUser(result.user);
-          this.us.user.secret = this.crypto.hash(
-            this.us.user.id + "-" + this.registerData.pass
-          );
-          this.us.saveLogin();
-
-          this.router.navigate(["/home"]);
+          this.crypto
+            .hash(this.us.user.id + "-" + this.registerData.pass)
+            .then((ret: string): void => {
+              this.us.user.secret = ret;
+              this.us.saveLogin();
+              this.router.navigate(["/home"]);
+            });
         } else {
           this.registerUsernameError = true;
         }

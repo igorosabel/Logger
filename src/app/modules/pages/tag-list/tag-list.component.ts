@@ -1,9 +1,11 @@
 import { CommonModule } from "@angular/common";
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Params, Router } from "@angular/router";
+import { firstValueFrom } from "rxjs";
 import {
   EntryInterface,
   TagEntriesResult,
+  TagInterface,
 } from "src/app/interfaces/interfaces";
 import { Entry } from "src/app/model/entry.model";
 import { Tag } from "src/app/model/tag.model";
@@ -42,19 +44,28 @@ export default class TagListComponent implements OnInit {
     });
   }
 
-  loadEntries(): void {
-    this.as
-      .getTagEntries(this.idTag)
-      .subscribe((response: TagEntriesResult): void => {
-        if (response.status == "ok") {
-          this.tag = this.cms.getTag(this.crypto.decryptTag(response.tag));
-          const list: EntryInterface[] = this.crypto.decryptEntries(
-            response.list
-          );
-          this.entryList = this.cms.getEntries(list);
-          this.loading = false;
-        }
-      });
+  async loadEntries(): Promise<void> {
+    try {
+      const response: TagEntriesResult = await firstValueFrom(
+        this.as.getTagEntries(this.idTag)
+      );
+
+      if (response.status === "ok") {
+        const encryptedTag: TagInterface = response.tag;
+        const decryptedTag: TagInterface = await this.crypto.decryptTag(
+          encryptedTag
+        );
+        this.tag = this.cms.getTag(decryptedTag);
+        const encryptedEntries: EntryInterface[] = response.list;
+        const decryptedEntries: EntryInterface[] =
+          await this.crypto.decryptEntries(encryptedEntries);
+        this.entryList = this.cms.getEntries(decryptedEntries);
+      }
+    } catch (error) {
+      console.error("Error al cargar las entradas:", error);
+    } finally {
+      this.loading = false;
+    }
   }
 
   goBack(): void {

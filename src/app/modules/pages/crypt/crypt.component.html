@@ -60,4 +60,56 @@
             </mat-form-field>
         </mat-card-content>
     </mat-card>
+
+    <mat-card class="card">
+        <mat-card-content>
+            <div class="header">
+                <span>URL Encode</span>
+            </div>
+            <mat-form-field>
+                <mat-label>Texto a cifrar con urlencode</mat-label>
+                <textarea matInput
+                          [(ngModel)]="urlencode"
+                          (ngModelChange)="urlencodeText()"></textarea>
+            </mat-form-field>
+            <div class="header">
+                <span>Resultado</span>
+                <button mat-icon-button
+                        (click)="copyUrlencoded()">
+                    <mat-icon>content_copy</mat-icon>
+                </button>
+            </div>
+            <mat-form-field>
+                <mat-label>Texto cifrado</mat-label>
+                <textarea matInput
+                          [(ngModel)]="urlencodeResult"></textarea>
+            </mat-form-field>
+        </mat-card-content>
+    </mat-card>
+
+    <mat-card class="card">
+        <mat-card-content>
+            <div class="header">
+                <span>URL Decode</span>
+            </div>
+            <mat-form-field>
+                <mat-label>Texto a descifrar con urldecode</mat-label>
+                <textarea matInput
+                          [(ngModel)]="urldecode"
+                          (ngModelChange)="urldecodeText()"></textarea>
+            </mat-form-field>
+            <div class="header">
+                <span>Resultado</span>
+                <button mat-icon-button
+                        (click)="copyUrldecoded()">
+                    <mat-icon>content_copy</mat-icon>
+                </button>
+            </div>
+            <mat-form-field>
+                <mat-label>Texto descifrado</mat-label>
+                <textarea matInput
+                          [(ngModel)]="urldecodeResult"></textarea>
+            </mat-form-field>
+        </mat-card-content>
+    </mat-card>
 </main>

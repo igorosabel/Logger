@@ -1,6 +1,7 @@
 import { CommonModule } from "@angular/common";
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Params, Router, RouterModule } from "@angular/router";
+import { firstValueFrom } from "rxjs";
 import { EntriesResult, EntryInterface } from "src/app/interfaces/interfaces";
 import { Entry } from "src/app/model/entry.model";
 import { MaterialModule } from "src/app/modules/material/material.module";
@@ -51,16 +52,23 @@ export default class MainComponent implements OnInit {
     });
   }
 
-  loadEntries(): void {
-    this.as.getEntries().subscribe((response: EntriesResult): void => {
-      if (response.status == "ok") {
-        const list: EntryInterface[] = this.crypto.decryptEntries(
-          response.list
-        );
-        this.entryList = this.cms.getEntries(list);
-        this.loading = false;
+  async loadEntries(): Promise<void> {
+    try {
+      const response: EntriesResult = await firstValueFrom(
+        this.as.getEntries()
+      );
+
+      if (response.status === "ok") {
+        const encryptedEntries: EntryInterface[] = response.list;
+        const decryptedEntries: EntryInterface[] =
+          await this.crypto.decryptEntries(encryptedEntries);
+        this.entryList = this.cms.getEntries(decryptedEntries);
       }
-    });
+    } catch (error) {
+      console.error("Error al cargar las entradas:", error);
+    } finally {
+      this.loading = false;
+    }
   }
 
   menuOpened(mode: boolean): void {

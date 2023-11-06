@@ -8,10 +8,12 @@ import {
   ViewChild,
 } from "@angular/core";
 import { FormsModule } from "@angular/forms";
+import { firstValueFrom } from "rxjs";
 import {
-  PhotosResult,
   PhotoUploadResult,
+  PhotosResult,
   StatusResult,
+  TagInterface,
   TagsResult,
 } from "src/app/interfaces/interfaces";
 import { Entry } from "src/app/model/entry.model";
@@ -23,7 +25,6 @@ import { ApiService } from "src/app/services/api.service";
 import { ClassMapperService } from "src/app/services/class-mapper.service";
 import { CryptoService } from "src/app/services/crypto.service";
 import { DialogService } from "src/app/services/dialog.service";
-import { TagInterface } from "./../../../../interfaces/interfaces";
 
 @Component({
   standalone: true,
@@ -61,11 +62,16 @@ export class EditorComponent {
     this.loadTags();
   }
 
-  loadTags(): void {
-    this.as.getTags().subscribe((response: TagsResult): void => {
-      if (response.status == "ok") {
-        const tagList: TagInterface[] = this.crypto.decryptTags(response.list);
-        this.tagList = this.cms.getTags(tagList);
+  async loadTags(): Promise<void> {
+    try {
+      const response: TagsResult = await firstValueFrom(this.as.getTags());
+
+      if (response.status === "ok") {
+        const encryptedTags: TagInterface[] = response.list;
+        const decryptedTags: TagInterface[] = await this.crypto.decryptTags(
+          encryptedTags
+        );
+        this.tagList = this.cms.getTags(decryptedTags);
         if (this.entry.id) {
           this.canPhotos = true;
           this.loadPhotos();
@@ -73,7 +79,11 @@ export class EditorComponent {
           this.onLoading.emit(false);
         }
       }
-    });
+    } catch (error) {
+      console.error("Error al cargar los tags:", error);
+    } finally {
+      this.loading = false;
+    }
   }
 
   loadPhotos(): void {

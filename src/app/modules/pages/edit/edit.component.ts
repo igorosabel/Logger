@@ -1,6 +1,7 @@
 import { CommonModule } from "@angular/common";
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { ActivatedRoute, Params, Router, RouterModule } from "@angular/router";
+import { firstValueFrom } from "rxjs";
 import {
   EntryInterface,
   EntryResult,
@@ -48,31 +49,37 @@ export default class EditComponent implements OnInit {
     });
   }
 
-  loadEntry(): void {
-    this.as.getEntry(this.idEntry).subscribe((response: EntryResult): void => {
-      if (response.status == "ok") {
-        this.entry = this.cms.getEntry(
-          this.crypto.decryptEntry(response.entry)
+  async loadEntry(): Promise<void> {
+    try {
+      const response: EntryResult = await firstValueFrom(
+        this.as.getEntry(this.idEntry)
+      );
+
+      if (response.status === "ok") {
+        const encryptedEntry: EntryInterface = response.entry;
+        const decryptedEntry: EntryInterface = await this.crypto.decryptEntry(
+          encryptedEntry
         );
+        this.entry = this.cms.getEntry(decryptedEntry);
         this.editor.loadEntry(this.entry);
-      } else {
-        this.dialog
-          .alert({
-            title: "Error",
-            content:
-              "Ocurrió un error al cargar la entrada. Inténtalo de nuevo más tarde por favor.",
-            ok: "Continuar",
-          })
-          .subscribe((result: boolean): void => {});
       }
-    });
+    } catch (error) {
+      this.dialog
+        .alert({
+          title: "Error",
+          content:
+            "Ocurrió un error al cargar la entrada. Inténtalo de nuevo más tarde por favor.",
+          ok: "Continuar",
+        })
+        .subscribe((result: boolean): void => {});
+    }
   }
 
   editorLoaded(ev: boolean): void {
     this.loading = ev;
   }
 
-  saveEntry(): boolean {
+  async saveEntry(): Promise<boolean> {
     this.entry = this.editor.getEntry();
     console.log(this.entry);
     if (this.entry.title == "") {
@@ -88,7 +95,7 @@ export default class EditComponent implements OnInit {
       return false;
     }
 
-    const encryptedEntry: EntryInterface = this.crypto.encryptEntry(
+    const encryptedEntry: EntryInterface = await this.crypto.encryptEntry(
       this.entry.toInterface()
     );
     this.loading = true;

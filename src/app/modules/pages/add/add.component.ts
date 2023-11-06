@@ -42,7 +42,7 @@ export default class AddComponent implements OnInit {
     this.loading = ev;
   }
 
-  saveEntry(): void {
+  async saveEntry(): Promise<void> {
     this.entry = this.editor.getEntry();
 
     if (this.entry.title == "") {
@@ -58,7 +58,7 @@ export default class AddComponent implements OnInit {
       return;
     }
 
-    const encryptedEntry: EntryInterface = this.crypto.encryptEntry(
+    const encryptedEntry: EntryInterface = await this.crypto.encryptEntry(
       this.entry.toInterface()
     );
     this.loading = true;

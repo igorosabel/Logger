@@ -8,6 +8,7 @@ import {
 } from "@angular/core";
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
 import { ActivatedRoute, Params, Router, RouterModule } from "@angular/router";
+import { firstValueFrom } from "rxjs";
 import { EntryInterface, EntryResult } from "src/app/interfaces/interfaces";
 import { Entry } from "src/app/model/entry.model";
 import { Photo } from "src/app/model/photo.model";
@@ -61,11 +62,14 @@ export default class DetailComponent implements OnInit {
     });
   }
 
-  loadEntry(id: number): void {
-    this.as.getEntry(id).subscribe((response: EntryResult): void => {
-      if (response.status == "ok") {
-        const decryptedEntry: EntryInterface = this.crypto.decryptEntry(
-          response.entry
+  async loadEntry(id: number): Promise<void> {
+    try {
+      const response: EntryResult = await firstValueFrom(this.as.getEntry(id));
+
+      if (response.status === "ok") {
+        const encryptedEntry: EntryInterface = response.entry;
+        const decryptedEntry: EntryInterface = await this.crypto.decryptEntry(
+          encryptedEntry
         );
         this.entry = this.cms.getEntry(decryptedEntry);
         const html: string = this.entry.composed;
@@ -77,18 +81,20 @@ export default class DetailComponent implements OnInit {
           this.loadPhotos();
         }, 0);
         this.loading = false;
-      } else {
-        this.dialog
-          .alert({
-            title: "Error",
-            content: "Ocurrió un error al cargar la entrada",
-            ok: "Continuar",
-          })
-          .subscribe((result: boolean): void => {
-            this.router.navigate(["/home"]);
-          });
       }
-    });
+    } catch (error) {
+      console.error(error);
+      this.dialog
+        .alert({
+          title: "Error",
+          content:
+            "Ocurrió un error al cargar la entrada. Inténtalo de nuevo más tarde por favor.",
+          ok: "Continuar",
+        })
+        .subscribe((result: boolean): void => {
+          this.router.navigate(["/home"]);
+        });
+    }
   }
 
   loadPhotos(): void {

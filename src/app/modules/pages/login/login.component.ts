@@ -52,12 +52,14 @@ export class LoginComponent implements OnInit {
       if (result.status === "ok") {
         this.us.logged = true;
         this.us.user = this.cms.getUser(result.user);
-        this.us.user.secret = this.crypto.hash(
-          this.us.user.id + "-" + this.loginData.pass
-        );
-        this.us.saveLogin();
-
-        this.router.navigate(["/home"]);
+        this.crypto
+          .hash(this.us.user.id + "-" + this.loginData.pass)
+          .then((ret: string): void => {
+            this.us.user.secret = ret;
+            console.log(this.us);
+            this.us.saveLogin();
+            this.router.navigate(["/home"]);
+          });
       } else {
         this.loginError = true;
       }

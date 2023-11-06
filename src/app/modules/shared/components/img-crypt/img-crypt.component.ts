@@ -23,14 +23,16 @@ export class ImgCryptComponent implements OnInit {
   constructor(private http: HttpClient, private crypto: CryptoService) {}
 
   ngOnInit(): void {
-    this.getData(this.photo.url).subscribe((result: PhotoDataResult): void => {
-      if (this.decrypt) {
-        this.data = this.crypto.decrypt(result.photo);
-      } else {
-        this.data = result.photo;
+    this.getData(this.photo.url).subscribe(
+      async (result: PhotoDataResult): Promise<void> => {
+        if (this.decrypt) {
+          this.data = await this.crypto.decrypt(result.photo);
+        } else {
+          this.data = result.photo;
+        }
+        this.status = result.status;
       }
-      this.status = result.status;
-    });
+    );
   }
 
   public getData(url: string): Observable<PhotoDataResult> {
