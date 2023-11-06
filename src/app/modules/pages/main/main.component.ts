@@ -1,6 +1,6 @@
 import { CommonModule } from "@angular/common";
 import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute, Params, Router, RouterModule } from "@angular/router";
+import { Router, RouterModule } from "@angular/router";
 import { firstValueFrom } from "rxjs";
 import { EntriesResult, EntryInterface } from "src/app/interfaces/interfaces";
 import { Entry } from "src/app/model/entry.model";
@@ -36,7 +36,6 @@ export default class MainComponent implements OnInit {
   markedDays: string[] = ["13-11", "21-11"];
 
   constructor(
-    private activatedRoute: ActivatedRoute,
     private router: Router,
     private dss: DataShareService,
     private user: UserService,
@@ -47,9 +46,7 @@ export default class MainComponent implements OnInit {
 
   ngOnInit(): void {
     this.dss.setGlobal("where", "home");
-    this.activatedRoute.params.subscribe((params: Params): void => {
-      this.loadEntries();
-    });
+    this.loadEntries();
   }
 
   async loadEntries(): Promise<void> {

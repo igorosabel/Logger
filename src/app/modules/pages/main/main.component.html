@@ -37,10 +37,24 @@
 		</mat-toolbar>
 
 		<main>
-			<mat-nav-list>
-				<app-one-entry *ngFor="let entry of entryList"
-							   [entry]="entry"></app-one-entry>
-			</mat-nav-list>
+			<mat-card class="side-col">
+				<mat-card-header>
+					<mat-card-title>Filtros</mat-card-title>
+				</mat-card-header>
+				<mat-card-content>
+					<ocalendar [markedDays]="markedDays"
+							   (calendarChanged)="calendarChange($event)"
+							   (daySelectedChanged)="calendarSelectDay($event)" />
+				</mat-card-content>
+			</mat-card>
+			<mat-card class="main-col">
+				<mat-card-content>
+					<mat-nav-list>
+						<app-one-entry *ngFor="let entry of entryList"
+									   [entry]="entry" />
+					</mat-nav-list>
+				</mat-card-content>
+			</mat-card>
 		</main>
 
 		<button mat-fab
@@ -57,7 +71,3 @@
 	<img src="assets/loading.svg">
 	Cargando...
 </div>
-
-<ocalendar [markedDays]="markedDays"
-		   (calendarChanged)="calendarChange($event)"
-		   (daySelectedChanged)="calendarSelectDay($event)"></ocalendar>

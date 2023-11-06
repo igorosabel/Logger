@@ -22,4 +22,16 @@
 main {
 	height: calc(100% - 64px);
 	margin-top: 64px;
+	display: flex;
+	flex-direction: row;
+
+	.side-col {
+		width: calc(20% - 24px);
+		margin: 16px 8px 16px 16px;
+	}
+
+	.main-col {
+		width: calc(80% - 24px);
+		margin: 16px 16px 16px 8px;
+	}
 }

@@ -1,9 +1,9 @@
 .ocalendar {
-    font-family: Arial, sans-serif;
     border: 1px solid #ccc;
     border-radius: 5px;
     padding: 10px;
-    width: 300px;
+    width: 100%;
+    box-sizing: border-box;
     text-align: center;
 
     .ocalendar-header {
