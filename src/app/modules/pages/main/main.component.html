@@ -42,18 +42,57 @@
 					<mat-card-title>Filtros</mat-card-title>
 				</mat-card-header>
 				<mat-card-content>
-					<ocalendar [markedDays]="markedDays"
+					<mat-nav-list>
+						<a mat-list-item
+						   *ngFor="let tag of tagList"
+						   (click)="selectTag(tag)">
+							<div class="tag-item">
+								{{tag.name}}
+								<span class="num-tags">{{tag.num}} entradas</span>
+							</div>
+						</a>
+					</mat-nav-list>
+					<ocalendar #calendar
+							   [initialMonth]="month"
+							   [initialYear]="year"
 							   (calendarChanged)="calendarChange($event)"
 							   (daySelectedChanged)="calendarSelectDay($event)" />
 				</mat-card-content>
 			</mat-card>
 			<mat-card class="main-col">
-				<mat-card-content>
+				<mat-card-header>
+					<mat-card-title>
+						Entradas
+						<span class="selected-day"
+							  *ngIf="day !== null">{{day}}/{{month}}/{{year}}</span>
+					</mat-card-title>
+				</mat-card-header>
+				<mat-card-content class="entry-list">
 					<mat-nav-list>
 						<app-one-entry *ngFor="let entry of entryList"
 									   [entry]="entry" />
+						<mat-list-item *ngIf="entryList.length === 0">No se han encontrado entradas.</mat-list-item>
 					</mat-nav-list>
 				</mat-card-content>
+				<mat-card-actions>
+					<div class="action-buttons">
+						<div class="action-buttons-filters">
+							<button mat-stroked-button
+									*ngIf="selectedTag !== null || day !== null"
+									(click)="clearFilters()">
+								<mat-icon>filter_list</mat-icon>
+							</button>
+						</div>
+						<div class="action-buttons-others">
+							<button mat-stroked-button>
+								<mat-icon>chevron_left</mat-icon>
+							</button>
+							<button mat-stroked-button>
+								<mat-icon>chevron_right</mat-icon>
+							</button>
+						</div>
+					</div>
+				</mat-card-actions>
 			</mat-card>
 		</main>
 

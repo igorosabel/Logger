@@ -1,9 +1,15 @@
 import { CommonModule } from "@angular/common";
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewChild } from "@angular/core";
 import { Router, RouterModule } from "@angular/router";
 import { firstValueFrom } from "rxjs";
-import { EntriesResult, EntryInterface } from "src/app/interfaces/interfaces";
+import {
+  EntryInterface,
+  HomeDataInterface,
+  HomeDataRequest,
+  TagInterface,
+} from "src/app/interfaces/interfaces";
 import { Entry } from "src/app/model/entry.model";
+import { Tag } from "src/app/model/tag.model";
 import { MaterialModule } from "src/app/modules/material/material.module";
 import { OCalendarDate } from "src/app/modules/shared/components/ocalendar/ocalendar-date.model";
 import { OCalendarMonth } from "src/app/modules/shared/components/ocalendar/ocalendar-month.model";
@@ -31,9 +37,14 @@ import { UserService } from "src/app/services/user.service";
 export default class MainComponent implements OnInit {
   loading: boolean = true;
   username: string;
+  day: number = null;
+  month: number = new Date().getMonth() + 1;
+  year: number = new Date().getFullYear();
+  @ViewChild("calendar", { static: true }) calendar: OcalendarComponent;
+  tagList: Tag[] = [];
+  selectedTag: number = null;
   entryList: Entry[] = [];
   menuShow: boolean = false;
-  markedDays: string[] = ["13-11", "21-11"];
 
   constructor(
     private router: Router,
@@ -46,20 +57,33 @@ export default class MainComponent implements OnInit {
 
   ngOnInit(): void {
     this.dss.setGlobal("where", "home");
-    this.loadEntries();
+    this.loadHomeData();
   }
 
-  async loadEntries(): Promise<void> {
+  async loadHomeData(): Promise<void> {
     try {
-      const response: EntriesResult = await firstValueFrom(
-        this.as.getEntries()
+      const data: HomeDataRequest = {
+        day: this.day,
+        month: this.month,
+        year: this.year,
+        tags: this.selectedTag !== null ? [this.selectedTag] : [],
+      };
+      const response: HomeDataInterface = await firstValueFrom(
+        this.as.getHomeData(data)
       );
 
       if (response.status === "ok") {
-        const encryptedEntries: EntryInterface[] = response.list;
+        console.log(response);
+        const encryptedEntries: EntryInterface[] = response.entries;
         const decryptedEntries: EntryInterface[] =
           await this.crypto.decryptEntries(encryptedEntries);
         this.entryList = this.cms.getEntries(decryptedEntries);
+        const encryptedTags: TagInterface[] = response.tags;
+        const decryptedTags: TagInterface[] = await this.crypto.decryptTags(
+          encryptedTags
+        );
+        this.tagList = this.cms.getTags(decryptedTags);
+        this.calendar.generateCalendar(response.calendar);
       }
     } catch (error) {
       console.error("Error al cargar las entradas:", error);
@@ -78,11 +102,30 @@ export default class MainComponent implements OnInit {
     this.router.navigate(["/"]);
   }
 
+  selectTag(tag: Tag): void {
+    this.selectedTag = tag.id;
+    this.loadHomeData();
+  }
+
+  clearFilters(): void {
+    this.day = null;
+    this.selectedTag = null;
+    this.loadHomeData();
+  }
+
   calendarChange(ev: OCalendarMonth): void {
     console.log(ev);
+    this.day = null;
+    this.month = ev.month;
+    this.year = ev.year;
+    this.loadHomeData();
   }
 
   calendarSelectDay(ev: OCalendarDate): void {
     console.log(ev);
+    this.day = ev.day;
+    this.month = ev.month;
+    this.year = ev.year;
+    this.loadHomeData();
   }
 }

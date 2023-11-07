@@ -12,7 +12,7 @@
 	<a mat-list-item
 	   *ngFor="let tag of tagList"
 	   [routerLink]="['/tag', tag.id]">
-		<h2 mat-line> {{tag.name}} </h2>
+		{{tag.name}}
 	</a>
 </mat-nav-list>
 

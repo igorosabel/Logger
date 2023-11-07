@@ -43,7 +43,7 @@ export class OcalendarComponent implements OnInit {
   ngOnInit(): void {
     this.currentMonth = this.initialMonth || new Date().getMonth() + 1;
     this.currentYear = this.initialYear || new Date().getFullYear();
-    this.generateCalendar();
+    this.generateCalendar([]);
   }
 
   updateYearList(): void {
@@ -53,8 +53,9 @@ export class OcalendarComponent implements OnInit {
     }
   }
 
-  generateCalendar(): void {
+  generateCalendar(markedDays: string[]): void {
     this.weeks = [];
+    this.markedDays = markedDays;
     const firstDay = new Date(this.currentYear, this.currentMonth - 1, 1);
     const startingDay: number = (firstDay.getDay() - 1 + 7) % 7; // Ajustar para iniciar en lunes
     const lastDay = new Date(this.currentYear, this.currentMonth, 0);
@@ -94,7 +95,7 @@ export class OcalendarComponent implements OnInit {
         this.currentYear += 1;
       }
     }
-    this.generateCalendar();
+    this.generateCalendar([]);
     this.calendarChanged.emit(
       new OCalendarMonth(this.currentMonth, this.currentYear)
     );
@@ -102,17 +103,16 @@ export class OcalendarComponent implements OnInit {
 
   changeYear(change: number): void {
     this.currentYear += change;
-    this.generateCalendar();
+    this.generateCalendar([]);
     this.calendarChanged.emit(
       new OCalendarMonth(this.currentMonth, this.currentYear)
     );
   }
 
   private isDateMarked(date: Date): boolean {
-    const formattedDate = `${date.getDate()}-${
+    const formattedDate = `${date.getDate() < 10 ? "0" : ""}${date.getDate()}-${
       date.getMonth() + 1 < 10 ? "0" : ""
     }${date.getMonth() + 1}`;
-
     return this.markedDays && this.markedDays.includes(formattedDate);
   }
 

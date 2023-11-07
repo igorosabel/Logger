@@ -40,9 +40,24 @@ export interface RegisterData {
   conf: string;
 }
 
+export interface HomeDataRequest {
+  day: number;
+  month: number;
+  year: number;
+  tags: number[];
+}
+
+export interface HomeDataInterface {
+  status: string;
+  calendar: string[];
+  tags: TagInterface[];
+  entries: EntryInterface[];
+}
+
 export interface TagInterface {
   id: number;
   name: string;
+  num: number;
   createdAt: string;
   updatedAt: string;
   isPublic: boolean;

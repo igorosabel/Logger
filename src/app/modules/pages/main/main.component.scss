@@ -28,10 +28,40 @@ main {
 	.side-col {
 		width: calc(20% - 24px);
 		margin: 16px 8px 16px 16px;
+
+		.tag-item {
+			display: flex;
+
+			.num-tags {
+				flex: 1;
+				text-align: right;
+			}
+		}
 	}
 
 	.main-col {
 		width: calc(80% - 24px);
 		margin: 16px 16px 16px 8px;
+
+		.selected-day {
+			color: rgba(0, 0, 0, 0.54);
+			font-size: 0.7em;
+		}
+
+		.entry-list {
+			height: calc(100% - 100px);
+			overflow-y: auto;
+		}
+
+		.action-buttons {
+			display: flex;
+			width: 100%;
+
+			.action-buttons-others {
+				flex: 1;
+				display: flex;
+				justify-content: flex-end;
+			}
+		}
 	}
 }

@@ -7,6 +7,8 @@ import {
   EntriesResult,
   EntryInterface,
   EntryResult,
+  HomeDataInterface,
+  HomeDataRequest,
   LoginData,
   LoginResult,
   PhotosResult,
@@ -31,6 +33,10 @@ export class ApiService {
 
   register(data: RegisterData): Observable<LoginResult> {
     return this.http.post<LoginResult>(this.apiUrl + "register", data);
+  }
+
+  getHomeData(data: HomeDataRequest): Observable<HomeDataInterface> {
+    return this.http.post<HomeDataInterface>(this.apiUrl + "getHome", data);
   }
 
   getEntries(): Observable<EntriesResult> {
