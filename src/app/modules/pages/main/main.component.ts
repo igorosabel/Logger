@@ -33,6 +33,7 @@ import { UserService } from "src/app/services/user.service";
     OneEntryComponent,
     OcalendarComponent,
   ],
+  providers: [DataShareService],
 })
 export default class MainComponent implements OnInit {
   loading: boolean = true;

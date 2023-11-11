@@ -1,18 +1,20 @@
 <mat-toolbar color="primary">
   <mat-toolbar-row>
-    <button *ngIf="isLogged"
-            routerLink="/home"
+    @if (isLogged) {
+    <button routerLink="/home"
             mat-icon-button>
       <mat-icon>arrow_back</mat-icon>
     </button>
+    }
     <span>{{entry.title}}</span>
     <span class="flex-space"></span>
-    <button *ngIf="isLogged"
-            mat-icon-button
+    @if (isLogged) {
+    <button mat-icon-button
             aria-label="Editar entrada"
             [routerLink]="['/entry', entry.id, 'edit']">
       <mat-icon>edit</mat-icon>
     </button>
+    }
   </mat-toolbar-row>
 </mat-toolbar>
 
@@ -21,8 +23,9 @@
        [innerHTML]="htmlContent"></div>
 </main>
 
-<div class="loading"
-     *ngIf="loading">
+@if (loading) {
+<div class="loading">
   <img src="assets/loading.svg">
   Cargando...
 </div>
+}

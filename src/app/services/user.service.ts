@@ -1,17 +1,14 @@
 import { Injectable } from "@angular/core";
 import { LoginResult } from "src/app/interfaces/interfaces";
 import { User } from "src/app/model/user.model";
-import { DataShareService } from "src/app/services/data-share.service";
 
 @Injectable()
 export class UserService {
   logged: boolean = false;
   user: User = null;
 
-  constructor(private dss: DataShareService) {}
-
   loadLogin(): void {
-    const loginObj: LoginResult = this.dss.getGlobal("login");
+    const loginObj: LoginResult = JSON.parse(localStorage.getItem("login"));
     if (loginObj === null) {
       this.logout();
     } else {
@@ -25,12 +22,12 @@ export class UserService {
       status: "ok",
       user: this.user.toInterface(),
     };
-    this.dss.setGlobal("login", loginObj);
+    localStorage.setItem("login", JSON.stringify(loginObj));
   }
 
   logout(): void {
     this.logged = false;
     this.user = null;
-    this.dss.removeGlobal("login");
+    localStorage.removeItem("login");
   }
 }

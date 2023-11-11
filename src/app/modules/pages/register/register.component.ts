@@ -7,6 +7,7 @@ import { MaterialModule } from "src/app/modules/material/material.module";
 import { ApiService } from "src/app/services/api.service";
 import { ClassMapperService } from "src/app/services/class-mapper.service";
 import { CryptoService } from "src/app/services/crypto.service";
+import { DataShareService } from "src/app/services/data-share.service";
 import { UserService } from "src/app/services/user.service";
 
 @Component({
@@ -14,6 +15,7 @@ import { UserService } from "src/app/services/user.service";
   selector: "gst-register",
   templateUrl: "./register.component.html",
   imports: [CommonModule, MaterialModule, FormsModule, RouterModule],
+  providers: [UserService, DataShareService, CryptoService],
 })
 export default class RegisterComponent {
   registerData: RegisterData = {

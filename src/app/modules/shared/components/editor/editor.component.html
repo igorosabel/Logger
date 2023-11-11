@@ -20,9 +20,10 @@
 			(click)="applyFormat('c')"><mat-icon>format_align_center</mat-icon></button>
 	<button mat-icon-button
 			(click)="applyFormat('r')"><mat-icon>format_align_right</mat-icon></button>
-	<button *ngIf="canPhotos"
-			mat-icon-button
+	@if (canPhotos) {
+	<button mat-icon-button
 			(click)="openPhotos()"><mat-icon>insert_photo</mat-icon></button>
+	}
 	<button mat-icon-button><mat-icon>beenhere</mat-icon></button>
 </div>
 <textarea class="big-text"
@@ -37,13 +38,15 @@
 		   name="tags">
 </mat-form-field>
 
-<div class="tag-suggestions"
-	 *ngIf="tagList.length>0">
+@if (tagList.length>0) {
+<div class="tag-suggestions">
+	@for (tag of tagList; track tag.id) {
 	<button mat-flat-button
 			color="primary"
-			*ngFor="let tag of tagList"
 			(click)="addTag(tag)">{{tag.name}}</button>
+	}
 </div>
+}
 
 <div class="entry-public">
 	<mat-slide-toggle [checked]="entry.isPublic">
@@ -61,22 +64,25 @@
 		</mat-card-header>
 		<mat-card-content>
 			<div class="photos-list">
-				<div *ngFor="let photo of photoList"
-					 class="photo-item"
+				@for (photo of photoList; track photo.id) {
+				<div class="photo-item"
 					 [ngClass]="{'photo-selected':photo.id==selectedPhoto}"
 					 (click)="selectPhoto(photo)">
-					<app-img-crypt [photo]="photo"></app-img-crypt>
+					<app-img-crypt [photo]="photo" />
+					@if (photo.id==selectedPhoto && uploadProgress==null) {
 					<div class="photo-delete"
-						 *ngIf="photo.id==selectedPhoto && uploadProgress==null"
 						 (click)="deletePhoto()">Borrar</div>
+					}
 				</div>
+				}
 				<div class="photo-add"
 					 (click)="addPhoto()">
 					<mat-icon>add</mat-icon>
 					<span>Añadir nueva</span>
-					<div *ngIf="uploadProgress!=null"
-						 class="upload-progress"
+					@if (uploadProgress !== null) {
+					<div class="upload-progress"
 						 [ngStyle]="{'width': uploadProgress+'%'}"></div>
+					}
 				</div>
 			</div>
 		</mat-card-content>

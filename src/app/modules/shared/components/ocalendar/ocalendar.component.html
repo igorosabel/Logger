@@ -3,13 +3,15 @@
         <button (click)="changeMonth(-1)">«</button>
         <select [(ngModel)]="currentMonth"
                 (change)="changeMonth()">
-            <option *ngFor="let month of months"
-                    [ngValue]="month.month">{{month.name}}</option>
+            @for (month of months; track month.month) {
+            <option [ngValue]="month.month">{{month.name}}</option>
+            }
         </select>
         <select [(ngModel)]="currentYear"
                 (change)="changeMonth()">
-            <option *ngFor="let y of years"
-                    [ngValue]="y">{{y}}</option>
+            @for (y of years; track y) {
+            <option [ngValue]="y">{{y}}</option>
+            }
         </select>
         <button (click)="changeMonth(1)">»</button>
     </div>
@@ -23,15 +25,17 @@
             <div>Sá</div>
             <div>Do</div>
         </div>
-        <div class="ocalendar-week"
-             *ngFor="let week of weeks">
-            <div class="ocalendar-day"
-                 *ngFor="let day of week">
-                <ng-container *ngIf="day">
-                    <div [class.marked]="day?.isMarked"
-                         (click)="selectDay(day)">{{ day?.day }}</div>
-                </ng-container>
+        @for (week of weeks; track week) {
+        <div class="ocalendar-week">
+            @for (day of week; track day) {
+            <div class="ocalendar-day">
+                @if (day) {
+                <div [class.marked]="day?.isMarked"
+                     (click)="selectDay(day)">{{ day?.day }}</div>
+                }
             </div>
+            }
         </div>
+        }
     </div>
 </div>

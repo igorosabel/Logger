@@ -1,3 +1,7 @@
 <div class="tag-list">
-	<button mat-flat-button color="primary" *ngFor="let tag of tags" (click)="goToTag(tag, $event)">{{tag.name}}</button>
+	@for (tag of tags; track tag.id) {
+	<button mat-flat-button
+			color="primary"
+			(click)="goToTag(tag, $event)">{{tag.name}}</button>
+	}
 </div>

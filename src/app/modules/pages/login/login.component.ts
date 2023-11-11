@@ -8,6 +8,7 @@ import { ApiService } from "src/app/services/api.service";
 import { AuthService } from "src/app/services/auth.service";
 import { ClassMapperService } from "src/app/services/class-mapper.service";
 import { CryptoService } from "src/app/services/crypto.service";
+import { DataShareService } from "src/app/services/data-share.service";
 import { UserService } from "src/app/services/user.service";
 
 @Component({
@@ -15,6 +16,7 @@ import { UserService } from "src/app/services/user.service";
   selector: "app-login",
   templateUrl: "./login.component.html",
   imports: [CommonModule, MaterialModule, FormsModule, RouterModule],
+  providers: [UserService, DataShareService, AuthService, CryptoService],
 })
 export class LoginComponent implements OnInit {
   loginData: LoginData = {

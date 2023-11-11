@@ -4,8 +4,12 @@
 				mat-icon-button>
 			<mat-icon>arrow_back</mat-icon>
 		</button>
-		<span *ngIf="entry.title!=''">Editar: {{entry.title}}</span>
-		<span *ngIf="entry.title==''">Editar: Sin título</span>
+		@if (entry.title!='') {
+		<span>Editar: {{entry.title}}</span>
+		}
+		@else {
+		<span>Editar: Sin título</span>
+		}
 		<span class="flex-space"></span>
 		<button mat-icon-button
 				aria-label="Guardar entrada"
@@ -17,7 +21,7 @@
 
 <main>
 	<app-editor (onLoading)="editorLoaded($event)"
-				#editor></app-editor>
+				#editor />
 
 	<div class="entry-delete">
 		<span><strong>Borrar entrada</strong> Si quieres borrar esta entrada pulsa el botón "Borrar entrada". ¡Cuidado! Esta acción es irreversible.</span>
@@ -27,8 +31,9 @@
 	</div>
 </main>
 
-<div class="loading"
-	 *ngIf="loading">
+@if (loading) {
+<div class="loading">
 	<img src="assets/loading.svg">
 	Cargando...
 </div>
+}

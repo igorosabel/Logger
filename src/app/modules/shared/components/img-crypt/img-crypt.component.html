@@ -1,5 +1,8 @@
-<div *ngIf="status === 'error'">ERROR</div>
-<div *ngIf="status === 'ok'"
-     [ngClass]="{'image-thumb': type==='thumb'}">
+@if (status === 'error') {
+<div>ERROR</div>
+}
+@if (status === 'ok') {
+<div [ngClass]="{'image-thumb': type==='thumb'}">
     <img [src]="data">
 </div>
+}
