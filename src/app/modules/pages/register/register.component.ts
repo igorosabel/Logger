@@ -1,9 +1,13 @@
-import { CommonModule } from "@angular/common";
 import { Component } from "@angular/core";
 import { FormsModule } from "@angular/forms";
+import { MatButtonModule } from "@angular/material/button";
+import { MatCardModule } from "@angular/material/card";
+import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatIconModule } from "@angular/material/icon";
+import { MatInputModule } from "@angular/material/input";
+import { MatToolbarModule } from "@angular/material/toolbar";
 import { Router, RouterModule } from "@angular/router";
 import { LoginResult, RegisterData } from "src/app/interfaces/interfaces";
-import { MaterialModule } from "src/app/modules/material/material.module";
 import { ApiService } from "src/app/services/api.service";
 import { ClassMapperService } from "src/app/services/class-mapper.service";
 import { CryptoService } from "src/app/services/crypto.service";
@@ -14,7 +18,16 @@ import { UserService } from "src/app/services/user.service";
   standalone: true,
   selector: "gst-register",
   templateUrl: "./register.component.html",
-  imports: [CommonModule, MaterialModule, FormsModule, RouterModule],
+  imports: [
+    FormsModule,
+    RouterModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatIconModule,
+    MatCardModule,
+    MatFormFieldModule,
+    MatInputModule,
+  ],
   providers: [UserService, DataShareService, CryptoService],
 })
 export default class RegisterComponent {

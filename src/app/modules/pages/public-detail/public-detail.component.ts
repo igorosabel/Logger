@@ -1,4 +1,3 @@
-import { CommonModule } from "@angular/common";
 import {
   Component,
   ComponentRef,
@@ -6,12 +5,14 @@ import {
   OnInit,
   ViewContainerRef,
 } from "@angular/core";
+import { MatButtonModule } from "@angular/material/button";
+import { MatIconModule } from "@angular/material/icon";
+import { MatToolbarModule } from "@angular/material/toolbar";
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
 import { ActivatedRoute, Params, Router, RouterModule } from "@angular/router";
 import { EntryResult } from "src/app/interfaces/interfaces";
 import { Entry } from "src/app/model/entry.model";
 import { Photo } from "src/app/model/photo.model";
-import { MaterialModule } from "src/app/modules/material/material.module";
 import { ImgCryptComponent } from "src/app/modules/shared/components/img-crypt/img-crypt.component";
 import { ApiService } from "src/app/services/api.service";
 import { ClassMapperService } from "src/app/services/class-mapper.service";
@@ -23,7 +24,7 @@ import { UserService } from "src/app/services/user.service";
   selector: "app-public-detail",
   templateUrl: "./public-detail.component.html",
   styleUrls: ["./public-detail.component.scss"],
-  imports: [CommonModule, MaterialModule, RouterModule],
+  imports: [RouterModule, MatToolbarModule, MatButtonModule, MatIconModule],
   providers: [DialogService],
 })
 export default class PublicDetailComponent implements OnInit {

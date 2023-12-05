@@ -1,4 +1,3 @@
-import { CommonModule } from "@angular/common";
 import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { OCalendarDate } from "./ocalendar-date.model";
@@ -8,7 +7,7 @@ import { OCalendarMonth } from "./ocalendar-month.model";
 @Component({
   selector: "ocalendar",
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [FormsModule],
   templateUrl: "./ocalendar.component.html",
   styleUrls: ["./ocalendar.component.scss"],
 })

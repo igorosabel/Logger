@@ -1,5 +1,10 @@
-import { CommonModule } from "@angular/common";
 import { Component, OnInit, ViewChild } from "@angular/core";
+import { MatButtonModule } from "@angular/material/button";
+import { MatCardModule } from "@angular/material/card";
+import { MatIconModule } from "@angular/material/icon";
+import { MatListModule } from "@angular/material/list";
+import { MatSidenavModule } from "@angular/material/sidenav";
+import { MatToolbarModule } from "@angular/material/toolbar";
 import { Router, RouterModule } from "@angular/router";
 import { firstValueFrom } from "rxjs";
 import {
@@ -10,7 +15,6 @@ import {
 } from "src/app/interfaces/interfaces";
 import { Entry } from "src/app/model/entry.model";
 import { Tag } from "src/app/model/tag.model";
-import { MaterialModule } from "src/app/modules/material/material.module";
 import { OCalendarDate } from "src/app/modules/shared/components/ocalendar/ocalendar-date.model";
 import { OCalendarMonth } from "src/app/modules/shared/components/ocalendar/ocalendar-month.model";
 import { OcalendarComponent } from "src/app/modules/shared/components/ocalendar/ocalendar.component";
@@ -27,11 +31,15 @@ import { UserService } from "src/app/services/user.service";
   templateUrl: "./main.component.html",
   styleUrls: ["./main.component.scss"],
   imports: [
-    CommonModule,
-    MaterialModule,
     RouterModule,
     OneEntryComponent,
     OcalendarComponent,
+    MatToolbarModule,
+    MatButtonModule,
+    MatIconModule,
+    MatListModule,
+    MatSidenavModule,
+    MatCardModule,
   ],
   providers: [DataShareService],
 })

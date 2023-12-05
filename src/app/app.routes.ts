@@ -1,5 +1,5 @@
 import { Routes } from "@angular/router";
-import { AuthGuard } from "src/app/guard/auth.guard";
+import { isLoggedGuardFn } from "src/app/guard/auth.guard.fn";
 import { LoginComponent } from "src/app/modules/pages/login/login.component";
 
 export const routes: Routes = [
@@ -12,13 +12,13 @@ export const routes: Routes = [
   {
     path: "home",
     loadComponent: () => import("src/app/modules/pages/main/main.component"),
-    canActivate: [AuthGuard],
+    canActivate: [isLoggedGuardFn],
   },
   {
     path: "entry/:id",
     loadComponent: () =>
       import("src/app/modules/pages/detail/detail.component"),
-    canActivate: [AuthGuard],
+    canActivate: [isLoggedGuardFn],
   },
   {
     path: "entry/:id/public",
@@ -28,28 +28,28 @@ export const routes: Routes = [
   {
     path: "add",
     loadComponent: () => import("src/app/modules/pages/add/add.component"),
-    canActivate: [AuthGuard],
+    canActivate: [isLoggedGuardFn],
   },
   {
     path: "entry/:id/edit",
     loadComponent: () => import("src/app/modules/pages/edit/edit.component"),
-    canActivate: [AuthGuard],
+    canActivate: [isLoggedGuardFn],
   },
   {
     path: "tags",
     loadComponent: () => import("src/app/modules/pages/tags/tags.component"),
-    canActivate: [AuthGuard],
+    canActivate: [isLoggedGuardFn],
   },
   {
     path: "tag/:id",
     loadComponent: () =>
       import("src/app/modules/pages/tag-list/tag-list.component"),
-    canActivate: [AuthGuard],
+    canActivate: [isLoggedGuardFn],
   },
   {
     path: "crypt",
     loadComponent: () => import("src/app/modules/pages/crypt/crypt.component"),
-    canActivate: [AuthGuard],
+    canActivate: [isLoggedGuardFn],
   },
   { path: "**", redirectTo: "/", pathMatch: "full" },
 ];

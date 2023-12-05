@@ -8,6 +8,11 @@ import {
   ViewChild,
 } from "@angular/core";
 import { FormsModule } from "@angular/forms";
+import { MatCardModule } from "@angular/material/card";
+import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatIconModule } from "@angular/material/icon";
+import { MatInputModule } from "@angular/material/input";
+import { MatSlideToggleModule } from "@angular/material/slide-toggle";
 import { firstValueFrom } from "rxjs";
 import {
   PhotoUploadResult,
@@ -19,7 +24,6 @@ import {
 import { Entry } from "src/app/model/entry.model";
 import { Photo } from "src/app/model/photo.model";
 import { Tag } from "src/app/model/tag.model";
-import { MaterialModule } from "src/app/modules/material/material.module";
 import { ImgCryptComponent } from "src/app/modules/shared/components/img-crypt/img-crypt.component";
 import { ApiService } from "src/app/services/api.service";
 import { ClassMapperService } from "src/app/services/class-mapper.service";
@@ -31,7 +35,16 @@ import { DialogService } from "src/app/services/dialog.service";
   selector: "app-editor",
   templateUrl: "./editor.component.html",
   styleUrls: ["./editor.component.scss"],
-  imports: [CommonModule, MaterialModule, FormsModule, ImgCryptComponent],
+  imports: [
+    CommonModule,
+    FormsModule,
+    ImgCryptComponent,
+    MatFormFieldModule,
+    MatInputModule,
+    MatIconModule,
+    MatSlideToggleModule,
+    MatCardModule,
+  ],
   providers: [DialogService],
 })
 export class EditorComponent {

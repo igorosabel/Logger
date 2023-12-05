@@ -1,4 +1,3 @@
-import { CommonModule } from "@angular/common";
 import {
   Component,
   ComponentRef,
@@ -6,13 +5,15 @@ import {
   OnInit,
   ViewContainerRef,
 } from "@angular/core";
+import { MatButtonModule } from "@angular/material/button";
+import { MatIconModule } from "@angular/material/icon";
+import { MatToolbarModule } from "@angular/material/toolbar";
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
 import { ActivatedRoute, Params, Router, RouterModule } from "@angular/router";
 import { firstValueFrom } from "rxjs";
 import { EntryInterface, EntryResult } from "src/app/interfaces/interfaces";
 import { Entry } from "src/app/model/entry.model";
 import { Photo } from "src/app/model/photo.model";
-import { MaterialModule } from "src/app/modules/material/material.module";
 import { EntryTagListComponent } from "src/app/modules/shared/components/entry-tag-list/entry-tag-list.component";
 import { ImgCryptComponent } from "src/app/modules/shared/components/img-crypt/img-crypt.component";
 import { ApiService } from "src/app/services/api.service";
@@ -27,11 +28,12 @@ import { DialogService } from "src/app/services/dialog.service";
   templateUrl: "./detail.component.html",
   styleUrls: ["./detail.component.scss"],
   imports: [
-    CommonModule,
-    MaterialModule,
     RouterModule,
     EntryTagListComponent,
     ImgCryptComponent,
+    MatToolbarModule,
+    MatButtonModule,
+    MatIconModule,
   ],
   providers: [DialogService],
 })

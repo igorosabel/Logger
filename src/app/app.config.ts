@@ -6,12 +6,11 @@ import {
   withInMemoryScrolling,
 } from "@angular/router";
 
-import { HTTP_INTERCEPTORS, provideHttpClient } from "@angular/common/http";
+import { provideHttpClient, withInterceptors } from "@angular/common/http";
 import { provideAnimations } from "@angular/platform-browser/animations";
 import { routes } from "src/app/app.routes";
 import { TokenInterceptor } from "src/app/interceptors/token.interceptor";
-import { AuthService } from "src/app/services/auth.service";
-import { UserService } from "src/app/services/user.service";
+import { provideCore } from "src/app/modules/core";
 
 const scrollConfig: InMemoryScrollingOptions = {
   scrollPositionRestoration: "top",
@@ -23,10 +22,8 @@ const inMemoryScrollingFeature: InMemoryScrollingFeature =
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes, inMemoryScrollingFeature),
-    provideHttpClient(),
-    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
-    UserService,
-    AuthService,
+    provideHttpClient(withInterceptors([TokenInterceptor])),
+    provideCore(),
     provideAnimations(),
   ],
 };

@@ -1,8 +1,13 @@
 import { Component, OnInit } from "@angular/core";
 import { FormsModule } from "@angular/forms";
+import { MatButtonModule } from "@angular/material/button";
+import { MatCardModule } from "@angular/material/card";
+import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatIconModule } from "@angular/material/icon";
+import { MatInputModule } from "@angular/material/input";
 import { MatSnackBar } from "@angular/material/snack-bar";
+import { MatToolbarModule } from "@angular/material/toolbar";
 import { ActivatedRoute, Params, RouterModule } from "@angular/router";
-import { MaterialModule } from "src/app/modules/material/material.module";
 import { Utils } from "src/app/modules/shared/utils.class";
 import { CryptoService } from "src/app/services/crypto.service";
 
@@ -11,7 +16,16 @@ import { CryptoService } from "src/app/services/crypto.service";
   selector: "app-crypt",
   templateUrl: "./crypt.component.html",
   styleUrls: ["./crypt.component.scss"],
-  imports: [MaterialModule, RouterModule, FormsModule],
+  imports: [
+    RouterModule,
+    FormsModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatIconModule,
+    MatFormFieldModule,
+    MatCardModule,
+    MatInputModule,
+  ],
 })
 export default class CryptComponent implements OnInit {
   username: string;

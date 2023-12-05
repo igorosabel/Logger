@@ -1,15 +1,14 @@
-import { CommonModule } from "@angular/common";
 import { Component, Input } from "@angular/core";
+import { MatButtonModule } from "@angular/material/button";
 import { Router } from "@angular/router";
 import { Tag } from "src/app/model/tag.model";
-import { MaterialModule } from "src/app/modules/material/material.module";
 
 @Component({
   standalone: true,
   selector: "app-entry-tag-list",
   templateUrl: "./entry-tag-list.component.html",
   styleUrls: ["./entry-tag-list.component.scss"],
-  imports: [CommonModule, MaterialModule],
+  imports: [MatButtonModule],
 })
 export class EntryTagListComponent {
   @Input() username: string;
