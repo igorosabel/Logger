@@ -7,13 +7,13 @@ import { MatIconModule } from "@angular/material/icon";
 import { MatInputModule } from "@angular/material/input";
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { Router, RouterModule } from "@angular/router";
-import { LoginData, LoginResult } from "src/app/interfaces/interfaces";
-import { ApiService } from "src/app/services/api.service";
-import { AuthService } from "src/app/services/auth.service";
-import { ClassMapperService } from "src/app/services/class-mapper.service";
-import { CryptoService } from "src/app/services/crypto.service";
-import { DataShareService } from "src/app/services/data-share.service";
-import { UserService } from "src/app/services/user.service";
+import { LoginData, LoginResult } from "@interfaces/interfaces";
+import { ApiService } from "@services/api.service";
+import { AuthService } from "@services/auth.service";
+import { ClassMapperService } from "@services/class-mapper.service";
+import { CryptoService } from "@services/crypto.service";
+import { DataShareService } from "@services/data-share.service";
+import { UserService } from "@services/user.service";
 
 @Component({
   standalone: true,

@@ -5,8 +5,8 @@ import {
   HttpRequest,
 } from "@angular/common/http";
 import { inject } from "@angular/core";
+import { UserService } from "@services/user.service";
 import { Observable } from "rxjs";
-import { UserService } from "src/app/services/user.service";
 
 export const TokenInterceptor: HttpInterceptorFn = (
   req: HttpRequest<unknown>,

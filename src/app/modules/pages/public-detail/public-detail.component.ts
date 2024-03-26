@@ -10,14 +10,14 @@ import { MatIconModule } from "@angular/material/icon";
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
 import { ActivatedRoute, Params, Router, RouterModule } from "@angular/router";
-import { EntryResult } from "src/app/interfaces/interfaces";
-import { Entry } from "src/app/model/entry.model";
-import { Photo } from "src/app/model/photo.model";
-import { ImgCryptComponent } from "src/app/modules/shared/components/img-crypt/img-crypt.component";
-import { ApiService } from "src/app/services/api.service";
-import { ClassMapperService } from "src/app/services/class-mapper.service";
-import { DialogService } from "src/app/services/dialog.service";
-import { UserService } from "src/app/services/user.service";
+import { EntryResult } from "@interfaces/interfaces";
+import { Entry } from "@model/entry.model";
+import { Photo } from "@model/photo.model";
+import { ApiService } from "@services/api.service";
+import { ClassMapperService } from "@services/class-mapper.service";
+import { DialogService } from "@services/dialog.service";
+import { UserService } from "@services/user.service";
+import { ImgCryptComponent } from "@shared/components/img-crypt/img-crypt.component";
 
 @Component({
   standalone: true,
@@ -71,7 +71,7 @@ export default class PublicDetailComponent implements OnInit {
             content: "Ocurrió un error al cargar la entrada",
             ok: "Continuar",
           })
-          .subscribe((result: boolean): void => {
+          .subscribe((): void => {
             this.router.navigate(["/"]);
           });
       }

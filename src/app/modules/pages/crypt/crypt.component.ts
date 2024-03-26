@@ -8,8 +8,8 @@ import { MatInputModule } from "@angular/material/input";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { ActivatedRoute, Params, RouterModule } from "@angular/router";
-import { Utils } from "src/app/modules/shared/utils.class";
-import { CryptoService } from "src/app/services/crypto.service";
+import { CryptoService } from "@services/crypto.service";
+import { Utils } from "@shared/utils.class";
 
 @Component({
   standalone: true,

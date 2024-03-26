@@ -1,7 +1,7 @@
 import { Component, Input } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
 import { Router } from "@angular/router";
-import { Tag } from "src/app/model/tag.model";
+import { Tag } from "@model/tag.model";
 
 @Component({
   standalone: true,

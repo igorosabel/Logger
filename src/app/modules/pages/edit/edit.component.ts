@@ -3,18 +3,18 @@ import { MatButtonModule } from "@angular/material/button";
 import { MatIconModule } from "@angular/material/icon";
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { ActivatedRoute, Params, Router, RouterModule } from "@angular/router";
-import { firstValueFrom } from "rxjs";
 import {
   EntryInterface,
   EntryResult,
   StatusResult,
-} from "src/app/interfaces/interfaces";
-import { Entry } from "src/app/model/entry.model";
-import { EditorComponent } from "src/app/modules/shared/components/editor/editor.component";
-import { ApiService } from "src/app/services/api.service";
-import { ClassMapperService } from "src/app/services/class-mapper.service";
-import { CryptoService } from "src/app/services/crypto.service";
-import { DialogService } from "src/app/services/dialog.service";
+} from "@interfaces/interfaces";
+import { Entry } from "@model/entry.model";
+import { ApiService } from "@services/api.service";
+import { ClassMapperService } from "@services/class-mapper.service";
+import { CryptoService } from "@services/crypto.service";
+import { DialogService } from "@services/dialog.service";
+import { EditorComponent } from "@shared/components/editor/editor.component";
+import { firstValueFrom } from "rxjs";
 
 @Component({
   standalone: true,
@@ -71,14 +71,12 @@ export default class EditComponent implements OnInit {
         this.editor.loadEntry(this.entry);
       }
     } catch (error) {
-      this.dialog
-        .alert({
-          title: "Error",
-          content:
-            "Ocurrió un error al cargar la entrada. Inténtalo de nuevo más tarde por favor.",
-          ok: "Continuar",
-        })
-        .subscribe((result: boolean): void => {});
+      this.dialog.alert({
+        title: "Error",
+        content:
+          "Ocurrió un error al cargar la entrada. Inténtalo de nuevo más tarde por favor.",
+        ok: "Continuar",
+      });
     }
   }
 
@@ -96,7 +94,7 @@ export default class EditComponent implements OnInit {
           content: "¡No puedes dejar el título de la entrada en blanco!",
           ok: "Continuar",
         })
-        .subscribe((result: boolean): void => {
+        .subscribe((): void => {
           this.editor.focusTitle();
         });
       return false;
@@ -119,18 +117,16 @@ export default class EditComponent implements OnInit {
                 'La entrada "' + this.entry.title + '" ha sido guardada.',
               ok: "Continuar",
             })
-            .subscribe((result: boolean): void => {
+            .subscribe((): void => {
               this.router.navigate(["/home"]);
             });
         } else {
-          this.dialog
-            .alert({
-              title: "Error",
-              content:
-                "Ocurrió un error al guardar la entrada. Inténtalo de nuevo más tarde por favor.",
-              ok: "Continuar",
-            })
-            .subscribe((result: boolean): void => {});
+          this.dialog.alert({
+            title: "Error",
+            content:
+              "Ocurrió un error al guardar la entrada. Inténtalo de nuevo más tarde por favor.",
+            ok: "Continuar",
+          });
         }
       });
   }
@@ -158,18 +154,16 @@ export default class EditComponent implements OnInit {
                     content: "La entrada ha sido borrada correctamente.",
                     ok: "Continuar",
                   })
-                  .subscribe((result: boolean): void => {
+                  .subscribe((): void => {
                     this.router.navigate(["/home"]);
                   });
               } else {
-                this.dialog
-                  .alert({
-                    title: "Error",
-                    content:
-                      "Ocurrió un error al borrar la entrada. Inténtalo de nuevo más tarde por favor.",
-                    ok: "Continuar",
-                  })
-                  .subscribe((result: boolean): void => {});
+                this.dialog.alert({
+                  title: "Error",
+                  content:
+                    "Ocurrió un error al borrar la entrada. Inténtalo de nuevo más tarde por favor.",
+                  ok: "Continuar",
+                });
               }
             });
         }

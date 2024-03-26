@@ -4,19 +4,19 @@ import { MatIconModule } from "@angular/material/icon";
 import { MatListModule } from "@angular/material/list";
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { ActivatedRoute, Params, Router } from "@angular/router";
-import { firstValueFrom } from "rxjs";
 import {
   EntryInterface,
   TagEntriesResult,
   TagInterface,
-} from "src/app/interfaces/interfaces";
-import { Entry } from "src/app/model/entry.model";
-import { Tag } from "src/app/model/tag.model";
-import { OneEntryComponent } from "src/app/modules/shared/components/one-entry/one-entry.component";
-import { ApiService } from "src/app/services/api.service";
-import { ClassMapperService } from "src/app/services/class-mapper.service";
-import { CryptoService } from "src/app/services/crypto.service";
-import { DataShareService } from "src/app/services/data-share.service";
+} from "@interfaces/interfaces";
+import { Entry } from "@model/entry.model";
+import { Tag } from "@model/tag.model";
+import { ApiService } from "@services/api.service";
+import { ClassMapperService } from "@services/class-mapper.service";
+import { CryptoService } from "@services/crypto.service";
+import { DataShareService } from "@services/data-share.service";
+import { OneEntryComponent } from "@shared/components/one-entry/one-entry.component";
+import { firstValueFrom } from "rxjs";
 
 @Component({
   standalone: true,

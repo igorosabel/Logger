@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
-import { LoginResult } from "src/app/interfaces/interfaces";
-import { User } from "src/app/model/user.model";
+import { LoginResult } from "@interfaces/interfaces";
+import { User } from "@model/user.model";
 
 @Injectable()
 export class UserService {

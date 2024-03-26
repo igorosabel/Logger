@@ -53,11 +53,11 @@
 						</a>
 						}
 					</mat-nav-list>
-					<ocalendar #calendar
-							   [initialMonth]="month"
-							   [initialYear]="year"
-							   (calendarChanged)="calendarChange($event)"
-							   (daySelectedChanged)="calendarSelectDay($event)" />
+					<app-ocalendar #calendar
+								   [initialMonth]="month"
+								   [initialYear]="year"
+								   (calendarChanged)="calendarChange($event)"
+								   (daySelectedChanged)="calendarSelectDay($event)" />
 				</mat-card-content>
 			</mat-card>
 			<mat-card class="main-col">
@@ -113,7 +113,8 @@
 
 @if (loading) {
 <div class="loading">
-	<img src="assets/loading.svg">
+	<img src="assets/loading.svg"
+		 alt="Cargando...">
 	Cargando...
 </div>
 }

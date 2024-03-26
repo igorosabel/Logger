@@ -4,7 +4,7 @@ import { MatDialogModule, MatDialogRef } from "@angular/material/dialog";
 
 @Component({
   standalone: true,
-  selector: "otpv-confirm-dialog",
+  selector: "app-confirm-dialog",
   templateUrl: "./confirm-dialog.component.html",
   imports: [MatDialogModule, MatButtonModule],
 })

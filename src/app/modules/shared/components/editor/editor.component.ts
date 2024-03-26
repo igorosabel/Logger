@@ -13,22 +13,22 @@ import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatIconModule } from "@angular/material/icon";
 import { MatInputModule } from "@angular/material/input";
 import { MatSlideToggleModule } from "@angular/material/slide-toggle";
-import { firstValueFrom } from "rxjs";
 import {
   PhotoUploadResult,
   PhotosResult,
   StatusResult,
   TagInterface,
   TagsResult,
-} from "src/app/interfaces/interfaces";
-import { Entry } from "src/app/model/entry.model";
-import { Photo } from "src/app/model/photo.model";
-import { Tag } from "src/app/model/tag.model";
-import { ImgCryptComponent } from "src/app/modules/shared/components/img-crypt/img-crypt.component";
-import { ApiService } from "src/app/services/api.service";
-import { ClassMapperService } from "src/app/services/class-mapper.service";
-import { CryptoService } from "src/app/services/crypto.service";
-import { DialogService } from "src/app/services/dialog.service";
+} from "@interfaces/interfaces";
+import { Entry } from "@model/entry.model";
+import { Photo } from "@model/photo.model";
+import { Tag } from "@model/tag.model";
+import { ApiService } from "@services/api.service";
+import { ClassMapperService } from "@services/class-mapper.service";
+import { CryptoService } from "@services/crypto.service";
+import { DialogService } from "@services/dialog.service";
+import { ImgCryptComponent } from "@shared/components/img-crypt/img-crypt.component";
+import { firstValueFrom } from "rxjs";
 
 @Component({
   standalone: true,
@@ -197,15 +197,13 @@ export class EditorComponent {
     const validList: string[] = ["jpg", "jpeg", "png"];
     const fileExt: string = file.name.split(".").pop();
     if (validList.indexOf(fileExt) == -1) {
-      this.dialog
-        .alert({
-          title: "Error",
-          content:
-            "Solo está permitido imágenes de los siguientes tipos: " +
-            validList.join(", "),
-          ok: "Continuar",
-        })
-        .subscribe((result: boolean): void => {});
+      this.dialog.alert({
+        title: "Error",
+        content:
+          "Solo está permitido imágenes de los siguientes tipos: " +
+          validList.join(", "),
+        ok: "Continuar",
+      });
     } else {
       const fr: FileReader = new FileReader();
       fr.onload = (): void => {
@@ -271,13 +269,11 @@ export class EditorComponent {
           this.photoList.splice(ind, 1);
           this.uploadProgress = null;
         } else {
-          this.dialog
-            .alert({
-              title: "Error",
-              content: "Ha ocurrido un error al borrar la foto.",
-              ok: "Continuar",
-            })
-            .subscribe((result: boolean): void => {});
+          this.dialog.alert({
+            title: "Error",
+            content: "Ha ocurrido un error al borrar la foto.",
+            ok: "Continuar",
+          });
         }
       });
   }

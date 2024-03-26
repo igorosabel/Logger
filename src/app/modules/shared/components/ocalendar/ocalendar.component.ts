@@ -5,7 +5,7 @@ import { OCalendarMonthItemInterface } from "./ocalendar-interfaces";
 import { OCalendarMonth } from "./ocalendar-month.model";
 
 @Component({
-  selector: "ocalendar",
+  selector: "app-ocalendar",
   standalone: true,
   imports: [FormsModule],
   templateUrl: "./ocalendar.component.html",
@@ -58,7 +58,7 @@ export class OcalendarComponent implements OnInit {
     const firstDay = new Date(this.currentYear, this.currentMonth - 1, 1);
     const startingDay: number = (firstDay.getDay() - 1 + 7) % 7; // Ajustar para iniciar en lunes
     const lastDay = new Date(this.currentYear, this.currentMonth, 0);
-    let startDate: Date = new Date(firstDay);
+    const startDate: Date = new Date(firstDay);
     startDate.setDate(startDate.getDate() - startingDay);
 
     while (startDate <= lastDay) {

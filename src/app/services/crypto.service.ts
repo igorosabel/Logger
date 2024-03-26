@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
-import { EntryInterface, TagInterface } from "src/app/interfaces/interfaces";
-import { Utils } from "src/app/modules/shared/utils.class";
-import { UserService } from "src/app/services/user.service";
+import { EntryInterface, TagInterface } from "@interfaces/interfaces";
+import { UserService } from "@services/user.service";
+import { Utils } from "@shared/utils.class";
 
 @Injectable({
   providedIn: "root",
@@ -128,7 +128,7 @@ export class CryptoService {
 
   async decryptTags(tags: TagInterface[]): Promise<TagInterface[]> {
     const tagList: TagInterface[] = [];
-    for (let tag of tags) {
+    for (const tag of tags) {
       tagList.push(await this.decryptTag(tag));
     }
     return tagList;
@@ -155,7 +155,7 @@ export class CryptoService {
 
   async encryptTags(tags: TagInterface[]): Promise<TagInterface[]> {
     const tagList: TagInterface[] = [];
-    for (let tag of tags) {
+    for (const tag of tags) {
       tag.name = await this.encrypt(tag.name);
       tagList.push(tag);
     }

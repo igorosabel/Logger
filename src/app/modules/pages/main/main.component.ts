@@ -6,24 +6,24 @@ import { MatListModule } from "@angular/material/list";
 import { MatSidenavModule } from "@angular/material/sidenav";
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { Router, RouterModule } from "@angular/router";
-import { firstValueFrom } from "rxjs";
 import {
   EntryInterface,
   HomeDataInterface,
   HomeDataRequest,
   TagInterface,
-} from "src/app/interfaces/interfaces";
-import { Entry } from "src/app/model/entry.model";
-import { Tag } from "src/app/model/tag.model";
-import { OCalendarDate } from "src/app/modules/shared/components/ocalendar/ocalendar-date.model";
-import { OCalendarMonth } from "src/app/modules/shared/components/ocalendar/ocalendar-month.model";
-import { OcalendarComponent } from "src/app/modules/shared/components/ocalendar/ocalendar.component";
-import { OneEntryComponent } from "src/app/modules/shared/components/one-entry/one-entry.component";
-import { ApiService } from "src/app/services/api.service";
-import { ClassMapperService } from "src/app/services/class-mapper.service";
-import { CryptoService } from "src/app/services/crypto.service";
-import { DataShareService } from "src/app/services/data-share.service";
-import { UserService } from "src/app/services/user.service";
+} from "@interfaces/interfaces";
+import { Entry } from "@model/entry.model";
+import { Tag } from "@model/tag.model";
+import { ApiService } from "@services/api.service";
+import { ClassMapperService } from "@services/class-mapper.service";
+import { CryptoService } from "@services/crypto.service";
+import { DataShareService } from "@services/data-share.service";
+import { UserService } from "@services/user.service";
+import { OCalendarDate } from "@shared/components/ocalendar/ocalendar-date.model";
+import { OCalendarMonth } from "@shared/components/ocalendar/ocalendar-month.model";
+import { OcalendarComponent } from "@shared/components/ocalendar/ocalendar.component";
+import { OneEntryComponent } from "@shared/components/one-entry/one-entry.component";
+import { firstValueFrom } from "rxjs";
 
 @Component({
   standalone: true,

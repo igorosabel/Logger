@@ -1,10 +1,10 @@
 import { CommonModule } from "@angular/common";
 import { HttpClient } from "@angular/common/http";
 import { Component, Input, OnInit } from "@angular/core";
+import { PhotoDataResult } from "@interfaces/interfaces";
+import { Photo } from "@model/photo.model";
+import { CryptoService } from "@services/crypto.service";
 import { Observable } from "rxjs";
-import { PhotoDataResult } from "src/app/interfaces/interfaces";
-import { Photo } from "src/app/model/photo.model";
-import { CryptoService } from "src/app/services/crypto.service";
 
 @Component({
   standalone: true,

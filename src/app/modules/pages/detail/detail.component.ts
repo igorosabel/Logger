@@ -10,17 +10,17 @@ import { MatIconModule } from "@angular/material/icon";
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
 import { ActivatedRoute, Params, Router, RouterModule } from "@angular/router";
+import { EntryInterface, EntryResult } from "@interfaces/interfaces";
+import { Entry } from "@model/entry.model";
+import { Photo } from "@model/photo.model";
+import { ApiService } from "@services/api.service";
+import { ClassMapperService } from "@services/class-mapper.service";
+import { CryptoService } from "@services/crypto.service";
+import { DataShareService } from "@services/data-share.service";
+import { DialogService } from "@services/dialog.service";
+import { EntryTagListComponent } from "@shared/components/entry-tag-list/entry-tag-list.component";
+import { ImgCryptComponent } from "@shared/components/img-crypt/img-crypt.component";
 import { firstValueFrom } from "rxjs";
-import { EntryInterface, EntryResult } from "src/app/interfaces/interfaces";
-import { Entry } from "src/app/model/entry.model";
-import { Photo } from "src/app/model/photo.model";
-import { EntryTagListComponent } from "src/app/modules/shared/components/entry-tag-list/entry-tag-list.component";
-import { ImgCryptComponent } from "src/app/modules/shared/components/img-crypt/img-crypt.component";
-import { ApiService } from "src/app/services/api.service";
-import { ClassMapperService } from "src/app/services/class-mapper.service";
-import { CryptoService } from "src/app/services/crypto.service";
-import { DataShareService } from "src/app/services/data-share.service";
-import { DialogService } from "src/app/services/dialog.service";
 
 @Component({
   standalone: true,
@@ -93,7 +93,7 @@ export default class DetailComponent implements OnInit {
             "Ocurrió un error al cargar la entrada. Inténtalo de nuevo más tarde por favor.",
           ok: "Continuar",
         })
-        .subscribe((result: boolean): void => {
+        .subscribe((): void => {
           this.router.navigate(["/home"]);
         });
     }

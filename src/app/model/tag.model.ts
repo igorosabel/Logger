@@ -1,5 +1,5 @@
-import { TagInterface } from "src/app/interfaces/interfaces";
-import { Utils } from "src/app/modules/shared/utils.class";
+import { TagInterface } from "@interfaces/interfaces";
+import { Utils } from "@shared/utils.class";
 
 export class Tag {
   constructor(

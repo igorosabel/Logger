@@ -1,5 +1,5 @@
-import { PhotoInterface } from "src/app/interfaces/interfaces";
-import { environment } from "src/environments/environment";
+import { environment } from "@env/environment";
+import { PhotoInterface } from "@interfaces/interfaces";
 
 export class Photo {
   constructor(

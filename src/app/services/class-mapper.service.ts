@@ -4,11 +4,11 @@ import {
   PhotoInterface,
   TagInterface,
   UserInterface,
-} from "src/app/interfaces/interfaces";
-import { Entry } from "src/app/model/entry.model";
-import { Photo } from "src/app/model/photo.model";
-import { Tag } from "src/app/model/tag.model";
-import { User } from "src/app/model/user.model";
+} from "@interfaces/interfaces";
+import { Entry } from "@model/entry.model";
+import { Photo } from "@model/photo.model";
+import { Tag } from "@model/tag.model";
+import { User } from "@model/user.model";
 
 @Injectable({
   providedIn: "root",

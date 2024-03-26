@@ -1,7 +1,6 @@
-import { EntryInterface } from "src/app/interfaces/interfaces";
-import { Utils } from "src/app/modules/shared/utils.class";
-import { TagInterface } from "./../interfaces/interfaces";
-import { Tag } from "./tag.model";
+import { EntryInterface, TagInterface } from "@interfaces/interfaces";
+import { Tag } from "@model/tag.model";
+import { Utils } from "@shared/utils.class";
 
 export class Entry {
   constructor(
@@ -26,16 +25,17 @@ export class Entry {
     const tagList: string[] = tags
       .split(",")
       .map((x: string): string => x.trim());
-    for (let t of tagList) {
-      let ind: number = this.tags.findIndex((x: Tag): boolean => x.name == t);
+    for (const t of tagList) {
+      const ind: number = this.tags.findIndex((x: Tag): boolean => x.name == t);
       if (ind == -1) {
-        let tag = new Tag(null, t);
-        this.addTag(tag);
+        this.addTag(new Tag(null, t));
       }
     }
     const newTagList: Tag[] = [];
-    for (let t of this.tags) {
-      let ind: number = tagList.findIndex((x: string): boolean => x === t.name);
+    for (const t of this.tags) {
+      const ind: number = tagList.findIndex(
+        (x: string): boolean => x === t.name
+      );
       if (ind != -1) {
         newTagList.push(t);
       }
@@ -48,7 +48,7 @@ export class Entry {
       return "";
     }
     let str: string = this.body;
-    str = str.replace(new RegExp("\n", "g"), "<br>");
+    str = str.replace(new RegExp("\\n", "g"), "<br>");
 
     str = str.replace(
       new RegExp("\\[b\\](.+?)\\[/b\\]", "g"),
@@ -83,7 +83,7 @@ export class Entry {
       return "";
     }
     let str: string = this.body;
-    str = str.replace(new RegExp("\n", "g"), " ");
+    str = str.replace(new RegExp("\\n", "g"), " ");
 
     str = str.replace(new RegExp("\\[b\\](.+?)\\[/b\\]", "g"), "$1");
     str = str.replace(new RegExp("\\[i\\](.+?)\\[/i\\]", "g"), "$1");

@@ -1,5 +1,5 @@
-import { UserInterface } from "src/app/interfaces/interfaces";
-import { Utils } from "src/app/modules/shared/utils.class";
+import { UserInterface } from "@interfaces/interfaces";
+import { Utils } from "@shared/utils.class";
 
 export class User {
   secret: string = null;
