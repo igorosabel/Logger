@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from "@angular/core";
+import { Component, OnInit, Signal, viewChild } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
 import { MatIconModule } from "@angular/material/icon";
 import { MatToolbarModule } from "@angular/material/toolbar";
@@ -35,7 +35,7 @@ export default class EditComponent implements OnInit {
   username: string;
   idEntry: number = null;
   entry: Entry;
-  @ViewChild("editor", { static: true }) editor: EditorComponent;
+  editor: Signal<EditorComponent> = viewChild<EditorComponent>("editor");
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -68,7 +68,7 @@ export default class EditComponent implements OnInit {
           encryptedEntry
         );
         this.entry = this.cms.getEntry(decryptedEntry);
-        this.editor.loadEntry(this.entry);
+        this.editor().loadEntry(this.entry);
       }
     } catch (error) {
       this.dialog.alert({
@@ -85,7 +85,7 @@ export default class EditComponent implements OnInit {
   }
 
   async saveEntry(): Promise<boolean> {
-    this.entry = this.editor.getEntry();
+    this.entry = this.editor().getEntry();
     console.log(this.entry);
     if (this.entry.title == "") {
       this.dialog
@@ -95,7 +95,7 @@ export default class EditComponent implements OnInit {
           ok: "Continuar",
         })
         .subscribe((): void => {
-          this.editor.focusTitle();
+          this.editor().focusTitle();
         });
       return false;
     }

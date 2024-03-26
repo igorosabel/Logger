@@ -1,4 +1,13 @@
-import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
+import {
+  Component,
+  InputSignal,
+  ModelSignal,
+  OnInit,
+  OutputEmitterRef,
+  input,
+  model,
+  output,
+} from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { OCalendarDate } from "./ocalendar-date.model";
 import { OCalendarMonthItemInterface } from "./ocalendar-interfaces";
@@ -12,12 +21,11 @@ import { OCalendarMonth } from "./ocalendar-month.model";
   styleUrls: ["./ocalendar.component.scss"],
 })
 export class OcalendarComponent implements OnInit {
-  @Input() initialMonth: number;
-  @Input() initialYear: number;
-  @Input() markedDays: string[];
-  @Output() calendarChanged: EventEmitter<OCalendarMonth> = new EventEmitter();
-  @Output() daySelectedChanged: EventEmitter<OCalendarDate> =
-    new EventEmitter();
+  initialMonth: InputSignal<number> = input.required<number>();
+  initialYear: InputSignal<number> = input.required<number>();
+  markedDays: ModelSignal<string[]> = model<string[]>();
+  calendarChanged: OutputEmitterRef<OCalendarMonth> = output<OCalendarMonth>();
+  daySelectedChanged: OutputEmitterRef<OCalendarDate> = output<OCalendarDate>();
 
   months: OCalendarMonthItemInterface[] = [
     { month: 1, name: "Enero" },
@@ -40,8 +48,8 @@ export class OcalendarComponent implements OnInit {
   weeks: OCalendarDate[][] = [];
 
   ngOnInit(): void {
-    this.currentMonth = this.initialMonth || new Date().getMonth() + 1;
-    this.currentYear = this.initialYear || new Date().getFullYear();
+    this.currentMonth = this.initialMonth() || new Date().getMonth() + 1;
+    this.currentYear = this.initialYear() || new Date().getFullYear();
     this.generateCalendar([]);
   }
 
@@ -54,7 +62,7 @@ export class OcalendarComponent implements OnInit {
 
   generateCalendar(markedDays: string[]): void {
     this.weeks = [];
-    this.markedDays = markedDays;
+    this.markedDays.set(markedDays);
     const firstDay = new Date(this.currentYear, this.currentMonth - 1, 1);
     const startingDay: number = (firstDay.getDay() - 1 + 7) % 7; // Ajustar para iniciar en lunes
     const lastDay = new Date(this.currentYear, this.currentMonth, 0);
@@ -112,7 +120,7 @@ export class OcalendarComponent implements OnInit {
     const formattedDate = `${date.getDate() < 10 ? "0" : ""}${date.getDate()}-${
       date.getMonth() + 1 < 10 ? "0" : ""
     }${date.getMonth() + 1}`;
-    return this.markedDays && this.markedDays.includes(formattedDate);
+    return this.markedDays() && this.markedDays().includes(formattedDate);
   }
 
   selectDay(day: OCalendarDate): void {

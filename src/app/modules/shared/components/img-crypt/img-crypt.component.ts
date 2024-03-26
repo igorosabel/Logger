@@ -1,6 +1,6 @@
 import { CommonModule } from "@angular/common";
 import { HttpClient } from "@angular/common/http";
-import { Component, Input, OnInit } from "@angular/core";
+import { Component, ModelSignal, OnInit, model } from "@angular/core";
 import { PhotoDataResult } from "@interfaces/interfaces";
 import { Photo } from "@model/photo.model";
 import { CryptoService } from "@services/crypto.service";
@@ -14,18 +14,18 @@ import { Observable } from "rxjs";
   imports: [CommonModule],
 })
 export class ImgCryptComponent implements OnInit {
-  @Input() photo: Photo = null;
-  @Input() type: string = "thumb";
-  @Input() decrypt: boolean = true;
+  photo: ModelSignal<Photo> = model.required<Photo>();
+  type: ModelSignal<string> = model<string>("thumb");
+  decrypt: ModelSignal<boolean> = model<boolean>(true);
   status: string = "loading";
   data: string = "";
 
   constructor(private http: HttpClient, private crypto: CryptoService) {}
 
   ngOnInit(): void {
-    this.getData(this.photo.url).subscribe(
+    this.getData(this.photo().url).subscribe(
       async (result: PhotoDataResult): Promise<void> => {
-        if (this.decrypt) {
+        if (this.decrypt()) {
           this.data = await this.crypto.decrypt(result.photo);
         } else {
           this.data = result.photo;

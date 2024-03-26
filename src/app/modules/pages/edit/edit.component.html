@@ -4,7 +4,7 @@
 				mat-icon-button>
 			<mat-icon>arrow_back</mat-icon>
 		</button>
-		@if (entry.title!='') {
+		@if (entry.title !== '') {
 		<span>Editar: {{entry.title}}</span>
 		}
 		@else {
@@ -20,7 +20,7 @@
 </mat-toolbar>
 
 <main>
-	<app-editor (onLoading)="editorLoaded($event)"
+	<app-editor (loaded)="editorLoaded($event)"
 				#editor />
 
 	<div class="entry-delete">
@@ -33,7 +33,8 @@
 
 @if (loading) {
 <div class="loading">
-	<img src="assets/loading.svg">
+	<img src="assets/loading.svg"
+		 alt="Cargando...">
 	Cargando...
 </div>
 }

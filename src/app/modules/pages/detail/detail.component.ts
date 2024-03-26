@@ -111,8 +111,8 @@ export default class DetailComponent implements OnInit {
         this.elementRef.nativeElement.querySelector("#photo-" + photoId);
       const component: ComponentRef<ImgCryptComponent> =
         this.viewContainerRef.createComponent(ImgCryptComponent);
-      component.instance.photo = photo;
-      component.instance.type = "full";
+      component.instance.photo.set(photo);
+      component.instance.type.set("full");
 
       targetElement.appendChild(component.location.nativeElement);
     }

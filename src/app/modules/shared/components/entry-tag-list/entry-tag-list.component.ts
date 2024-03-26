@@ -1,4 +1,4 @@
-import { Component, Input } from "@angular/core";
+import { Component, InputSignal, input } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
 import { Router } from "@angular/router";
 import { Tag } from "@model/tag.model";
@@ -11,8 +11,7 @@ import { Tag } from "@model/tag.model";
   imports: [MatButtonModule],
 })
 export class EntryTagListComponent {
-  @Input() username: string;
-  @Input() tags: Tag[];
+  tags: InputSignal<Tag[]> = input.required<Tag[]>();
 
   constructor(private router: Router) {}
 

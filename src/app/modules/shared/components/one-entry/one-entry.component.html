@@ -1,14 +1,14 @@
 <a mat-list-item
-   [routerLink]="entry.entryUrl">
-	<div matListItemTitle> {{entry.title}} </div>
+   [routerLink]="entry().entryUrl">
+	<div matListItemTitle> {{entry().title}} </div>
 	<div matListItemLine>
-		{{entry.clean | shorttext}}
+		{{entry().clean | shorttext}}
 	</div>
 	<div matListItemLine
 		 class="entry-date">
-		{{entry.createdAt}}
+		{{entry().createdAt}}
 	</div>
 	<div matListItemLine>
-		<app-entry-tag-list [tags]="entry.tags" />
+		<app-entry-tag-list [tags]="entry().tags" />
 	</div>
 </a>

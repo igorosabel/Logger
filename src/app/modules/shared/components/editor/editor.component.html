@@ -66,10 +66,10 @@
 			<div class="photos-list">
 				@for (photo of photoList; track photo.id) {
 				<div class="photo-item"
-					 [ngClass]="{'photo-selected':photo.id==selectedPhoto}"
+					 [ngClass]="{'photo-selected':photo.id === selectedPhoto}"
 					 (click)="selectPhoto(photo)">
 					<app-img-crypt [photo]="photo" />
-					@if (photo.id==selectedPhoto && uploadProgress==null) {
+					@if (photo.id === selectedPhoto && uploadProgress === null) {
 					<div class="photo-delete"
 						 (click)="deletePhoto()">Borrar</div>
 					}
@@ -89,12 +89,12 @@
 		<mat-card-actions class="center-card-buttons">
 			<button mat-button
 					(click)="closePhotos()"
-					[disabled]="uploadProgress!=null">Cancelar</button>
+					[disabled]="uploadProgress !== null">Cancelar</button>
 			<button mat-raised-button
 					color="primary"
 					[disabled]="!selectedPhoto"
 					(click)="insertPhoto()"
-					[disabled]="uploadProgress!=null">Añadir</button>
+					[disabled]="uploadProgress !== null">Añadir</button>
 		</mat-card-actions>
 	</mat-card>
 	<input type="file"

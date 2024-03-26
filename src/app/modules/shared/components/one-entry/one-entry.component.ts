@@ -1,4 +1,4 @@
-import { Component, Input } from "@angular/core";
+import { Component, InputSignal, input } from "@angular/core";
 import { MatListModule } from "@angular/material/list";
 import { RouterModule } from "@angular/router";
 import { Entry } from "@model/entry.model";
@@ -12,5 +12,5 @@ import { ShortTextPipe } from "@shared/pipes/shorttext.pipe";
   imports: [RouterModule, EntryTagListComponent, ShortTextPipe, MatListModule],
 })
 export class OneEntryComponent {
-  @Input() entry: Entry;
+  entry: InputSignal<Entry> = input.required<Entry>();
 }

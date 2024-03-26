@@ -3,9 +3,10 @@ import { HttpEvent, HttpEventType } from "@angular/common/http";
 import {
   Component,
   ElementRef,
-  EventEmitter,
-  Output,
-  ViewChild,
+  OutputEmitterRef,
+  Signal,
+  output,
+  viewChild,
 } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { MatCardModule } from "@angular/material/card";
@@ -49,17 +50,17 @@ import { firstValueFrom } from "rxjs";
 })
 export class EditorComponent {
   entry: Entry = new Entry();
-  @ViewChild("title", { static: true }) titleBox: ElementRef;
-  @ViewChild("entryText", { static: true }) entryText: ElementRef;
+  titleBox: Signal<ElementRef> = viewChild<ElementRef>("title");
+  entryText: Signal<ElementRef> = viewChild<ElementRef>("entryText");
   tagList: Tag[] = [];
   tags: string = "";
   canPhotos: boolean = false;
   photoList: Photo[];
   showPhotos: boolean = false;
   selectedPhoto: number = null;
-  @ViewChild("photoUpload", { static: true }) photoUpload: ElementRef;
+  photoUpload: Signal<ElementRef> = viewChild<ElementRef>("photoUpload");
   loading: boolean = true;
-  @Output() onLoading: EventEmitter<boolean> = new EventEmitter<boolean>();
+  loaded: OutputEmitterRef<boolean> = output<boolean>();
   uploadProgress: number = null;
 
   constructor(
@@ -89,7 +90,7 @@ export class EditorComponent {
           this.canPhotos = true;
           this.loadPhotos();
         } else {
-          this.onLoading.emit(false);
+          this.loaded.emit(false);
         }
       }
     } catch (error) {
@@ -104,7 +105,7 @@ export class EditorComponent {
       .getPhotos(this.entry.id)
       .subscribe((response: PhotosResult): void => {
         this.photoList = this.cms.getPhotos(response.list);
-        this.onLoading.emit(false);
+        this.loaded.emit(false);
       });
   }
 
@@ -114,12 +115,12 @@ export class EditorComponent {
   }
 
   focusTitle(): void {
-    this.titleBox.nativeElement.focus();
+    this.titleBox().nativeElement.focus();
   }
 
   getSel() {
     // obtain the object reference for the <textarea>
-    const txtarea = this.entryText.nativeElement;
+    const txtarea = this.entryText().nativeElement;
     // obtain the index of the first selected character
     const start = txtarea.selectionStart;
     // obtain the index of the last selected character
@@ -189,7 +190,7 @@ export class EditorComponent {
     if (this.uploadProgress != null) {
       return;
     }
-    this.photoUpload.nativeElement.click();
+    this.photoUpload().nativeElement.click();
   }
 
   photoContinue(ev: Event): void {

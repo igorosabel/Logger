@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from "@angular/core";
+import { Component, OnInit, Signal, viewChild } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
 import { MatCardModule } from "@angular/material/card";
 import { MatIconModule } from "@angular/material/icon";
@@ -49,7 +49,8 @@ export default class MainComponent implements OnInit {
   day: number = null;
   month: number = new Date().getMonth() + 1;
   year: number = new Date().getFullYear();
-  @ViewChild("calendar", { static: true }) calendar: OcalendarComponent;
+  calendar: Signal<OcalendarComponent> =
+    viewChild<OcalendarComponent>("calendar");
   tagList: Tag[] = [];
   selectedTag: number = null;
   entryList: Entry[] = [];
@@ -92,7 +93,7 @@ export default class MainComponent implements OnInit {
           encryptedTags
         );
         this.tagList = this.cms.getTags(decryptedTags);
-        this.calendar.generateCalendar(response.calendar);
+        this.calendar().generateCalendar(response.calendar);
       }
     } catch (error) {
       console.error("Error al cargar las entradas:", error);
