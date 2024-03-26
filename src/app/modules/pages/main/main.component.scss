@@ -71,6 +71,15 @@ main {
 			display: flex;
 			width: 100%;
 
+			.pagination-buttons {
+				--mat-outlined-button-icon-spacing: 0;
+				--mat-outlined-button-icon-offset: 0;
+			}
+
+			button {
+				margin: 0 8px;
+			}
+
 			.action-buttons-others {
 				flex: 1;
 				display: flex;

@@ -81,7 +81,7 @@
 				</mat-card-header>
 				<mat-card-content class="entry-list">
 					<mat-nav-list>
-						@for (entry of entryList; track entry.id) {
+						@for (entry of paginateResults(); track entry.id) {
 						<app-one-entry [entry]="entry" />
 						}
 						@empty {
@@ -100,24 +100,29 @@
 						</div>
 						}
 						<div class="action-buttons-others">
-							<button mat-stroked-button>
+							<button mat-stroked-button
+									class="pagination-buttons"
+									[disabled]="page === 1"
+									(click)="previousPage()">
 								<mat-icon>chevron_left</mat-icon>
 							</button>
-							<button mat-stroked-button>
+							<button mat-stroked-button
+									class="pagination-buttons"
+									[disabled]="page === numPages"
+									(click)="nextPage()">
 								<mat-icon>chevron_right</mat-icon>
+							</button>
+							<button mat-raised-button
+									color="primary"
+									routerLink="/add">
+								<mat-icon>add</mat-icon>
+								Nueva entrada
 							</button>
 						</div>
 					</div>
 				</mat-card-actions>
 			</mat-card>
 		</main>
-
-		<button mat-fab
-				color="primary"
-				class="fab-button"
-				routerLink="/add">
-			<mat-icon>add</mat-icon>
-		</button>
 	</mat-sidenav-content>
 </mat-sidenav-container>
 

@@ -14,6 +14,7 @@ import { MatListModule } from "@angular/material/list";
 import { MatSidenavModule } from "@angular/material/sidenav";
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { Router, RouterModule } from "@angular/router";
+import { environment } from "@env/environment";
 import {
   EntryInterface,
   HomeDataInterface,
@@ -67,6 +68,10 @@ export default class MainComponent implements OnInit {
   menuShow: boolean = false;
   filtersCollapsed: WritableSignal<boolean> = signal<boolean>(false);
 
+  page: number = 1;
+  numPages: number = 0;
+  numResults: number = environment.numResults;
+
   constructor(
     private router: Router,
     private dss: DataShareService,
@@ -100,6 +105,7 @@ export default class MainComponent implements OnInit {
         const decryptedEntries: EntryInterface[] =
           await this.crypto.decryptEntries(encryptedEntries);
         this.entryList = this.cms.getEntries(decryptedEntries);
+        this.numPages = Math.ceil(this.entryList.length / this.numResults);
         const encryptedTags: TagInterface[] = response.tags;
         const decryptedTags: TagInterface[] = await this.crypto.decryptTags(
           encryptedTags
@@ -113,6 +119,26 @@ export default class MainComponent implements OnInit {
     } finally {
       this.loading.set(false);
     }
+  }
+
+  paginateResults(): Entry[] {
+    const start: number = (this.page - 1) * this.numResults;
+    const end: number = start + this.numResults;
+    return this.entryList.slice(start, end);
+  }
+
+  previousPage(): void {
+    if (this.page === 1) {
+      return;
+    }
+    this.page--;
+  }
+
+  nextPage(): void {
+    if (this.page + 1 > this.numPages) {
+      return;
+    }
+    this.page++;
   }
 
   menuOpened(mode: boolean): void {
