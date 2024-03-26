@@ -1,4 +1,12 @@
-import { Component, OnInit, Signal, viewChild } from "@angular/core";
+import { NgClass } from "@angular/common";
+import {
+  Component,
+  OnInit,
+  Signal,
+  WritableSignal,
+  signal,
+  viewChild,
+} from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
 import { MatCardModule } from "@angular/material/card";
 import { MatIconModule } from "@angular/material/icon";
@@ -31,6 +39,7 @@ import { firstValueFrom } from "rxjs";
   templateUrl: "./main.component.html",
   styleUrls: ["./main.component.scss"],
   imports: [
+    NgClass,
     RouterModule,
     OneEntryComponent,
     OcalendarComponent,
@@ -44,7 +53,8 @@ import { firstValueFrom } from "rxjs";
   providers: [DataShareService],
 })
 export default class MainComponent implements OnInit {
-  loading: boolean = true;
+  loading: WritableSignal<boolean> = signal<boolean>(true);
+  first: boolean = true;
   username: string;
   day: number = null;
   month: number = new Date().getMonth() + 1;
@@ -55,6 +65,7 @@ export default class MainComponent implements OnInit {
   selectedTag: number = null;
   entryList: Entry[] = [];
   menuShow: boolean = false;
+  filtersCollapsed: WritableSignal<boolean> = signal<boolean>(false);
 
   constructor(
     private router: Router,
@@ -77,6 +88,7 @@ export default class MainComponent implements OnInit {
         month: this.month,
         year: this.year,
         tags: this.selectedTag !== null ? [this.selectedTag] : [],
+        first: this.first,
       };
       const response: HomeDataInterface = await firstValueFrom(
         this.as.getHomeData(data)
@@ -94,11 +106,12 @@ export default class MainComponent implements OnInit {
         );
         this.tagList = this.cms.getTags(decryptedTags);
         this.calendar().generateCalendar(response.calendar);
+        this.first = false;
       }
     } catch (error) {
       console.error("Error al cargar las entradas:", error);
     } finally {
-      this.loading = false;
+      this.loading.set(false);
     }
   }
 
@@ -137,5 +150,9 @@ export default class MainComponent implements OnInit {
     this.month = ev.month;
     this.year = ev.year;
     this.loadHomeData();
+  }
+
+  collapseFilters(): void {
+    this.filtersCollapsed.update((value: boolean): boolean => !value);
   }
 }

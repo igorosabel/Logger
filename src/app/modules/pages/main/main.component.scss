@@ -23,11 +23,25 @@ main {
 	height: calc(100% - 64px);
 	margin-top: 64px;
 	display: flex;
-	flex-direction: row;
+	flex-direction: column;
 
 	.side-col {
-		width: calc(20% - 24px);
-		margin: 16px 8px 16px 16px;
+		width: calc(100% - 32px);
+		margin: 16px;
+
+		.filters-collapse {
+			display: flex;
+
+			span {
+				flex: 1;
+				display: flex;
+				align-items: center;
+			}
+		}
+
+		.filters-collapsed {
+			display: none;
+		}
 
 		.tag-item {
 			display: flex;
@@ -40,8 +54,8 @@ main {
 	}
 
 	.main-col {
-		width: calc(80% - 24px);
-		margin: 16px 16px 16px 8px;
+		width: calc(100% - 32px);
+		margin: 16px;
 
 		.selected-day {
 			color: rgba(0, 0, 0, 0.54);
@@ -62,6 +76,26 @@ main {
 				display: flex;
 				justify-content: flex-end;
 			}
+		}
+	}
+}
+
+@media screen and (min-width: 900px) {
+	main {
+		flex-direction: row;
+
+		.side-col {
+			width: calc(20% - 24px);
+			margin: 16px 8px 16px 16px;
+
+			.filters-collapse button {
+				display: none;
+			}
+		}
+
+		.main-col {
+			width: calc(80% - 24px);
+			margin: 16px 16px 16px 8px;
 		}
 	}
 }

@@ -39,25 +39,35 @@
 		<main>
 			<mat-card class="side-col">
 				<mat-card-header>
-					<mat-card-title>Filtros</mat-card-title>
+					<mat-card-title>
+						<div class="filters-collapse">
+							<span>Filtros</span>
+							<button mat-icon-button
+									(click)="collapseFilters()">
+								<mat-icon>{{filtersCollapsed() ? 'expand_less' : 'expand_more' }}</mat-icon>
+							</button>
+						</div>
+					</mat-card-title>
 				</mat-card-header>
 				<mat-card-content>
-					<mat-nav-list>
-						@for (tag of tagList; track tag.id) {
-						<a mat-list-item
-						   (click)="selectTag(tag)">
-							<div class="tag-item">
-								{{tag.name}}
-								<span class="num-tags">{{tag.num}} entradas</span>
-							</div>
-						</a>
-						}
-					</mat-nav-list>
-					<app-ocalendar #calendar
-								   [initialMonth]="month"
-								   [initialYear]="year"
-								   (calendarChanged)="calendarChange($event)"
-								   (daySelectedChanged)="calendarSelectDay($event)" />
+					<div [ngClass]="{'filters-collapsed': filtersCollapsed()}">
+						<mat-nav-list>
+							@for (tag of tagList; track tag.id) {
+							<a mat-list-item
+							   (click)="selectTag(tag)">
+								<div class="tag-item">
+									{{tag.name}}
+									<span class="num-tags">{{tag.num}} entradas</span>
+								</div>
+							</a>
+							}
+						</mat-nav-list>
+						<app-ocalendar #calendar
+									   [initialMonth]="month"
+									   [initialYear]="year"
+									   (calendarChanged)="calendarChange($event)"
+									   (daySelectedChanged)="calendarSelectDay($event)" />
+					</div>
 				</mat-card-content>
 			</mat-card>
 			<mat-card class="main-col">
@@ -81,14 +91,14 @@
 				</mat-card-content>
 				<mat-card-actions>
 					<div class="action-buttons">
+						@if (selectedTag !== null || day !== null) {
 						<div class="action-buttons-filters">
-							@if (selectedTag !== null || day !== null) {
 							<button mat-stroked-button
 									(click)="clearFilters()">
 								<mat-icon>filter_list</mat-icon>
 							</button>
-							}
 						</div>
+						}
 						<div class="action-buttons-others">
 							<button mat-stroked-button>
 								<mat-icon>chevron_left</mat-icon>
@@ -111,7 +121,7 @@
 	</mat-sidenav-content>
 </mat-sidenav-container>
 
-@if (loading) {
+@if (loading()) {
 <div class="loading">
 	<img src="assets/loading.svg"
 		 alt="Cargando...">

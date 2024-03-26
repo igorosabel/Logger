@@ -45,6 +45,7 @@ export interface HomeDataRequest {
   month: number;
   year: number;
   tags: number[];
+  first: boolean;
 }
 
 export interface HomeDataInterface {
