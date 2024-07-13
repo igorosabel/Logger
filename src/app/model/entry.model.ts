@@ -1,15 +1,15 @@
-import { EntryInterface, TagInterface } from "@interfaces/interfaces";
-import { Tag } from "@model/tag.model";
-import { Utils } from "@shared/utils.class";
+import { EntryInterface, TagInterface } from '@interfaces/interfaces';
+import Tag from '@model/tag.model';
+import Utils from '@shared/utils.class';
 
-export class Entry {
+export default class Entry {
   constructor(
-    public id: number = null,
-    public title: string = null,
-    public body: string = null,
+    public id: number | null = null,
+    public title: string | null = null,
+    public body: string | null = null,
     public isPublic: boolean = false,
-    public createdAt: string = null,
-    public updatedAt: string = null,
+    public createdAt: string | null = null,
+    public updatedAt: string | null = null,
     public tags: Tag[] = []
   ) {}
 
@@ -18,12 +18,12 @@ export class Entry {
   }
 
   loadTags(tags: string): void {
-    if (tags == "") {
+    if (tags == '') {
       this.tags = [];
       return;
     }
     const tagList: string[] = tags
-      .split(",")
+      .split(',')
       .map((x: string): string => x.trim());
     for (const t of tagList) {
       const ind: number = this.tags.findIndex((x: Tag): boolean => x.name == t);
@@ -45,33 +45,33 @@ export class Entry {
 
   get composed(): string {
     if (this.body === null) {
-      return "";
+      return '';
     }
     let str: string = this.body;
-    str = str.replace(new RegExp("\\n", "g"), "<br>");
+    str = str.replace(new RegExp('\\n', 'g'), '<br>');
 
     str = str.replace(
-      new RegExp("\\[b\\](.+?)\\[/b\\]", "g"),
-      "<strong>$1</strong>"
+      new RegExp('\\[b\\](.+?)\\[/b\\]', 'g'),
+      '<strong>$1</strong>'
     );
-    str = str.replace(new RegExp("\\[i\\](.+?)\\[/i\\]", "g"), "<em>$1</em>");
-    str = str.replace(new RegExp("\\[u\\](.+?)\\[/u\\]", "g"), "<u>$1</u>");
+    str = str.replace(new RegExp('\\[i\\](.+?)\\[/i\\]', 'g'), '<em>$1</em>');
+    str = str.replace(new RegExp('\\[u\\](.+?)\\[/u\\]', 'g'), '<u>$1</u>');
 
     str = str.replace(
-      new RegExp("\\[l\\](.+?)\\[/l\\]", "g"),
+      new RegExp('\\[l\\](.+?)\\[/l\\]', 'g'),
       '<div class="align-left">$1</div>'
     );
     str = str.replace(
-      new RegExp("\\[c\\](.+?)\\[/c\\]", "g"),
+      new RegExp('\\[c\\](.+?)\\[/c\\]', 'g'),
       '<div class="align-center">$1</div>'
     );
     str = str.replace(
-      new RegExp("\\[r\\](.+?)\\[/r\\]", "g"),
+      new RegExp('\\[r\\](.+?)\\[/r\\]', 'g'),
       '<div class="align-right">$1</div>'
     );
 
     str = str.replace(
-      new RegExp("\\[img\\](.+?)\\[/img\\]", "g"),
+      new RegExp('\\[img\\](.+?)\\[/img\\]', 'g'),
       '<div class="entry-photo" id="photo-$1"></div>'
     );
 
@@ -80,20 +80,20 @@ export class Entry {
 
   get clean(): string {
     if (this.body === null) {
-      return "";
+      return '';
     }
     let str: string = this.body;
-    str = str.replace(new RegExp("\\n", "g"), " ");
+    str = str.replace(new RegExp('\\n', 'g'), ' ');
 
-    str = str.replace(new RegExp("\\[b\\](.+?)\\[/b\\]", "g"), "$1");
-    str = str.replace(new RegExp("\\[i\\](.+?)\\[/i\\]", "g"), "$1");
-    str = str.replace(new RegExp("\\[u\\](.+?)\\[/u\\]", "g"), "$1");
+    str = str.replace(new RegExp('\\[b\\](.+?)\\[/b\\]', 'g'), '$1');
+    str = str.replace(new RegExp('\\[i\\](.+?)\\[/i\\]', 'g'), '$1');
+    str = str.replace(new RegExp('\\[u\\](.+?)\\[/u\\]', 'g'), '$1');
 
-    str = str.replace(new RegExp("\\[l\\](.+?)\\[/l\\]", "g"), "$1");
-    str = str.replace(new RegExp("\\[c\\](.+?)\\[/c\\]", "g"), "$1");
-    str = str.replace(new RegExp("\\[r\\](.+?)\\[/r\\]", "g"), "$1");
+    str = str.replace(new RegExp('\\[l\\](.+?)\\[/l\\]', 'g'), '$1');
+    str = str.replace(new RegExp('\\[c\\](.+?)\\[/c\\]', 'g'), '$1');
+    str = str.replace(new RegExp('\\[r\\](.+?)\\[/r\\]', 'g'), '$1');
 
-    str = str.replace(new RegExp("\\[img\\](.+?)\\[/img\\]", "g"), "");
+    str = str.replace(new RegExp('\\[img\\](.+?)\\[/img\\]', 'g'), '');
 
     return str;
   }
@@ -101,14 +101,17 @@ export class Entry {
   get entryUrl(): string[] {
     const ret: string[] = [];
 
-    if (!this.isPublic) {
-      ret.push("/entry");
-      ret.push(this.id.toString());
-    } else {
-      ret.push("/entry");
-      ret.push(this.id.toString());
-      ret.push("public");
+    if (this.id !== null) {
+      if (!this.isPublic) {
+        ret.push('/entry');
+        ret.push(this.id.toString());
+      } else {
+        ret.push('/entry');
+        ret.push(this.id.toString());
+        ret.push('public');
+      }
     }
+
     return ret;
   }
 

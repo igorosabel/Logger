@@ -1,17 +1,17 @@
-import { Component } from "@angular/core";
-import { MatButtonModule } from "@angular/material/button";
-import { MatDialogModule, MatDialogRef } from "@angular/material/dialog";
+import { Component, WritableSignal, inject, signal } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   standalone: true,
-  selector: "app-alert-dialog",
-  templateUrl: "./alert-dialog.component.html",
+  selector: 'mcd-alert-dialog',
+  templateUrl: './alert-dialog.component.html',
   imports: [MatDialogModule, MatButtonModule],
 })
-export class AlertDialogComponent {
-  public title: string;
-  public content: string;
-  public ok: string;
+export default class AlertDialogComponent {
+  public dialogRef: MatDialogRef<AlertDialogComponent> = inject(MatDialogRef);
 
-  constructor(public dialogRef: MatDialogRef<AlertDialogComponent>) {}
+  public title: WritableSignal<string> = signal<string>('');
+  public content: WritableSignal<string> = signal<string>('');
+  public ok: WritableSignal<string> = signal<string>('Continue');
 }

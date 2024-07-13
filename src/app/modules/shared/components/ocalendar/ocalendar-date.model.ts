@@ -1,6 +1,6 @@
-import { OCalendarDateInterface } from "./ocalendar-interfaces";
+import { OCalendarDateInterface } from './ocalendar-interfaces';
 
-export class OCalendarDate {
+export default class OCalendarDate {
   constructor(
     public day: number = 1,
     public month: number = 1,

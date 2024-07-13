@@ -1,15 +1,15 @@
-import { environment } from "@env/environment";
-import { PhotoInterface } from "@interfaces/interfaces";
+import { environment } from '@env/environment';
+import { PhotoInterface } from '@interfaces/interfaces';
 
-export class Photo {
+export default class Photo {
   constructor(
-    public id: number = null,
-    public createdAt: string = null,
-    public updatedAt: string = null
+    public id: number | null = null,
+    public createdAt: string | null = null,
+    public updatedAt: string | null = null
   ) {}
 
   get url(): string {
-    return environment.apiUrl + "getEntryPhoto/" + this.id;
+    return environment.apiUrl + 'getEntryPhoto/' + this.id;
   }
 
   fromInterface(p: PhotoInterface): Photo {

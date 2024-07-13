@@ -1,13 +1,13 @@
-import { TagInterface } from "@interfaces/interfaces";
-import { Utils } from "@shared/utils.class";
+import { TagInterface } from '@interfaces/interfaces';
+import Utils from '@shared/utils.class';
 
-export class Tag {
+export default class Tag {
   constructor(
-    public id: number = null,
-    public name: string = null,
+    public id: number | null = null,
+    public name: string | null = null,
     public num: number = 0,
-    public createdAt: string = null,
-    public updatedAt: string = null,
+    public createdAt: string | null = null,
+    public updatedAt: string | null = null,
     public isPublic: boolean = false
   ) {}
 

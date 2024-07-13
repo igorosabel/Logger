@@ -1,21 +1,27 @@
-import { Component, OnInit } from "@angular/core";
-import { MatButtonModule } from "@angular/material/button";
-import { MatIconModule } from "@angular/material/icon";
-import { MatListModule } from "@angular/material/list";
-import { MatToolbarModule } from "@angular/material/toolbar";
-import { ActivatedRoute, Params, RouterModule } from "@angular/router";
-import { TagInterface, TagsResult } from "@interfaces/interfaces";
-import { Tag } from "@model/tag.model";
-import { ApiService } from "@services/api.service";
-import { ClassMapperService } from "@services/class-mapper.service";
-import { CryptoService } from "@services/crypto.service";
-import { DataShareService } from "@services/data-share.service";
-import { firstValueFrom } from "rxjs";
+import {
+  Component,
+  inject,
+  OnInit,
+  signal,
+  WritableSignal,
+} from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { ActivatedRoute, Params, RouterModule } from '@angular/router';
+import { TagInterface, TagsResult } from '@interfaces/interfaces';
+import Tag from '@model/tag.model';
+import ApiService from '@services/api.service';
+import ClassMapperService from '@services/class-mapper.service';
+import CryptoService from '@services/crypto.service';
+import DataShareService from '@services/data-share.service';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   standalone: true,
-  selector: "app-tags",
-  templateUrl: "./tags.component.html",
+  selector: 'app-tags',
+  templateUrl: './tags.component.html',
   imports: [
     RouterModule,
     MatToolbarModule,
@@ -25,24 +31,20 @@ import { firstValueFrom } from "rxjs";
   ],
 })
 export default class TagsComponent implements OnInit {
-  loading: boolean = true;
-  username: string;
-  tagList: Tag[];
+  private activatedRoute: ActivatedRoute = inject(ActivatedRoute);
+  private dss: DataShareService = inject(DataShareService);
+  private as: ApiService = inject(ApiService);
+  private cms: ClassMapperService = inject(ClassMapperService);
+  private crypto: CryptoService = inject(CryptoService);
 
-  constructor(
-    private activatedRoute: ActivatedRoute,
-    private dss: DataShareService,
-    private as: ApiService,
-    private cms: ClassMapperService,
-    private crypto: CryptoService
-  ) {
-    this.tagList = [];
-  }
+  loading: WritableSignal<boolean> = signal<boolean>(true);
+  username: string = '';
+  tagList: Tag[] = [];
 
   ngOnInit(): void {
-    this.dss.setGlobal("where", "tags");
+    this.dss.setGlobal('where', 'tags');
     this.activatedRoute.params.subscribe((params: Params): void => {
-      this.username = params.username;
+      this.username = params['username'];
       this.loadTags();
     });
   }
@@ -51,7 +53,7 @@ export default class TagsComponent implements OnInit {
     try {
       const response: TagsResult = await firstValueFrom(this.as.getTags());
 
-      if (response.status === "ok") {
+      if (response.status === 'ok') {
         const encryptedTags: TagInterface[] = response.list;
         const decryptedTags: TagInterface[] = await this.crypto.decryptTags(
           encryptedTags
@@ -59,9 +61,9 @@ export default class TagsComponent implements OnInit {
         this.tagList = this.cms.getTags(decryptedTags);
       }
     } catch (error) {
-      console.error("Error al cargar los tags:", error);
+      console.error('Error al cargar los tags:', error);
     } finally {
-      this.loading = false;
+      this.loading.set(false);
     }
   }
 }

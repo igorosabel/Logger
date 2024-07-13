@@ -1,3 +1,7 @@
+export interface DataShareGlobals {
+  [key: string]: any;
+}
+
 export interface DialogField {
   title: string;
   type: string;
@@ -23,10 +27,10 @@ export interface LoginData {
 }
 
 export interface UserInterface {
-  id: number;
-  username: string;
-  token: string;
-  secret?: string;
+  id: number | null;
+  username: string | null;
+  token: string | null;
+  secret?: string | null;
 }
 
 export interface LoginResult {
@@ -56,21 +60,21 @@ export interface HomeDataInterface {
 }
 
 export interface TagInterface {
-  id: number;
-  name: string;
+  id: number | null;
+  name: string | null;
   num: number;
-  createdAt: string;
-  updatedAt: string;
+  createdAt: string | null;
+  updatedAt: string | null;
   isPublic: boolean;
 }
 
 export interface EntryInterface {
-  id: number;
-  title: string;
-  body: string;
+  id: number | null;
+  title: string | null;
+  body: string | null;
   isPublic: boolean;
-  createdAt: string;
-  updatedAt: string;
+  createdAt: string | null;
+  updatedAt: string | null;
   tags: TagInterface[];
 }
 
@@ -96,9 +100,9 @@ export interface TagEntriesResult {
 }
 
 export interface PhotoInterface {
-  id: number;
-  createdAt: string;
-  updatedAt: string;
+  id: number | null;
+  createdAt: string | null;
+  updatedAt: string | null;
 }
 
 export interface PhotosResult {

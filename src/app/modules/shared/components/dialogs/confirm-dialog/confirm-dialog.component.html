@@ -1,14 +1,14 @@
-<h1 mat-dialog-title>{{ title }}</h1>
+<h1 mat-dialog-title>{{ title() }}</h1>
 <div mat-dialog-content>
-	<p>{{ content }}</p>
+	<p>{{ content() }}</p>
 </div>
 <div mat-dialog-actions
 	 align="end">
 	<button type="button"
 			mat-button
-			(click)="dialogRef.close()">{{ cancel }}</button>
+			(click)="dialogRef.close()">{{ cancel() }}</button>
 	<button type="button"
-			mat-raised-button
+			mat-flat-button
 			color="primary"
-			(click)="dialogRef.close(true)">{{ ok }}</button>
+			(click)="dialogRef.close(true)">{{ ok() }}</button>
 </div>

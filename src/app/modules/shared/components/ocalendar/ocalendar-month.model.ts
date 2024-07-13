@@ -1,6 +1,6 @@
-import { OCalendarMonthInterface } from "./ocalendar-interfaces";
+import { OCalendarMonthInterface } from './ocalendar-interfaces';
 
-export class OCalendarMonth {
+export default class OCalendarMonth {
   constructor(public month: number = 1, public year: number = 2023) {}
 
   fromInterface(ocd: OCalendarMonthInterface): OCalendarMonth {

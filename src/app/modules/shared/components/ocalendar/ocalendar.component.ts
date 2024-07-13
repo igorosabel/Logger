@@ -7,45 +7,45 @@ import {
   input,
   model,
   output,
-} from "@angular/core";
-import { FormsModule } from "@angular/forms";
-import { OCalendarDate } from "./ocalendar-date.model";
-import { OCalendarMonthItemInterface } from "./ocalendar-interfaces";
-import { OCalendarMonth } from "./ocalendar-month.model";
+} from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import OCalendarDate from './ocalendar-date.model';
+import { OCalendarMonthItemInterface } from './ocalendar-interfaces';
+import OCalendarMonth from './ocalendar-month.model';
 
 @Component({
-  selector: "app-ocalendar",
+  selector: 'app-ocalendar',
   standalone: true,
   imports: [FormsModule],
-  templateUrl: "./ocalendar.component.html",
-  styleUrls: ["./ocalendar.component.scss"],
+  templateUrl: './ocalendar.component.html',
+  styleUrls: ['./ocalendar.component.scss'],
 })
-export class OcalendarComponent implements OnInit {
+export default class OcalendarComponent implements OnInit {
   initialMonth: InputSignal<number> = input.required<number>();
   initialYear: InputSignal<number> = input.required<number>();
-  markedDays: ModelSignal<string[]> = model<string[]>();
+  markedDays: ModelSignal<string[]> = model<string[]>([]);
   calendarChanged: OutputEmitterRef<OCalendarMonth> = output<OCalendarMonth>();
   daySelectedChanged: OutputEmitterRef<OCalendarDate> = output<OCalendarDate>();
 
   months: OCalendarMonthItemInterface[] = [
-    { month: 1, name: "Enero" },
-    { month: 2, name: "Febrero" },
-    { month: 3, name: "Marzo" },
-    { month: 4, name: "Abril" },
-    { month: 5, name: "Mayo" },
-    { month: 6, name: "Junio" },
-    { month: 7, name: "Julio" },
-    { month: 8, name: "Agosto" },
-    { month: 9, name: "Septiembre" },
-    { month: 10, name: "Octubre" },
-    { month: 11, name: "Noviembre" },
-    { month: 12, name: "Diciembre" },
+    { month: 1, name: 'Enero' },
+    { month: 2, name: 'Febrero' },
+    { month: 3, name: 'Marzo' },
+    { month: 4, name: 'Abril' },
+    { month: 5, name: 'Mayo' },
+    { month: 6, name: 'Junio' },
+    { month: 7, name: 'Julio' },
+    { month: 8, name: 'Agosto' },
+    { month: 9, name: 'Septiembre' },
+    { month: 10, name: 'Octubre' },
+    { month: 11, name: 'Noviembre' },
+    { month: 12, name: 'Diciembre' },
   ];
   years: number[] = [];
 
-  currentMonth: number;
-  currentYear: number;
-  weeks: OCalendarDate[][] = [];
+  currentMonth: number = 0;
+  currentYear: number = 0;
+  weeks: (OCalendarDate | null)[][] = [];
 
   ngOnInit(): void {
     this.currentMonth = this.initialMonth() || new Date().getMonth() + 1;
@@ -70,7 +70,7 @@ export class OcalendarComponent implements OnInit {
     startDate.setDate(startDate.getDate() - startingDay);
 
     while (startDate <= lastDay) {
-      const week: OCalendarDate[] = [];
+      const week: (OCalendarDate | null)[] = [];
       for (let i: number = 0; i < 7; i++) {
         if (startDate.getMonth() === firstDay.getMonth()) {
           week.push(
@@ -91,7 +91,7 @@ export class OcalendarComponent implements OnInit {
     this.updateYearList();
   }
 
-  changeMonth(change: number = null): void {
+  changeMonth(change: number | null = null): void {
     if (change !== null) {
       this.currentMonth += change;
       if (this.currentMonth < 1) {
@@ -117,8 +117,8 @@ export class OcalendarComponent implements OnInit {
   }
 
   private isDateMarked(date: Date): boolean {
-    const formattedDate = `${date.getDate() < 10 ? "0" : ""}${date.getDate()}-${
-      date.getMonth() + 1 < 10 ? "0" : ""
+    const formattedDate = `${date.getDate() < 10 ? '0' : ''}${date.getDate()}-${
+      date.getMonth() + 1 < 10 ? '0' : ''
     }${date.getMonth() + 1}`;
     return this.markedDays() && this.markedDays().includes(formattedDate);
   }

@@ -1,21 +1,21 @@
-import { Component, OnInit } from "@angular/core";
-import { FormsModule } from "@angular/forms";
-import { MatButtonModule } from "@angular/material/button";
-import { MatCardModule } from "@angular/material/card";
-import { MatFormFieldModule } from "@angular/material/form-field";
-import { MatIconModule } from "@angular/material/icon";
-import { MatInputModule } from "@angular/material/input";
-import { MatSnackBar } from "@angular/material/snack-bar";
-import { MatToolbarModule } from "@angular/material/toolbar";
-import { ActivatedRoute, Params, RouterModule } from "@angular/router";
-import { CryptoService } from "@services/crypto.service";
-import { Utils } from "@shared/utils.class";
+import { Component, OnInit, inject } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { ActivatedRoute, Params, RouterModule } from '@angular/router';
+import CryptoService from '@services/crypto.service';
+import Utils from '@shared/utils.class';
 
 @Component({
   standalone: true,
-  selector: "app-crypt",
-  templateUrl: "./crypt.component.html",
-  styleUrls: ["./crypt.component.scss"],
+  selector: 'app-crypt',
+  templateUrl: './crypt.component.html',
+  styleUrls: ['./crypt.component.scss'],
   imports: [
     RouterModule,
     FormsModule,
@@ -28,25 +28,23 @@ import { Utils } from "@shared/utils.class";
   ],
 })
 export default class CryptComponent implements OnInit {
-  username: string;
-  encrypt: string = "";
-  encryptedResult: string = "";
-  decrypt: string = "";
-  decryptedResult: string = "";
-  urlencode: string = "";
-  urlencodeResult: string = "";
-  urldecode: string = "";
-  urldecodeResult: string = "";
+  private activatedRoute: ActivatedRoute = inject(ActivatedRoute);
+  private crypto: CryptoService = inject(CryptoService);
+  private snackBar: MatSnackBar = inject(MatSnackBar);
 
-  constructor(
-    private activatedRoute: ActivatedRoute,
-    private crypto: CryptoService,
-    private snackBar: MatSnackBar
-  ) {}
+  username: string = '';
+  encrypt: string = '';
+  encryptedResult: string = '';
+  decrypt: string = '';
+  decryptedResult: string = '';
+  urlencode: string = '';
+  urlencodeResult: string = '';
+  urldecode: string = '';
+  urldecodeResult: string = '';
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((params: Params): void => {
-      this.username = params.username;
+      this.username = params['username'];
     });
   }
 
@@ -56,7 +54,7 @@ export default class CryptComponent implements OnInit {
 
   copyEncrypted(): void {
     navigator.clipboard.writeText(this.encryptedResult);
-    this.snackBar.open("¡Resultado copiado!", "", {
+    this.snackBar.open('¡Resultado copiado!', '', {
       duration: 3000,
     });
   }
@@ -67,7 +65,7 @@ export default class CryptComponent implements OnInit {
 
   copyDecrypted(): void {
     navigator.clipboard.writeText(this.decryptedResult);
-    this.snackBar.open("¡Resultado copiado!", "", {
+    this.snackBar.open('¡Resultado copiado!', '', {
       duration: 3000,
     });
   }
@@ -78,7 +76,7 @@ export default class CryptComponent implements OnInit {
 
   copyUrlencoded(): void {
     navigator.clipboard.writeText(this.urlencodeResult);
-    this.snackBar.open("¡Resultado copiado!", "", {
+    this.snackBar.open('¡Resultado copiado!', '', {
       duration: 3000,
     });
   }
@@ -89,7 +87,7 @@ export default class CryptComponent implements OnInit {
 
   copyUrldecoded(): void {
     navigator.clipboard.writeText(this.urldecodeResult);
-    this.snackBar.open("¡Resultado copiado!", "", {
+    this.snackBar.open('¡Resultado copiado!', '', {
       duration: 3000,
     });
   }

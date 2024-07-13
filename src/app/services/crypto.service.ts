@@ -1,27 +1,30 @@
-import { Injectable } from "@angular/core";
-import { EntryInterface, TagInterface } from "@interfaces/interfaces";
-import { UserService } from "@services/user.service";
-import { Utils } from "@shared/utils.class";
+import { Injectable, inject } from '@angular/core';
+import { EntryInterface, TagInterface } from '@interfaces/interfaces';
+import UserService from '@services/user.service';
+import Utils from '@shared/utils.class';
 
 @Injectable({
-  providedIn: "root",
+  providedIn: 'root',
 })
-export class CryptoService {
-  constructor(private us: UserService) {}
+export default class CryptoService {
+  private us: UserService = inject(UserService);
 
   async getCryptoKeyFromHexString(hexKey: string): Promise<CryptoKey> {
     // Convierte la clave hexadecimal a una clave binaria
+    const match: RegExpMatchArray | null = hexKey.match(/.{1,2}/g);
     const keyBuffer = new Uint8Array(
-      hexKey.match(/.{1,2}/g).map((byte: string): number => parseInt(byte, 16))
+      match !== null
+        ? match.map((byte: string): number => parseInt(byte, 16))
+        : []
     );
 
     // Importa la clave binaria
     const key: CryptoKey = await window.crypto.subtle.importKey(
-      "raw",
+      'raw',
       keyBuffer,
-      "AES-GCM",
+      'AES-GCM',
       true,
-      ["encrypt", "decrypt"]
+      ['encrypt', 'decrypt']
     );
 
     return key;
@@ -29,7 +32,7 @@ export class CryptoService {
 
   arrayBufferToBase64(arrayBuffer: ArrayBufferLike): string {
     const byteArray = new Uint8Array(arrayBuffer);
-    let binary = "";
+    let binary = '';
     for (let i = 0; i < byteArray.byteLength; i++) {
       binary += String.fromCharCode(byteArray[i]);
     }
@@ -37,14 +40,14 @@ export class CryptoService {
   }
 
   async encryptText(data: string, keyText: string): Promise<string> {
-    if (data === "") {
-      return "";
+    if (data === '') {
+      return '';
     }
     const key: CryptoKey = await this.getCryptoKeyFromHexString(keyText);
     const dataBuffer: Uint8Array = new TextEncoder().encode(data);
     const encryptedData: ArrayBuffer = await window.crypto.subtle.encrypt(
       {
-        name: "AES-GCM",
+        name: 'AES-GCM',
         //iv: window.crypto.getRandomValues(new Uint8Array(12)),
         iv: new Uint8Array(12),
       },
@@ -60,20 +63,20 @@ export class CryptoService {
   }
 
   async decryptText(encryptedBase64: string, keyText: string): Promise<string> {
-    if (encryptedBase64 === "") {
-      return "";
+    if (encryptedBase64 === '') {
+      return '';
     }
-    let decryptedText: string = "";
+    let decryptedText: string = '';
     try {
       const key: CryptoKey = await this.getCryptoKeyFromHexString(keyText);
       const encryptedData: ArrayBufferLike = new Uint8Array(
         atob(encryptedBase64)
-          .split("")
+          .split('')
           .map((char: string): number => char.charCodeAt(0))
       ).buffer;
       const decryptedData: ArrayBuffer = await window.crypto.subtle.decrypt(
         {
-          name: "AES-GCM",
+          name: 'AES-GCM',
           iv: new Uint8Array(12),
         },
         key,
@@ -93,25 +96,31 @@ export class CryptoService {
     const data: Uint8Array = encoder.encode(text);
 
     // Calcular el hash SHA-256 (256 bits)
-    const hashBuffer: ArrayBuffer = await crypto.subtle.digest("SHA-256", data);
+    const hashBuffer: ArrayBuffer = await crypto.subtle.digest('SHA-256', data);
 
     // Truncar el hash a la longitud deseada en bits
     const claveBuffer: ArrayBuffer = hashBuffer.slice(0, longitudBits / 8);
 
     // La clave generada en formato hexadecimal
     const claveHexadecimal: string = Array.from(new Uint8Array(claveBuffer))
-      .map((byte: number): string => byte.toString(16).padStart(2, "0"))
-      .join("");
+      .map((byte: number): string => byte.toString(16).padStart(2, '0'))
+      .join('');
 
     return claveHexadecimal;
   }
 
   encrypt(str: string): Promise<string> {
-    return this.encryptText(str, this.us.user.secret.trim());
+    if (this.us.user !== null && this.us.user.secret !== null) {
+      return this.encryptText(str, this.us.user.secret.trim());
+    }
+    return Promise.resolve('');
   }
 
   decrypt(str: string): Promise<string> {
-    return this.decryptText(str, this.us.user.secret.trim());
+    if (this.us.user !== null && this.us.user.secret !== null) {
+      return this.decryptText(str, this.us.user.secret.trim());
+    }
+    return Promise.resolve('');
   }
 
   async hash(str: string): Promise<string> {
@@ -156,16 +165,18 @@ export class CryptoService {
   async encryptTags(tags: TagInterface[]): Promise<TagInterface[]> {
     const tagList: TagInterface[] = [];
     for (const tag of tags) {
-      tag.name = await this.encrypt(tag.name);
-      tagList.push(tag);
+      if (tag.name !== null) {
+        tag.name = await this.encrypt(tag.name);
+        tagList.push(tag);
+      }
     }
     return tagList;
   }
 
   async encryptEntry(item: EntryInterface): Promise<EntryInterface> {
     if (!item.isPublic) {
-      item.title = await this.encrypt(item.title);
-      item.body = await this.encrypt(item.body);
+      item.title = item.title !== null ? await this.encrypt(item.title) : '';
+      item.body = item.body !== null ? await this.encrypt(item.body) : '';
       item.tags = await this.encryptTags(item.tags);
     }
     return item;
