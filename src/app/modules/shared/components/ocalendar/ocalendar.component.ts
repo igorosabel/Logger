@@ -15,7 +15,6 @@ import OCalendarMonth from './ocalendar-month.model';
 
 @Component({
   selector: 'app-ocalendar',
-  standalone: true,
   imports: [FormsModule],
   templateUrl: './ocalendar.component.html',
   styleUrls: ['./ocalendar.component.scss'],

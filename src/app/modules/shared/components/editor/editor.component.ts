@@ -34,7 +34,6 @@ import ImgCryptComponent from '@shared/components/img-crypt/img-crypt.component'
 import { firstValueFrom } from 'rxjs';
 
 @Component({
-  standalone: true,
   selector: 'app-editor',
   templateUrl: './editor.component.html',
   styleUrls: ['./editor.component.scss'],

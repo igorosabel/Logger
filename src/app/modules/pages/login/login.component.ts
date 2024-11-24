@@ -22,7 +22,6 @@ import DataShareService from '@services/data-share.service';
 import UserService from '@services/user.service';
 
 @Component({
-  standalone: true,
   selector: 'app-login',
   templateUrl: './login.component.html',
   imports: [

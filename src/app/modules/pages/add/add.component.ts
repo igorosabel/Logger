@@ -19,7 +19,6 @@ import DialogService from '@services/dialog.service';
 import EditorComponent from '@shared/components/editor/editor.component';
 
 @Component({
-  standalone: true,
   selector: 'app-add',
   templateUrl: './add.component.html',
   styleUrls: ['./add.component.scss'],

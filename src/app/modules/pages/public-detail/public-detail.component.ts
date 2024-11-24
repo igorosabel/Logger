@@ -23,7 +23,6 @@ import UserService from '@services/user.service';
 import ImgCryptComponent from '@shared/components/img-crypt/img-crypt.component';
 
 @Component({
-  standalone: true,
   selector: 'app-public-detail',
   templateUrl: './public-detail.component.html',
   styleUrls: ['./public-detail.component.scss'],

@@ -25,7 +25,6 @@ import OneEntryComponent from '@shared/components/one-entry/one-entry.component'
 import { firstValueFrom } from 'rxjs';
 
 @Component({
-  standalone: true,
   selector: 'app-tag-list',
   templateUrl: './tag-list.component.html',
   imports: [

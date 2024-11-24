@@ -6,7 +6,6 @@ import EntryTagListComponent from '@shared/components/entry-tag-list/entry-tag-l
 import ShortTextPipe from '@shared/pipes/shorttext.pipe';
 
 @Component({
-  standalone: true,
   selector: 'app-one-entry',
   templateUrl: './one-entry.component.html',
   imports: [RouterModule, EntryTagListComponent, ShortTextPipe, MatListModule],

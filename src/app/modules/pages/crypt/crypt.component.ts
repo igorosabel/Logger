@@ -12,7 +12,6 @@ import CryptoService from '@services/crypto.service';
 import Utils from '@shared/utils.class';
 
 @Component({
-  standalone: true,
   selector: 'app-crypt',
   templateUrl: './crypt.component.html',
   styleUrls: ['./crypt.component.scss'],

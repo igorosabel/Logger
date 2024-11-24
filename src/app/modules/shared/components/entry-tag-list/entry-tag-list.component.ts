@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 import Tag from '@model/tag.model';
 
 @Component({
-  standalone: true,
   selector: 'app-entry-tag-list',
   templateUrl: './entry-tag-list.component.html',
   styleUrls: ['./entry-tag-list.component.scss'],

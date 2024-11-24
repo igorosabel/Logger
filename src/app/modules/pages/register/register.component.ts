@@ -15,7 +15,6 @@ import DataShareService from '@services/data-share.service';
 import UserService from '@services/user.service';
 
 @Component({
-  standalone: true,
   selector: 'app-register',
   templateUrl: './register.component.html',
   imports: [

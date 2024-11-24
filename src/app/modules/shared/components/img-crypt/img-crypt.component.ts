@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { NgClass } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, ModelSignal, OnInit, inject, model } from '@angular/core';
 import { PhotoDataResult } from '@interfaces/interfaces';
@@ -7,11 +7,10 @@ import CryptoService from '@services/crypto.service';
 import { Observable } from 'rxjs';
 
 @Component({
-  standalone: true,
   selector: 'app-img-crypt',
   templateUrl: './img-crypt.component.html',
   styleUrls: ['./img-crypt.component.scss'],
-  imports: [CommonModule],
+  imports: [NgClass],
 })
 export default class ImgCryptComponent implements OnInit {
   private http: HttpClient = inject(HttpClient);

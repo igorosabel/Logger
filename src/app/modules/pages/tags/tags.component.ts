@@ -19,7 +19,6 @@ import DataShareService from '@services/data-share.service';
 import { firstValueFrom } from 'rxjs';
 
 @Component({
-  standalone: true,
   selector: 'app-tags',
   templateUrl: './tags.component.html',
   imports: [

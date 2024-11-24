@@ -8,7 +8,6 @@ import { MatInputModule } from '@angular/material/input';
 import { DialogField } from '@interfaces/interfaces';
 
 @Component({
-  standalone: true,
   selector: 'mcd-form-dialog',
   templateUrl: './form-dialog.component.html',
   imports: [

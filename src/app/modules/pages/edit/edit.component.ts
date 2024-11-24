@@ -25,7 +25,6 @@ import EditorComponent from '@shared/components/editor/editor.component';
 import { firstValueFrom } from 'rxjs';
 
 @Component({
-  standalone: true,
   selector: 'app-edit',
   templateUrl: './edit.component.html',
   styleUrls: ['./edit.component.scss'],

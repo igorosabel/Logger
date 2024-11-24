@@ -36,7 +36,6 @@ import OneEntryComponent from '@shared/components/one-entry/one-entry.component'
 import { firstValueFrom } from 'rxjs';
 
 @Component({
-  standalone: true,
   selector: 'app-main',
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.scss'],

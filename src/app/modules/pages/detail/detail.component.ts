@@ -26,14 +26,12 @@ import ImgCryptComponent from '@shared/components/img-crypt/img-crypt.component'
 import { firstValueFrom } from 'rxjs';
 
 @Component({
-  standalone: true,
   selector: 'app-detail',
   templateUrl: './detail.component.html',
   styleUrls: ['./detail.component.scss'],
   imports: [
     RouterModule,
     EntryTagListComponent,
-    ImgCryptComponent,
     MatToolbarModule,
     MatButtonModule,
     MatIconModule,
