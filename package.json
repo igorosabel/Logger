@@ -23,6 +23,7 @@
     "@angular/router": "^19.0.0",
     "@auth0/angular-jwt": "^5.2.0",
     "@osumi/tools": "^1.5.0",
+    "@osumi/angular-tools": "^1.0.8",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.15.0"

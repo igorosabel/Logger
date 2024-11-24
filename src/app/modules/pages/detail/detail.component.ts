@@ -16,11 +16,11 @@ import { ActivatedRoute, Params, Router, RouterModule } from '@angular/router';
 import { EntryInterface, EntryResult } from '@interfaces/interfaces';
 import Entry from '@model/entry.model';
 import Photo from '@model/photo.model';
+import { DialogService } from '@osumi/angular-tools';
 import ApiService from '@services/api.service';
 import ClassMapperService from '@services/class-mapper.service';
 import CryptoService from '@services/crypto.service';
 import DataShareService from '@services/data-share.service';
-import DialogService from '@services/dialog.service';
 import EntryTagListComponent from '@shared/components/entry-tag-list/entry-tag-list.component';
 import ImgCryptComponent from '@shared/components/img-crypt/img-crypt.component';
 import { firstValueFrom } from 'rxjs';
@@ -89,7 +89,6 @@ export default class DetailComponent implements OnInit {
           title: 'Error',
           content:
             'Ocurrió un error al cargar la entrada. Inténtalo de nuevo más tarde por favor.',
-          ok: 'Continuar',
         })
         .subscribe((): void => {
           this.router.navigate(['/home']);

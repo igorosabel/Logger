@@ -26,10 +26,10 @@ import {
 import Entry from '@model/entry.model';
 import Photo from '@model/photo.model';
 import Tag from '@model/tag.model';
+import { DialogService } from '@osumi/angular-tools';
 import ApiService from '@services/api.service';
 import ClassMapperService from '@services/class-mapper.service';
 import CryptoService from '@services/crypto.service';
-import DialogService from '@services/dialog.service';
 import ImgCryptComponent from '@shared/components/img-crypt/img-crypt.component';
 import { firstValueFrom } from 'rxjs';
 
@@ -213,7 +213,6 @@ export default class EditorComponent {
           content:
             'Solo está permitido imágenes de los siguientes tipos: ' +
             validList.join(', '),
-          ok: 'Continuar',
         });
       } else {
         const fr: FileReader = new FileReader();
@@ -259,8 +258,7 @@ export default class EditorComponent {
       .confirm({
         title: 'Atención',
         content: '¿Estás seguro de querer borrar esta foto?',
-        ok: 'Continuar',
-        cancel: 'Cancelar',
+        warn: true,
       })
       .subscribe((result: boolean): void => {
         if (result === true) {
@@ -293,7 +291,6 @@ export default class EditorComponent {
             this.dialog.alert({
               title: 'Error',
               content: 'Ha ocurrido un error al borrar la foto.',
-              ok: 'Continuar',
             });
           }
         });

@@ -16,9 +16,9 @@ import { ActivatedRoute, Params, Router, RouterModule } from '@angular/router';
 import { EntryResult } from '@interfaces/interfaces';
 import Entry from '@model/entry.model';
 import Photo from '@model/photo.model';
+import { DialogService } from '@osumi/angular-tools';
 import ApiService from '@services/api.service';
 import ClassMapperService from '@services/class-mapper.service';
-import DialogService from '@services/dialog.service';
 import UserService from '@services/user.service';
 import ImgCryptComponent from '@shared/components/img-crypt/img-crypt.component';
 
@@ -68,7 +68,6 @@ export default class PublicDetailComponent implements OnInit {
           .alert({
             title: 'Error',
             content: 'Ocurrió un error al cargar la entrada',
-            ok: 'Continuar',
           })
           .subscribe((): void => {
             this.router.navigate(['/']);

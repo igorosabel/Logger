@@ -17,10 +17,10 @@ import {
   StatusResult,
 } from '@interfaces/interfaces';
 import Entry from '@model/entry.model';
+import { DialogService } from '@osumi/angular-tools';
 import ApiService from '@services/api.service';
 import ClassMapperService from '@services/class-mapper.service';
 import CryptoService from '@services/crypto.service';
-import DialogService from '@services/dialog.service';
 import EditorComponent from '@shared/components/editor/editor.component';
 import { firstValueFrom } from 'rxjs';
 
@@ -79,7 +79,6 @@ export default class EditComponent implements OnInit {
         title: 'Error',
         content:
           'Ocurrió un error al cargar la entrada. Inténtalo de nuevo más tarde por favor.',
-        ok: 'Continuar',
       });
     }
   }
@@ -96,7 +95,6 @@ export default class EditComponent implements OnInit {
         .alert({
           title: 'Error',
           content: '¡No puedes dejar el título de la entrada en blanco!',
-          ok: 'Continuar',
         })
         .subscribe((): void => {
           this.editor().focusTitle();
@@ -118,7 +116,6 @@ export default class EditComponent implements OnInit {
             .alert({
               title: 'OK',
               content: `La entrada "${this.entry.title}" ha sido guardada.`,
-              ok: 'Continuar',
             })
             .subscribe((): void => {
               this.router.navigate(['/home']);
@@ -128,7 +125,6 @@ export default class EditComponent implements OnInit {
             title: 'Error',
             content:
               'Ocurrió un error al guardar la entrada. Inténtalo de nuevo más tarde por favor.',
-            ok: 'Continuar',
           });
         }
       });
@@ -141,8 +137,7 @@ export default class EditComponent implements OnInit {
         title: 'Confirmar',
         content:
           '¿Estás seguro de querer borrar esta entrada? Esta acción es irreversible',
-        ok: 'Continuar',
-        cancel: 'Cancelar',
+        warn: true,
       })
       .subscribe((result: boolean): void => {
         if (result === true) {
@@ -156,7 +151,6 @@ export default class EditComponent implements OnInit {
                   .alert({
                     title: 'Entrada borrada',
                     content: 'La entrada ha sido borrada correctamente.',
-                    ok: 'Continuar',
                   })
                   .subscribe((): void => {
                     this.router.navigate(['/home']);
@@ -166,7 +160,6 @@ export default class EditComponent implements OnInit {
                   title: 'Error',
                   content:
                     'Ocurrió un error al borrar la entrada. Inténtalo de nuevo más tarde por favor.',
-                  ok: 'Continuar',
                 });
               }
             });
