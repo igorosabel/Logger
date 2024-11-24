@@ -37,7 +37,8 @@
               "src/styles.scss",
               "node_modules/@osumi/angular-tools/styles/dialogs.scss"
             ],
-            "scripts": []
+            "scripts": [],
+            "allowedCommonJsDependencies": ["@osumi/tools"]
           },
           "configurations": {
             "production": {
