@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { EntryInterface, TagInterface } from '@interfaces/interfaces';
+import { urldecode } from '@osumi/tools';
 import UserService from '@services/user.service';
-import Utils from '@shared/utils.class';
 
 @Injectable({
   providedIn: 'root',
@@ -130,7 +130,7 @@ export default class CryptoService {
 
   async decryptTag(tag: TagInterface): Promise<TagInterface> {
     if (!tag.isPublic) {
-      tag.name = await this.decrypt(Utils.urldecode(tag.name));
+      tag.name = await this.decrypt(urldecode(tag.name));
     }
     return tag;
   }
@@ -145,8 +145,8 @@ export default class CryptoService {
 
   async decryptEntry(item: EntryInterface): Promise<EntryInterface> {
     if (!item.isPublic) {
-      item.title = await this.decrypt(Utils.urldecode(item.title));
-      item.body = await this.decrypt(Utils.urldecode(item.body));
+      item.title = await this.decrypt(urldecode(item.title));
+      item.body = await this.decrypt(urldecode(item.body));
       item.tags = await this.decryptTags(item.tags);
     }
     return item;

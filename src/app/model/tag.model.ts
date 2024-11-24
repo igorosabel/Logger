@@ -1,5 +1,5 @@
 import { TagInterface } from '@interfaces/interfaces';
-import Utils from '@shared/utils.class';
+import { urldecode, urlencode } from '@osumi/tools';
 
 export default class Tag {
   constructor(
@@ -13,7 +13,7 @@ export default class Tag {
 
   fromInterface(t: TagInterface): Tag {
     this.id = t.id;
-    this.name = Utils.urldecode(t.name);
+    this.name = urldecode(t.name);
     this.num = t.num;
     this.createdAt = t.createdAt;
     this.updatedAt = t.updatedAt;
@@ -25,7 +25,7 @@ export default class Tag {
   toInterface(): TagInterface {
     return {
       id: this.id,
-      name: Utils.urlencode(this.name),
+      name: urlencode(this.name),
       num: this.num,
       createdAt: this.createdAt,
       updatedAt: this.updatedAt,

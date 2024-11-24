@@ -8,8 +8,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { ActivatedRoute, Params, RouterModule } from '@angular/router';
+import { urldecode, urlencode } from '@osumi/tools';
 import CryptoService from '@services/crypto.service';
-import Utils from '@shared/utils.class';
 
 @Component({
   selector: 'app-crypt',
@@ -37,7 +37,7 @@ export default class CryptComponent implements OnInit {
   decrypt: string = '';
   decryptedResult: string = '';
   urlencode: string = '';
-  urlencodeResult: string = '';
+  urlencodeResult: string | null = '';
   urldecode: string = '';
   urldecodeResult: string = '';
 
@@ -70,18 +70,24 @@ export default class CryptComponent implements OnInit {
   }
 
   urlencodeText(): void {
-    this.urlencodeResult = Utils.urlencode(this.urlencode);
+    this.urlencodeResult = urlencode(this.urlencode);
   }
 
   copyUrlencoded(): void {
-    navigator.clipboard.writeText(this.urlencodeResult);
-    this.snackBar.open('¡Resultado copiado!', '', {
-      duration: 3000,
-    });
+    if (this.urlencodeResult != null) {
+      navigator.clipboard.writeText(this.urlencodeResult);
+      this.snackBar.open('¡Resultado copiado!', '', {
+        duration: 3000,
+      });
+    } else {
+      this.snackBar.open('¡El resultado no se pudo copiar!', '', {
+        duration: 3000,
+      });
+    }
   }
 
   urldecodeText(): void {
-    this.urldecodeResult = Utils.urldecode(this.urldecode);
+    this.urldecodeResult = urldecode(this.urldecode);
   }
 
   copyUrldecoded(): void {

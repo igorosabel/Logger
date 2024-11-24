@@ -1,5 +1,5 @@
 import { UserInterface } from '@interfaces/interfaces';
-import Utils from '@shared/utils.class';
+import { urldecode, urlencode } from '@osumi/tools';
 
 export default class User {
   secret: string | null = null;
@@ -12,7 +12,7 @@ export default class User {
 
   fromInterface(u: UserInterface): User {
     this.id = u.id;
-    this.username = Utils.urldecode(u.username);
+    this.username = urldecode(u.username);
     this.token = u.token;
     this.secret = u.secret ? u.secret : null;
 
@@ -22,7 +22,7 @@ export default class User {
   toInterface(): UserInterface {
     return {
       id: this.id,
-      username: Utils.urlencode(this.username),
+      username: urlencode(this.username),
       token: this.token,
       secret: this.secret,
     };

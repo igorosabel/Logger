@@ -1,6 +1,6 @@
 import { EntryInterface, TagInterface } from '@interfaces/interfaces';
 import Tag from '@model/tag.model';
-import Utils from '@shared/utils.class';
+import { urldecode, urlencode } from '@osumi/tools';
 
 export default class Entry {
   constructor(
@@ -117,8 +117,8 @@ export default class Entry {
 
   fromInterface(e: EntryInterface): Entry {
     this.id = e.id;
-    this.title = Utils.urldecode(e.title);
-    this.body = Utils.urldecode(e.body);
+    this.title = urldecode(e.title);
+    this.body = urldecode(e.body);
     this.isPublic = e.isPublic;
     this.createdAt = e.createdAt;
     this.updatedAt = e.updatedAt;
@@ -132,8 +132,8 @@ export default class Entry {
   toInterface(): EntryInterface {
     return {
       id: this.id,
-      title: Utils.urlencode(this.title),
-      body: Utils.urlencode(this.body),
+      title: urlencode(this.title),
+      body: urlencode(this.body),
       isPublic: this.isPublic,
       createdAt: this.createdAt,
       updatedAt: this.updatedAt,
