@@ -25,7 +25,7 @@
 	<mat-sidenav-content>
 		<mat-toolbar color="primary"
 					 class="toolbar-fixed"
-					 ngClass="{'toolbar-absolute': menuShow}">
+					 [class]="{'toolbar-absolute': menuShow}">
 			<mat-toolbar-row>
 				<button mat-icon-button
 						aria-label="Editar entrada"
@@ -50,7 +50,7 @@
 					</mat-card-title>
 				</mat-card-header>
 				<mat-card-content>
-					<div [ngClass]="{'filters-collapsed': filtersCollapsed()}">
+					<div [class]="{'filters-collapsed': filtersCollapsed()}">
 						<mat-nav-list>
 							@for (tag of tagList; track tag.id) {
 							<a mat-list-item

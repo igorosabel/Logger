@@ -2,7 +2,7 @@
 <div>ERROR</div>
 }
 @if (status === 'ok') {
-<div [ngClass]="{'image-thumb': type()==='thumb'}">
+<div [class]="{'image-thumb': type() === 'thumb'}">
     <img [src]="data"
          alt="">
 </div>

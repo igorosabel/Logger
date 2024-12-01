@@ -55,7 +55,7 @@
 </div>
 
 <div class="photos"
-	 [ngClass]="{'photos-show': showPhotos}">
+	 [class]="{'photos-show': showPhotos}">
 	<mat-card>
 		<mat-card-header>
 			<mat-card-title>
@@ -66,7 +66,7 @@
 			<div class="photos-list">
 				@for (photo of photoList; track photo.id) {
 				<div class="photo-item"
-					 [ngClass]="{'photo-selected':photo.id === selectedPhoto}"
+					 [class]="{'photo-selected': photo.id === selectedPhoto}"
 					 (click)="selectPhoto(photo)">
 					<app-img-crypt [photo]="photo" />
 					@if (photo.id === selectedPhoto && uploadProgress === null) {
@@ -81,7 +81,7 @@
 					<span>Añadir nueva</span>
 					@if (uploadProgress !== null) {
 					<div class="upload-progress"
-						 [ngStyle]="{'width': uploadProgress+'%'}"></div>
+						 [style]="{'width': uploadProgress + '%'}"></div>
 					}
 				</div>
 			</div>

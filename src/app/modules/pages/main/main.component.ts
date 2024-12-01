@@ -1,4 +1,3 @@
-import { NgClass } from '@angular/common';
 import {
   Component,
   OnInit,
@@ -40,7 +39,6 @@ import { firstValueFrom } from 'rxjs';
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.scss'],
   imports: [
-    NgClass,
     RouterModule,
     OneEntryComponent,
     OcalendarComponent,

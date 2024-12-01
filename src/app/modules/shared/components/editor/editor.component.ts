@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { HttpEvent, HttpEventType } from '@angular/common/http';
 import {
   Component,
@@ -38,7 +37,6 @@ import { firstValueFrom } from 'rxjs';
   templateUrl: './editor.component.html',
   styleUrls: ['./editor.component.scss'],
   imports: [
-    CommonModule,
     FormsModule,
     ImgCryptComponent,
     MatFormFieldModule,
