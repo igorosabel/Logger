@@ -75,6 +75,7 @@ export default class EditComponent implements OnInit {
         this.editor().loadEntry(this.entry);
       }
     } catch (error) {
+      console.log(error);
       this.dialog.alert({
         title: 'Error',
         content:

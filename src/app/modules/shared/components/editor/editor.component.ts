@@ -199,7 +199,7 @@ export default class EditorComponent {
   }
 
   photoContinue(ev: Event): void {
-    const files: FileList | null = (<HTMLInputElement>ev.target).files;
+    const files: FileList | null = (ev.target as HTMLInputElement).files;
     if (files !== null) {
       const file = files[0];
       const validList: string[] = ['jpg', 'jpeg', 'png'];
